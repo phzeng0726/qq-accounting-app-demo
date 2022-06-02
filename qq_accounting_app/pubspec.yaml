@@ -28,7 +28,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   auto_route: ^4.0.1
-  bloc: ^8.0.3
+  # bloc: ^8.0.3
   cupertino_icons: ^1.0.2
   dartz: ^0.10.1
   firebase_core: ^1.17.1
@@ -36,16 +36,16 @@ dependencies:
     sdk: flutter
   flutter_bloc: ^8.0.1
   freezed_annotation: ^1.0.0
-  get_it: ^7.2.0
-  http: ^0.13.4
-  json_annotation: ^4.4.0
-  logger: ^1.1.0
-  math_expressions: ^2.3.1
+  # get_it: ^7.2.0
+  # http: ^0.13.4
+  # json_annotation: ^4.4.0
+  # logger: ^1.1.0
+  # math_expressions: ^2.3.1
   path_provider: ^2.0.10
   sqflite: ^2.0.2+1
-  syncfusion_flutter_charts: ^20.1.58+1
-  table_calendar: ^3.0.6
-  uuid: ^3.0.6
+  # syncfusion_flutter_charts: ^20.1.58+1
+  # table_calendar: ^3.0.6
+  # uuid: ^3.0.6
 
 dev_dependencies:
   auto_route_generator: null

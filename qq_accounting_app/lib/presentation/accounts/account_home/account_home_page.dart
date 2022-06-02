@@ -1,38 +1,57 @@
 import 'package:flutter/material.dart';
-import 'package:qq_accounting_app/application/notes/note_blocs.dart';
-
-import '../../../application/accounts/account_blocs.dart';
-import 'widgets/account_home_appbar.dart';
-import 'widgets/account_home_body.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:qq_accounting_app/application/accounts/account_watcher/account_watcher_cubit.dart';
+import 'package:qq_accounting_app/domain/accounts/account.dart';
+import 'package:qq_accounting_app/presentation/accounts/account_home/widgets/account_list_view.dart';
 
 class AccountHomePage extends StatelessWidget {
+  const AccountHomePage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return MultiBlocListener(
-        listeners: [
-          // 寫完AccountForm表格時重整
-          BlocListener<AccountFormBloc, AccountFormState>(
-            listenWhen: (p, c) =>
-                p.isSaving != c.isSaving && c.isSaving == false,
-            listener: (context, state) {
-              context
-                  .read<AccountWatcherBloc>()
-                  .add(AccountWatcherEvent.getAllStarted());
-            },
-          ),
-          // 寫完NoteForm表格時重整（totalAmount會改變）
-          BlocListener<NoteFormBloc, NoteFormState>(
-            listenWhen: (p, c) =>
-                p.isSaving != c.isSaving && c.isSaving == false,
-            listener: (context, state) {
-              context
-                  .read<AccountWatcherBloc>()
-                  .add(AccountWatcherEvent.getAllStarted());
-            },
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          '帳戶列表',
+          style: TextStyle(color: Colors.black),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
+      ),
+      body: Column(
+        children: [
+          Expanded(
+              child: BlocBuilder<AccountWatcherCubit, AccountWatcherState>(
+                  builder: (context, state) => state.status.when(
+                      initial: () => state.accountList.isEmpty
+                          ? const Text('empty')
+                          : AccountListView(
+                              accounts: state.accountList,
+                            ),
+                      loading: () => const Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.black45,
+                            ),
+                          ),
+                      success: () => state.accountList.isEmpty
+                          ? const Text('empty')
+                          : AccountListView(
+                              accounts: state.accountList,
+                            ),
+                      failure: () => const Text('failure')))),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: ElevatedButton(
+              child: Text('+'),
+              onPressed: () {
+              },
+            ),
+          )
         ],
-        child: Scaffold(
-            appBar: AccountHomeAppbar(),
-            body: AccountHomeBody()));
+      ),
+    );
   }
 }
