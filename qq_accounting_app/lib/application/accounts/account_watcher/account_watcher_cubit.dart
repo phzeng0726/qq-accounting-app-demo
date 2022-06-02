@@ -12,8 +12,9 @@ class AccountWatcherCubit extends Cubit<AccountWatcherState> {
   AccountWatcherCubit(this._accountRepository)
       : super(AccountWatcherState.initial());
 
-  Future<void> fetchaccounts() async {
-    emit(
+  Future<void> fetchAccounts() async {
+    // NOTE: emit 可以透過套件改成yield state.copyWith()
+    emit( 
       state.copyWith(
         status: const LoadStatus.loading(),
       ),

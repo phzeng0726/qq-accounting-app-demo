@@ -2,8 +2,6 @@ part of 'account_watcher_cubit.dart';
 
 @freezed
 class AccountWatcherState with _$AccountWatcherState {
-  // const factory AccountWatcherState.initial() = _Initial;
-
   const AccountWatcherState._();
   const factory AccountWatcherState({
     required LoadStatus status,
