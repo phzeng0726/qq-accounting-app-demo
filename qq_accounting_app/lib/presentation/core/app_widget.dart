@@ -24,9 +24,8 @@ class AppWidget extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (_) => AccountWatcherCubit(
-              AccountRepository(),
-            ),
+            create: (_) =>
+                AccountWatcherCubit(AccountRepository())..fetchaccounts(),
           )
         ],
         child: MaterialApp.router(

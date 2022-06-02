@@ -12,8 +12,7 @@ class AccountWatcherCubit extends Cubit<AccountWatcherState> {
   AccountWatcherCubit(this._accountRepository)
       : super(AccountWatcherState.initial());
 
-  Future<void> fetchAccountList() async {
-
+  Future<void> fetchaccounts() async {
     emit(
       state.copyWith(
         status: const LoadStatus.loading(),
@@ -28,10 +27,10 @@ class AccountWatcherCubit extends Cubit<AccountWatcherState> {
           status: const LoadStatus.failure(),
         ),
       ),
-      (accountList) => emit(
+      (accounts) => emit(
         state.copyWith(
           status: const LoadStatus.success(),
-          accountList: accountList,
+          accounts: accounts,
         ),
       ),
     );

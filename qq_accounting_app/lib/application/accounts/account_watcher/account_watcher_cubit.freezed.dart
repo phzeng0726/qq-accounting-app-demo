@@ -19,10 +19,10 @@ class _$AccountWatcherStateTearOff {
   const _$AccountWatcherStateTearOff();
 
   _AccountWatcherState call(
-      {required LoadStatus status, List<Account> accountList = const []}) {
+      {required LoadStatus status, List<Account> accounts = const []}) {
     return _AccountWatcherState(
       status: status,
-      accountList: accountList,
+      accounts: accounts,
     );
   }
 }
@@ -33,7 +33,7 @@ const $AccountWatcherState = _$AccountWatcherStateTearOff();
 /// @nodoc
 mixin _$AccountWatcherState {
   LoadStatus get status => throw _privateConstructorUsedError;
-  List<Account> get accountList => throw _privateConstructorUsedError;
+  List<Account> get accounts => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AccountWatcherStateCopyWith<AccountWatcherState> get copyWith =>
@@ -45,7 +45,7 @@ abstract class $AccountWatcherStateCopyWith<$Res> {
   factory $AccountWatcherStateCopyWith(
           AccountWatcherState value, $Res Function(AccountWatcherState) then) =
       _$AccountWatcherStateCopyWithImpl<$Res>;
-  $Res call({LoadStatus status, List<Account> accountList});
+  $Res call({LoadStatus status, List<Account> accounts});
 
   $LoadStatusCopyWith<$Res> get status;
 }
@@ -62,16 +62,16 @@ class _$AccountWatcherStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? status = freezed,
-    Object? accountList = freezed,
+    Object? accounts = freezed,
   }) {
     return _then(_value.copyWith(
       status: status == freezed
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as LoadStatus,
-      accountList: accountList == freezed
-          ? _value.accountList
-          : accountList // ignore: cast_nullable_to_non_nullable
+      accounts: accounts == freezed
+          ? _value.accounts
+          : accounts // ignore: cast_nullable_to_non_nullable
               as List<Account>,
     ));
   }
@@ -91,7 +91,7 @@ abstract class _$AccountWatcherStateCopyWith<$Res>
           $Res Function(_AccountWatcherState) then) =
       __$AccountWatcherStateCopyWithImpl<$Res>;
   @override
-  $Res call({LoadStatus status, List<Account> accountList});
+  $Res call({LoadStatus status, List<Account> accounts});
 
   @override
   $LoadStatusCopyWith<$Res> get status;
@@ -111,16 +111,16 @@ class __$AccountWatcherStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? status = freezed,
-    Object? accountList = freezed,
+    Object? accounts = freezed,
   }) {
     return _then(_AccountWatcherState(
       status: status == freezed
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as LoadStatus,
-      accountList: accountList == freezed
-          ? _value.accountList
-          : accountList // ignore: cast_nullable_to_non_nullable
+      accounts: accounts == freezed
+          ? _value.accounts
+          : accounts // ignore: cast_nullable_to_non_nullable
               as List<Account>,
     ));
   }
@@ -129,19 +129,18 @@ class __$AccountWatcherStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_AccountWatcherState extends _AccountWatcherState {
-  const _$_AccountWatcherState(
-      {required this.status, this.accountList = const []})
+  const _$_AccountWatcherState({required this.status, this.accounts = const []})
       : super._();
 
   @override
   final LoadStatus status;
   @JsonKey()
   @override
-  final List<Account> accountList;
+  final List<Account> accounts;
 
   @override
   String toString() {
-    return 'AccountWatcherState(status: $status, accountList: $accountList)';
+    return 'AccountWatcherState(status: $status, accounts: $accounts)';
   }
 
   @override
@@ -150,15 +149,14 @@ class _$_AccountWatcherState extends _AccountWatcherState {
         (other.runtimeType == runtimeType &&
             other is _AccountWatcherState &&
             const DeepCollectionEquality().equals(other.status, status) &&
-            const DeepCollectionEquality()
-                .equals(other.accountList, accountList));
+            const DeepCollectionEquality().equals(other.accounts, accounts));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(status),
-      const DeepCollectionEquality().hash(accountList));
+      const DeepCollectionEquality().hash(accounts));
 
   @JsonKey(ignore: true)
   @override
@@ -170,13 +168,13 @@ class _$_AccountWatcherState extends _AccountWatcherState {
 abstract class _AccountWatcherState extends AccountWatcherState {
   const factory _AccountWatcherState(
       {required LoadStatus status,
-      List<Account> accountList}) = _$_AccountWatcherState;
+      List<Account> accounts}) = _$_AccountWatcherState;
   const _AccountWatcherState._() : super._();
 
   @override
   LoadStatus get status;
   @override
-  List<Account> get accountList;
+  List<Account> get accounts;
   @override
   @JsonKey(ignore: true)
   _$AccountWatcherStateCopyWith<_AccountWatcherState> get copyWith =>

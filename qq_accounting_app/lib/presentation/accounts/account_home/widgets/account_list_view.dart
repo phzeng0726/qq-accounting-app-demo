@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:qq_accounting_app/domain/accounts/account.dart';
 
-class AccountListView extends StatelessWidget {
+class accountsView extends StatelessWidget {
   final List<Account> accounts;
-  const AccountListView({
+  const accountsView({
     Key? key,
     required this.accounts,
   }) : super(key: key);

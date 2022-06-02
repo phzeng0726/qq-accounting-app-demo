@@ -26,28 +26,27 @@ class AccountHomePage extends StatelessWidget {
           Expanded(
               child: BlocBuilder<AccountWatcherCubit, AccountWatcherState>(
                   builder: (context, state) => state.status.when(
-                      initial: () => state.accountList.isEmpty
+                      initial: () => state.accounts.isEmpty
                           ? const Text('empty')
-                          : AccountListView(
-                              accounts: state.accountList,
+                          : accountsView(
+                              accounts: state.accounts,
                             ),
                       loading: () => const Center(
                             child: CircularProgressIndicator(
                               color: Colors.black45,
                             ),
                           ),
-                      success: () => state.accountList.isEmpty
+                      success: () => state.accounts.isEmpty
                           ? const Text('empty')
-                          : AccountListView(
-                              accounts: state.accountList,
+                          : accountsView(
+                              accounts: state.accounts,
                             ),
                       failure: () => const Text('failure')))),
           Align(
             alignment: Alignment.bottomCenter,
             child: ElevatedButton(
               child: Text('+'),
-              onPressed: () {
-              },
+              onPressed: () {},
             ),
           )
         ],

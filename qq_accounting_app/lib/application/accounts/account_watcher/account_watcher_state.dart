@@ -7,13 +7,12 @@ class AccountWatcherState with _$AccountWatcherState {
   const AccountWatcherState._();
   const factory AccountWatcherState({
     required LoadStatus status,
-    @Default([]) List<Account> accountList,
+    @Default([]) List<Account> accounts,
   }) = _AccountWatcherState;
 
-  factory AccountWatcherState.initial() =>  AccountWatcherState(
+  factory AccountWatcherState.initial() => const AccountWatcherState(
         status: LoadStatus.initial(),
-        accountList: <Account>[
-        ],
+        accounts: <Account>[],
       );
 }
 
