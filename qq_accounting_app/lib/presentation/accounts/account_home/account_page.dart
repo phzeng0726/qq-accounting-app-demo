@@ -32,7 +32,7 @@ class AccountPage extends StatelessWidget {
               IconButton(
                   onPressed: () {
                     print('Initial account form');
-                    context.read<AccountFormCubit>().creatingAccount();
+                    context.read<AccountFormCubit>().createAccount();
                     context.pushRoute(const AccountFormRoute());
                   },
                   icon: const Icon(Icons.add)),
@@ -77,7 +77,7 @@ class AccountPage extends StatelessWidget {
                       //     print('editing++');
                       //     context
                       //         .read<AccountFormCubit>()
-                      //         .editingAccount(Account.test());
+                      //         .editAccount(Account.test());
                       //     await context.read<AccountFormCubit>().saved();
                       //     print('editing completed');
                       //   },
@@ -87,7 +87,7 @@ class AccountPage extends StatelessWidget {
                       //   child: const Text('Initial+'),
                       //   onPressed: () async {
                       //     print('initial++');
-                      //     context.read<AccountFormCubit>().creatingAccount();
+                      //     context.read<AccountFormCubit>().createAccount();
                       //     await context.read<AccountFormCubit>().saved();
                       //     print('initial completed');
                       //   },

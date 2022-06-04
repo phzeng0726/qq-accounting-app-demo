@@ -7,5 +7,5 @@ abstract class IAccountRepository {
   Future<Either<AccountFailure, Account?>> fetchAccountById(int accountId);
   Future<int> create(Account account);
   Future<int> update(Account account);
-  Future<int> delete(int accountId);
+  Future<int> delete(int? accountId);
 }

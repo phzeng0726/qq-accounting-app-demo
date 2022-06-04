@@ -11,7 +11,7 @@ class AccountFormCubit extends Cubit<AccountFormState> {
 
   AccountFormCubit(this._accountRepository) : super(AccountFormState.initial());
 
-  void creatingAccount() {
+  void createAccount() {
     // NOTE: 創新的NOTE
     emit(
       state.copyWith(
@@ -21,7 +21,7 @@ class AccountFormCubit extends Cubit<AccountFormState> {
     );
   }
 
-  void editingAccount(Account initialAccount) {
+  void editAccount(Account initialAccount) {
     // NOTE: 舊的NOTE下去編輯
     emit(
       state.copyWith(
@@ -29,6 +29,22 @@ class AccountFormCubit extends Cubit<AccountFormState> {
         status: const AccountFormStatus.editing(),
       ),
     );
+  }
+
+  Future<void> deleteAccount(Account initialAccount) async {
+    try {
+      emit(
+        state.copyWith(status: const AccountFormStatus.saving()),
+      );
+      await _accountRepository.delete(initialAccount.id);
+      emit(
+        state.copyWith(status: const AccountFormStatus.completed()),
+      );
+    } catch (_) {
+      emit(
+        state.copyWith(status: const AccountFormStatus.failure()),
+      );
+    }
   }
 
   void titleChanged(String titleStr) {

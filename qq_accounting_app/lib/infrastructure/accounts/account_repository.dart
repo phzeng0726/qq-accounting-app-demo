@@ -12,6 +12,7 @@ class AccountRepository implements IAccountRepository {
 
   AccountRepository();
 
+  @override
   Future<Either<AccountFailure, List<Account>>> fetchAllAccounts() async {
     try {
       final db = await _databaseProvider.database;
@@ -29,6 +30,7 @@ class AccountRepository implements IAccountRepository {
     }
   }
 
+  @override
   Future<Either<AccountFailure, Account?>> fetchAccountById(
       int accountId) async {
     try {
@@ -55,6 +57,7 @@ class AccountRepository implements IAccountRepository {
     }
   }
 
+  @override
   Future<int> create(Account account) async {
     final db = await _databaseProvider.database;
     final accountDto = AccountDto.fromDomain(account);
@@ -63,6 +66,7 @@ class AccountRepository implements IAccountRepository {
     return result;
   }
 
+  @override
   Future<int> update(Account account) async {
     final db = await _databaseProvider.database;
     final accountDto = AccountDto.fromDomain(account);
@@ -72,7 +76,8 @@ class AccountRepository implements IAccountRepository {
     return result;
   }
 
-  Future<int> delete(int accountId) async {
+  @override
+  Future<int> delete(int? accountId) async {
     final db = await _databaseProvider.database;
 
     var result = db.delete("accounts", where: "id = ?", whereArgs: [accountId]);
