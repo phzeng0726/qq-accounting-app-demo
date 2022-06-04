@@ -20,4 +20,13 @@ class Account with _$Account {
         // totalIncomeAmount: 0,
         // totalExpenseAmount: 0,
       );
+
+  factory Account.test() => const Account(
+        id: 1,
+        title: 'cc',
+        currencyType: '新台幣',
+        initialAmount: 0,
+        // totalIncomeAmount: 0,
+        // totalExpenseAmount: 0,
+      );
 }

@@ -6,8 +6,8 @@ import 'package:qq_accounting_app/application/accounts/cubit/account_form_cubit.
 import 'package:qq_accounting_app/domain/accounts/account.dart';
 import 'package:qq_accounting_app/presentation/accounts/account_home/widgets/account_list_view.dart';
 
-class AccountHomePage extends StatelessWidget {
-  const AccountHomePage({Key? key}) : super(key: key);
+class AccountPage extends StatelessWidget {
+  const AccountPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,10 +44,22 @@ class AccountHomePage extends StatelessWidget {
             child: BlocBuilder<AccountFormCubit, AccountFormState>(
                 builder: (context, state) {
               return ElevatedButton(
+                // FIXME: 只是用來測試用看看是否能新增，
                 child: Text('+'),
                 onPressed: () async {
+                  print('editing++');
+                  context
+                      .read<AccountFormCubit>()
+                      .initialized(Account.test(), AccountFormStatus.editing());
                   await context.read<AccountFormCubit>().saved();
-                  print('++');
+                  print('editing completed');
+
+                  print('initial++');
+                  context.read<AccountFormCubit>().initialized(
+                      Account.empty(), AccountFormStatus.initial());
+                  await context.read<AccountFormCubit>().saved();
+                  print('initial completed');
+
                   await context.read<AccountWatcherCubit>().fetchAccounts();
                 },
               );

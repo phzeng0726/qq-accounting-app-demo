@@ -22,6 +22,9 @@ class AccountFormState with _$AccountFormState {
         // isSaving: false,
         // saveFailureOrSuccessOption: none(),
       );
+
+  bool get isEditing => status == const AccountFormStatus.editing();
+  // bool get isSaving => status == const AccountFormStatus.saving();
 }
 
 @freezed

@@ -12,11 +12,15 @@ class AccountFormCubit extends Cubit<AccountFormState> {
   AccountFormCubit(this._accountRepository) : super(AccountFormState.initial());
 
   void initialized(Account initialAccount, AccountFormStatus status) {
+    /*
+    NOTE: status 的狀態
+    const AccountFormStatus.initial() 創新的NOTE
+    const AccountFormStatus.editing() 舊的NOTE下去編輯
+    */
     emit(
       state.copyWith(
         account: initialAccount,
-        status:
-            status, // const AccountFormStatus.editing() or const AccountFormStatus.initial()
+        status: status,
       ),
     );
   }
@@ -60,21 +64,26 @@ class AccountFormCubit extends Cubit<AccountFormState> {
   }
 
   Future<void> saved() async {
-    // emit(state.copyWith(
-    //   status: const AccountFormStatus.saving(),
-    // ));
+    // NOTE: 依據編輯狀態之類的決定是否該新增
+    try {
+      if (state.isEditing) {
+        emit(state.copyWith(status: const AccountFormStatus.saving()));
+        await _accountRepository.update(state.account);
 
-    // if (state.status == const AccountFormStatus.editing()) {
-    //   await _accountRepository.update(state.account);
-    // } else {
-    //   await _accountRepository.create(state.account);
-    // }
-    await _accountRepository.create(state.account);
-    print(state.account);
-    emit(
-      state.copyWith(
-        status: const AccountFormStatus.completed(),
-      ),
-    );
+      } else {
+        emit(state.copyWith(status: const AccountFormStatus.saving()));
+        await _accountRepository.create(state.account);
+
+      }
+      
+      emit(
+        state.copyWith(status: const AccountFormStatus.completed()),
+      );
+    } catch (_) {
+      emit(
+        state.copyWith(status: const AccountFormStatus.failure()),
+      );
+    }
+    return;
   }
 }
