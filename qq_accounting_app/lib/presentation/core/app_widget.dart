@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qq_accounting_app/application/accounts/account_watcher/account_watcher_cubit.dart';
 import 'package:qq_accounting_app/application/accounts/account_form/account_form_cubit.dart';
+import 'package:qq_accounting_app/application/accounts/core/theme_cubit.dart';
 import 'package:qq_accounting_app/infrastructure/accounts/account_repository.dart';
 import 'package:qq_accounting_app/presentation/routes/router.gr.dart';
 
@@ -26,24 +27,31 @@ class AppWidget extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider(
+            create: (_) => ThemeCubit(),
+          ),
+          BlocProvider(
             create: (_) =>
                 AccountWatcherCubit(AccountRepository())..fetchAccounts(),
           ),
           BlocProvider(
-            create: (_) =>
-                AccountFormCubit(AccountRepository()),
+            create: (_) => AccountFormCubit(AccountRepository()),
           ),
         ],
-        child: MaterialApp.router(
-          // title: FlutterBlocLocalizations().appTitle,
-          debugShowCheckedModeBanner: false,
-          // localizationsDelegates: const [GlobalMaterialLocalizations.delegate],
-          supportedLocales: const [Locale('en'), Locale('zh', 'TW')],
-          // onGenerateRoute: AppRouter.onGenerateRoute,
-          // initialRoute: SplashScreen.routeName,
-          // builder: ExtendedNavigator.builder(router: app_router.Router()),
-          routerDelegate: rootRouter.delegate(),
-          routeInformationParser: rootRouter.defaultRouteParser(),
+        child: BlocBuilder<ThemeCubit, ThemeData>(
+          builder: (_, theme) {
+            return MaterialApp.router(
+              // title: FlutterBlocLocalizations().appTitle,
+              debugShowCheckedModeBanner: false,
+              theme: theme,
+              // localizationsDelegates: const [GlobalMaterialLocalizations.delegate],
+              supportedLocales: const [Locale('en'), Locale('zh', 'TW')],
+              // onGenerateRoute: AppRouter.onGenerateRoute,
+              // initialRoute: SplashScreen.routeName,
+              // builder: ExtendedNavigator.builder(router: app_router.Router()),
+              routerDelegate: rootRouter.delegate(),
+              routeInformationParser: rootRouter.defaultRouteParser(),
+            );
+          },
         ));
   }
 }

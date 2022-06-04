@@ -1,8 +1,4 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:qq_accounting_app/application/accounts/account_form/account_form_cubit.dart';
-import 'package:qq_accounting_app/domain/accounts/account.dart';
 import 'package:qq_accounting_app/presentation/accounts/account_form/widgets/currency_type_picker_button.dart';
 import 'package:qq_accounting_app/presentation/accounts/account_form/widgets/initial_amount_enter_button.dart';
 import 'package:qq_accounting_app/presentation/accounts/account_form/widgets/title_box.dart';
@@ -41,13 +37,13 @@ class AccountFormTable extends StatelessWidget {
                   InitialAmountEnterButton(),
                 ],
               ),
-              ElevatedButton(
-                onPressed: () {
-                  context.read<AccountFormCubit>().saved();
-                  context.router.pop();
-                },
-                child: const Text('確定'),
-              ),
+              // ElevatedButton(
+              //   onPressed: () {
+              //     context.read<AccountFormCubit>().saved();
+              //     context.router.pop();
+              //   },
+              //   child: const Text('確定'),
+              // ),
             ],
           ).toList(),
         ));

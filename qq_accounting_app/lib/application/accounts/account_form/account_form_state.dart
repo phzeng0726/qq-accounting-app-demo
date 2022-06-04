@@ -24,7 +24,6 @@ class AccountFormState with _$AccountFormState {
       );
 
   bool get isEditing => status == const AccountFormStatus.editing();
-  // bool get isSaving => status == const AccountFormStatus.saving();
 }
 
 @freezed
