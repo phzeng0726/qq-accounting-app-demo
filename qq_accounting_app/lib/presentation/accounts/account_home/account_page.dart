@@ -2,71 +2,99 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qq_accounting_app/application/accounts/account_watcher/account_watcher_cubit.dart';
-import 'package:qq_accounting_app/application/accounts/cubit/account_form_cubit.dart';
+import 'package:qq_accounting_app/application/accounts/account_form/account_form_cubit.dart';
 import 'package:qq_accounting_app/domain/accounts/account.dart';
 import 'package:qq_accounting_app/presentation/accounts/account_home/widgets/account_list_view.dart';
+import 'package:qq_accounting_app/presentation/accounts/account_home/widgets/empty_widget.dart';
 
 class AccountPage extends StatelessWidget {
   const AccountPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          '帳戶列表',
-          style: TextStyle(color: Colors.black),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        systemOverlayStyle: SystemUiOverlayStyle.dark,
-      ),
-      body: Column(
-        children: [
-          Expanded(
-              child: BlocBuilder<AccountWatcherCubit, AccountWatcherState>(
+    return MultiBlocListener(
+        listeners: [
+          // 寫完AccountForm表格時重整
+          BlocListener<AccountFormCubit, AccountFormState>(
+            listenWhen: (p, c) =>
+                p.status != c.status &&
+                c.status == const AccountFormStatus.completed(),
+            listener: (context, state) {
+              context.read<AccountWatcherCubit>().fetchAccounts();
+            },
+          ),
+        ],
+        child: Scaffold(
+          appBar: AppBar(
+            title: const Text(
+              '帳戶列表',
+              style: TextStyle(color: Colors.black),
+            ),
+            centerTitle: true,
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            systemOverlayStyle: SystemUiOverlayStyle.dark,
+          ),
+          body: Column(
+            children: [
+              Expanded(
+                child: BlocBuilder<AccountWatcherCubit, AccountWatcherState>(
                   builder: (context, state) => state.status.when(
-                      initial: () => const Text('init'),
+                      initial: () => const EmptyWidget(
+                            key: Key('__initial__'),
+                            text: 'Initial',
+                          ),
                       loading: () => const Center(
-                            child: CircularProgressIndicator(
-                              color: Colors.black45,
-                            ),
+                            child: CircularProgressIndicator(),
                           ),
                       success: () => state.accounts.isEmpty
-                          ? const Text('empty')
+                          ? const EmptyWidget(
+                              key: Key('__empty__'),
+                              text: '帳戶列表為空！快來新增你的第一個帳戶吧！',
+                            )
                           : accountsView(
                               accounts: state.accounts,
                             ),
-                      failure: () => const Text('failure')))),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: BlocBuilder<AccountFormCubit, AccountFormState>(
-                builder: (context, state) {
-              return ElevatedButton(
-                // FIXME: 只是用來測試用看看是否能新增，
-                child: Text('+'),
-                onPressed: () async {
-                  print('editing++');
-                  context
-                      .read<AccountFormCubit>()
-                      .initialized(Account.test(), AccountFormStatus.editing());
-                  await context.read<AccountFormCubit>().saved();
-                  print('editing completed');
-
-                  print('initial++');
-                  context.read<AccountFormCubit>().initialized(
-                      Account.empty(), AccountFormStatus.initial());
-                  await context.read<AccountFormCubit>().saved();
-                  print('initial completed');
-
-                  await context.read<AccountWatcherCubit>().fetchAccounts();
-                },
-              );
-            }),
-          )
-        ],
-      ),
-    );
+                      failure: () => const EmptyWidget(
+                            key: Key('__fetchDataFailed__'),
+                            text: '資料讀取失敗！',
+                          )),
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: BlocBuilder<AccountFormCubit, AccountFormState>(
+                    builder: (context, state) {
+                  return Column(
+                    children: [
+                      // ElevatedButton(
+                      //   // FIXME: 只是用來測試用看看是否能新增，
+                      //   child: const Text('Editing+'),
+                      //   onPressed: () async {
+                      //     print('editing++');
+                      //     context
+                      //         .read<AccountFormCubit>()
+                      //         .editingAccount(Account.test());
+                      //     await context.read<AccountFormCubit>().saved();
+                      //     print('editing completed');
+                      //   },
+                      // ),
+                      // ElevatedButton(
+                      //   // FIXME: 只是用來測試用看看是否能新增，
+                      //   child: const Text('Initial+'),
+                      //   onPressed: () async {
+                      //     print('initial++');
+                      //     context.read<AccountFormCubit>().creatingAccount();
+                      //     await context.read<AccountFormCubit>().saved();
+                      //     print('initial completed');
+                      //   },
+                      // )
+                    ],
+                  );
+                }),
+              )
+            ],
+          ),
+        ));
   }
 }

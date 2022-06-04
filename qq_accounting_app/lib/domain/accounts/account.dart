@@ -22,7 +22,7 @@ class Account with _$Account {
       );
 
   factory Account.test() => const Account(
-        id: 1,
+        id: 10,
         title: 'cc',
         currencyType: '新台幣',
         initialAmount: 0,

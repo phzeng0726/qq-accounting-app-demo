@@ -11,16 +11,22 @@ class AccountFormCubit extends Cubit<AccountFormState> {
 
   AccountFormCubit(this._accountRepository) : super(AccountFormState.initial());
 
-  void initialized(Account initialAccount, AccountFormStatus status) {
-    /*
-    NOTE: status 的狀態
-    const AccountFormStatus.initial() 創新的NOTE
-    const AccountFormStatus.editing() 舊的NOTE下去編輯
-    */
+  void creatingAccount() {
+    // NOTE: 創新的NOTE
+    emit(
+      state.copyWith(
+        account: Account.empty(),
+        status: const AccountFormStatus.initial(),
+      ),
+    );
+  }
+
+  void editingAccount(Account initialAccount) {
+    // NOTE: 舊的NOTE下去編輯
     emit(
       state.copyWith(
         account: initialAccount,
-        status: status,
+        status: const AccountFormStatus.editing(),
       ),
     );
   }
@@ -69,13 +75,11 @@ class AccountFormCubit extends Cubit<AccountFormState> {
       if (state.isEditing) {
         emit(state.copyWith(status: const AccountFormStatus.saving()));
         await _accountRepository.update(state.account);
-
       } else {
         emit(state.copyWith(status: const AccountFormStatus.saving()));
         await _accountRepository.create(state.account);
-
       }
-      
+
       emit(
         state.copyWith(status: const AccountFormStatus.completed()),
       );
