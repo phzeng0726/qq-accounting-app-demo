@@ -1,7 +1,9 @@
 // ignore_for_file: unnecessary_string_interpolations
 
+import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:qq_accounting_app/domain/notes/note_failure.dart';
 
 import '../../../domain/accounts/account.dart';
 import '../../../domain/charts/chart_item.dart';
@@ -51,21 +53,26 @@ class StatisticChartCubit extends Cubit<StatisticChartState> {
     required String amountType,
     required DateTime dateTime,
   }) async {
+    Either<NoteFailure, List<Note>> failureOrNoteList;
     // NOTE: sqflite疑似只能用yyyy-mm-dd篩選
     String day = dateTime.toString().substring(0, 10);
 
-    List<Note> noteList =
-        await _noteRepository.getNotesByAmountTypeFromTimeToTime(
+    failureOrNoteList = await _noteRepository.getNotesByAmountTypeDuringPeriod(
       state.account.id!,
       amountType,
       day,
       day,
     );
 
-    List<ChartItem> chartItems =
-        await _chartRepository.combineCategoryForChart(noteList);
+    failureOrNoteList.fold(
+      (f) => null,
+      (noteList) async {
+        List<ChartItem> chartItems =
+            await _chartRepository.combineCategoryForChart(noteList);
 
-    chartItemsLoaded(chartItems);
+        chartItemsLoaded(chartItems);
+      },
+    );
   }
 
   Future<void> getDuringDayStarted({
@@ -73,22 +80,28 @@ class StatisticChartCubit extends Cubit<StatisticChartState> {
     required DateTime startTime,
     required DateTime endTime,
   }) async {
+    Either<NoteFailure, List<Note>> failureOrNoteList;
+
     // NOTE: sqflite疑似只能用yyyy-mm-dd篩選
     String subStartTime = startTime.toString().substring(0, 10);
     String subEndTime = endTime.toString().substring(0, 10);
 
-    List<Note> noteList =
-        await _noteRepository.getNotesByAmountTypeFromTimeToTime(
+    failureOrNoteList = await _noteRepository.getNotesByAmountTypeDuringPeriod(
       state.account.id!,
       amountType,
       subStartTime,
       subEndTime,
     );
 
-    List<ChartItem> chartItems =
-        await _chartRepository.combineCategoryForChart(noteList);
+    failureOrNoteList.fold(
+      (f) => null,
+      (noteList) async {
+        List<ChartItem> chartItems =
+            await _chartRepository.combineCategoryForChart(noteList);
 
-    chartItemsLoaded(chartItems);
+        chartItemsLoaded(chartItems);
+      },
+    );
   }
 
   void chartItemsLoaded(List<ChartItem> chartItems) {

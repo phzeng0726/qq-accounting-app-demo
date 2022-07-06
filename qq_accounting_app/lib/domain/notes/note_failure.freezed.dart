@@ -18,16 +18,10 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$NoteFailureTearOff {
   const _$NoteFailureTearOff();
 
-  _Unexpected unexpected() {
-    return const _Unexpected();
-  }
-
-  _InsufficientPermission insufficientPermission() {
-    return const _InsufficientPermission();
-  }
-
-  _UnableToUpdate unableToUpdate() {
-    return const _UnableToUpdate();
+  _Api api(String? errorMessage) {
+    return _Api(
+      errorMessage,
+    );
   }
 }
 
@@ -36,50 +30,43 @@ const $NoteFailure = _$NoteFailureTearOff();
 
 /// @nodoc
 mixin _$NoteFailure {
+  String? get errorMessage => throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() unexpected,
-    required TResult Function() insufficientPermission,
-    required TResult Function() unableToUpdate,
+    required TResult Function(String? errorMessage) api,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? unexpected,
-    TResult Function()? insufficientPermission,
-    TResult Function()? unableToUpdate,
+    TResult Function(String? errorMessage)? api,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? unexpected,
-    TResult Function()? insufficientPermission,
-    TResult Function()? unableToUpdate,
+    TResult Function(String? errorMessage)? api,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Unexpected value) unexpected,
-    required TResult Function(_InsufficientPermission value)
-        insufficientPermission,
-    required TResult Function(_UnableToUpdate value) unableToUpdate,
+    required TResult Function(_Api value) api,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Unexpected value)? unexpected,
-    TResult Function(_InsufficientPermission value)? insufficientPermission,
-    TResult Function(_UnableToUpdate value)? unableToUpdate,
+    TResult Function(_Api value)? api,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Unexpected value)? unexpected,
-    TResult Function(_InsufficientPermission value)? insufficientPermission,
-    TResult Function(_UnableToUpdate value)? unableToUpdate,
+    TResult Function(_Api value)? api,
     required TResult orElse(),
   }) =>
+      throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $NoteFailureCopyWith<NoteFailure> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -88,6 +75,7 @@ abstract class $NoteFailureCopyWith<$Res> {
   factory $NoteFailureCopyWith(
           NoteFailure value, $Res Function(NoteFailure) then) =
       _$NoteFailureCopyWithImpl<$Res>;
+  $Res call({String? errorMessage});
 }
 
 /// @nodoc
@@ -97,75 +85,105 @@ class _$NoteFailureCopyWithImpl<$Res> implements $NoteFailureCopyWith<$Res> {
   final NoteFailure _value;
   // ignore: unused_field
   final $Res Function(NoteFailure) _then;
-}
-
-/// @nodoc
-abstract class _$UnexpectedCopyWith<$Res> {
-  factory _$UnexpectedCopyWith(
-          _Unexpected value, $Res Function(_Unexpected) then) =
-      __$UnexpectedCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$UnexpectedCopyWithImpl<$Res> extends _$NoteFailureCopyWithImpl<$Res>
-    implements _$UnexpectedCopyWith<$Res> {
-  __$UnexpectedCopyWithImpl(
-      _Unexpected _value, $Res Function(_Unexpected) _then)
-      : super(_value, (v) => _then(v as _Unexpected));
 
   @override
-  _Unexpected get _value => super._value as _Unexpected;
+  $Res call({
+    Object? errorMessage = freezed,
+  }) {
+    return _then(_value.copyWith(
+      errorMessage: errorMessage == freezed
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$ApiCopyWith<$Res> implements $NoteFailureCopyWith<$Res> {
+  factory _$ApiCopyWith(_Api value, $Res Function(_Api) then) =
+      __$ApiCopyWithImpl<$Res>;
+  @override
+  $Res call({String? errorMessage});
+}
+
+/// @nodoc
+class __$ApiCopyWithImpl<$Res> extends _$NoteFailureCopyWithImpl<$Res>
+    implements _$ApiCopyWith<$Res> {
+  __$ApiCopyWithImpl(_Api _value, $Res Function(_Api) _then)
+      : super(_value, (v) => _then(v as _Api));
+
+  @override
+  _Api get _value => super._value as _Api;
+
+  @override
+  $Res call({
+    Object? errorMessage = freezed,
+  }) {
+    return _then(_Api(
+      errorMessage == freezed
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
 }
 
 /// @nodoc
 
-class _$_Unexpected implements _Unexpected {
-  const _$_Unexpected();
+class _$_Api extends _Api {
+  const _$_Api(this.errorMessage) : super._();
+
+  @override
+  final String? errorMessage;
 
   @override
   String toString() {
-    return 'NoteFailure.unexpected()';
+    return 'NoteFailure.api(errorMessage: $errorMessage)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _Unexpected);
+        (other.runtimeType == runtimeType &&
+            other is _Api &&
+            const DeepCollectionEquality()
+                .equals(other.errorMessage, errorMessage));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(errorMessage));
+
+  @JsonKey(ignore: true)
+  @override
+  _$ApiCopyWith<_Api> get copyWith =>
+      __$ApiCopyWithImpl<_Api>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() unexpected,
-    required TResult Function() insufficientPermission,
-    required TResult Function() unableToUpdate,
+    required TResult Function(String? errorMessage) api,
   }) {
-    return unexpected();
+    return api(errorMessage);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? unexpected,
-    TResult Function()? insufficientPermission,
-    TResult Function()? unableToUpdate,
+    TResult Function(String? errorMessage)? api,
   }) {
-    return unexpected?.call();
+    return api?.call(errorMessage);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? unexpected,
-    TResult Function()? insufficientPermission,
-    TResult Function()? unableToUpdate,
+    TResult Function(String? errorMessage)? api,
     required TResult orElse(),
   }) {
-    if (unexpected != null) {
-      return unexpected();
+    if (api != null) {
+      return api(errorMessage);
     }
     return orElse();
   }
@@ -173,263 +191,39 @@ class _$_Unexpected implements _Unexpected {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Unexpected value) unexpected,
-    required TResult Function(_InsufficientPermission value)
-        insufficientPermission,
-    required TResult Function(_UnableToUpdate value) unableToUpdate,
+    required TResult Function(_Api value) api,
   }) {
-    return unexpected(this);
+    return api(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Unexpected value)? unexpected,
-    TResult Function(_InsufficientPermission value)? insufficientPermission,
-    TResult Function(_UnableToUpdate value)? unableToUpdate,
+    TResult Function(_Api value)? api,
   }) {
-    return unexpected?.call(this);
+    return api?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Unexpected value)? unexpected,
-    TResult Function(_InsufficientPermission value)? insufficientPermission,
-    TResult Function(_UnableToUpdate value)? unableToUpdate,
+    TResult Function(_Api value)? api,
     required TResult orElse(),
   }) {
-    if (unexpected != null) {
-      return unexpected(this);
+    if (api != null) {
+      return api(this);
     }
     return orElse();
   }
 }
 
-abstract class _Unexpected implements NoteFailure {
-  const factory _Unexpected() = _$_Unexpected;
-}
-
-/// @nodoc
-abstract class _$InsufficientPermissionCopyWith<$Res> {
-  factory _$InsufficientPermissionCopyWith(_InsufficientPermission value,
-          $Res Function(_InsufficientPermission) then) =
-      __$InsufficientPermissionCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$InsufficientPermissionCopyWithImpl<$Res>
-    extends _$NoteFailureCopyWithImpl<$Res>
-    implements _$InsufficientPermissionCopyWith<$Res> {
-  __$InsufficientPermissionCopyWithImpl(_InsufficientPermission _value,
-      $Res Function(_InsufficientPermission) _then)
-      : super(_value, (v) => _then(v as _InsufficientPermission));
+abstract class _Api extends NoteFailure {
+  const factory _Api(String? errorMessage) = _$_Api;
+  const _Api._() : super._();
 
   @override
-  _InsufficientPermission get _value => super._value as _InsufficientPermission;
-}
-
-/// @nodoc
-
-class _$_InsufficientPermission implements _InsufficientPermission {
-  const _$_InsufficientPermission();
-
+  String? get errorMessage;
   @override
-  String toString() {
-    return 'NoteFailure.insufficientPermission()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _InsufficientPermission);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() unexpected,
-    required TResult Function() insufficientPermission,
-    required TResult Function() unableToUpdate,
-  }) {
-    return insufficientPermission();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? unexpected,
-    TResult Function()? insufficientPermission,
-    TResult Function()? unableToUpdate,
-  }) {
-    return insufficientPermission?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? unexpected,
-    TResult Function()? insufficientPermission,
-    TResult Function()? unableToUpdate,
-    required TResult orElse(),
-  }) {
-    if (insufficientPermission != null) {
-      return insufficientPermission();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Unexpected value) unexpected,
-    required TResult Function(_InsufficientPermission value)
-        insufficientPermission,
-    required TResult Function(_UnableToUpdate value) unableToUpdate,
-  }) {
-    return insufficientPermission(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Unexpected value)? unexpected,
-    TResult Function(_InsufficientPermission value)? insufficientPermission,
-    TResult Function(_UnableToUpdate value)? unableToUpdate,
-  }) {
-    return insufficientPermission?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Unexpected value)? unexpected,
-    TResult Function(_InsufficientPermission value)? insufficientPermission,
-    TResult Function(_UnableToUpdate value)? unableToUpdate,
-    required TResult orElse(),
-  }) {
-    if (insufficientPermission != null) {
-      return insufficientPermission(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _InsufficientPermission implements NoteFailure {
-  const factory _InsufficientPermission() = _$_InsufficientPermission;
-}
-
-/// @nodoc
-abstract class _$UnableToUpdateCopyWith<$Res> {
-  factory _$UnableToUpdateCopyWith(
-          _UnableToUpdate value, $Res Function(_UnableToUpdate) then) =
-      __$UnableToUpdateCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$UnableToUpdateCopyWithImpl<$Res>
-    extends _$NoteFailureCopyWithImpl<$Res>
-    implements _$UnableToUpdateCopyWith<$Res> {
-  __$UnableToUpdateCopyWithImpl(
-      _UnableToUpdate _value, $Res Function(_UnableToUpdate) _then)
-      : super(_value, (v) => _then(v as _UnableToUpdate));
-
-  @override
-  _UnableToUpdate get _value => super._value as _UnableToUpdate;
-}
-
-/// @nodoc
-
-class _$_UnableToUpdate implements _UnableToUpdate {
-  const _$_UnableToUpdate();
-
-  @override
-  String toString() {
-    return 'NoteFailure.unableToUpdate()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _UnableToUpdate);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() unexpected,
-    required TResult Function() insufficientPermission,
-    required TResult Function() unableToUpdate,
-  }) {
-    return unableToUpdate();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? unexpected,
-    TResult Function()? insufficientPermission,
-    TResult Function()? unableToUpdate,
-  }) {
-    return unableToUpdate?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? unexpected,
-    TResult Function()? insufficientPermission,
-    TResult Function()? unableToUpdate,
-    required TResult orElse(),
-  }) {
-    if (unableToUpdate != null) {
-      return unableToUpdate();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Unexpected value) unexpected,
-    required TResult Function(_InsufficientPermission value)
-        insufficientPermission,
-    required TResult Function(_UnableToUpdate value) unableToUpdate,
-  }) {
-    return unableToUpdate(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Unexpected value)? unexpected,
-    TResult Function(_InsufficientPermission value)? insufficientPermission,
-    TResult Function(_UnableToUpdate value)? unableToUpdate,
-  }) {
-    return unableToUpdate?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Unexpected value)? unexpected,
-    TResult Function(_InsufficientPermission value)? insufficientPermission,
-    TResult Function(_UnableToUpdate value)? unableToUpdate,
-    required TResult orElse(),
-  }) {
-    if (unableToUpdate != null) {
-      return unableToUpdate(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _UnableToUpdate implements NoteFailure {
-  const factory _UnableToUpdate() = _$_UnableToUpdate;
+  @JsonKey(ignore: true)
+  _$ApiCopyWith<_Api> get copyWith => throw _privateConstructorUsedError;
 }

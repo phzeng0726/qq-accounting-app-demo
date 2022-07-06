@@ -1,10 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
-import 'package:qq_accounting_app/domain/accounts/account.dart';
-import 'package:qq_accounting_app/domain/accounts/account_failure.dart';
-import 'package:qq_accounting_app/domain/accounts/i_account_repository.dart';
-import 'package:qq_accounting_app/infrastructure/accounts/account_dtos.dart';
-import 'package:qq_accounting_app/infrastructure/core/database_provider.dart';
+
+import '../../domain/accounts/account.dart';
+import '../../domain/accounts/account_failure.dart';
+import '../../domain/accounts/i_account_repository.dart';
+import '../core/database_provider.dart';
+import 'account_dtos.dart';
 
 @LazySingleton(as: IAccountRepository)
 class AccountRepository implements IAccountRepository {
@@ -24,6 +25,7 @@ class AccountRepository implements IAccountRepository {
       List<Account> accounts = result
           .map((account) => AccountDto.fromJson(account).toDomain())
           .toList();
+
       return right(accounts);
     } catch (e) {
       return left(AccountFailure.api(e.toString()));
@@ -58,29 +60,43 @@ class AccountRepository implements IAccountRepository {
   }
 
   @override
-  Future<int> create(Account account) async {
-    final db = await _databaseProvider.database;
-    final accountDto = AccountDto.fromDomain(account);
+  Future<Option<AccountFailure>> create(Account account) async {
+    try {
+      final db = await _databaseProvider.database;
+      final accountDto = AccountDto.fromDomain(account);
 
-    var result = db.insert('accounts', accountDto.toJson());
-    return result;
+      await db.insert('accounts', accountDto.toJson());
+      return none();
+    } catch (e) {
+      return some(AccountFailure.api(e.toString()));
+    }
   }
 
   @override
-  Future<int> update(Account account) async {
-    final db = await _databaseProvider.database;
-    final accountDto = AccountDto.fromDomain(account);
+  Future<Option<AccountFailure>> update(Account account) async {
+    try {
+      final db = await _databaseProvider.database;
+      final accountDto = AccountDto.fromDomain(account);
 
-    var result = db.update("accounts", accountDto.toJson(),
-        where: "id = ?", whereArgs: [account.id]);
-    return result;
+      await db.update("accounts", accountDto.toJson(),
+          where: "id = ?", whereArgs: [account.id]);
+
+      return none();
+    } catch (e) {
+      return some(AccountFailure.api(e.toString()));
+    }
   }
 
   @override
-  Future<int> delete(int? accountId) async {
-    final db = await _databaseProvider.database;
+  Future<Option<AccountFailure>> delete(int? accountId) async {
+    try {
+      final db = await _databaseProvider.database;
 
-    var result = db.delete("accounts", where: "id = ?", whereArgs: [accountId]);
-    return result;
+      await db.delete("accounts", where: "id = ?", whereArgs: [accountId]);
+
+      return none();
+    } catch (e) {
+      return some(AccountFailure.api(e.toString()));
+    }
   }
 }

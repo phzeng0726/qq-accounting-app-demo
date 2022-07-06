@@ -20,6 +20,7 @@ abstract class NoteWatcherState with _$NoteWatcherState {
     // required List<Note> notes,
     required DateTime? rangeStart,
     required DateTime? rangeEnd,
+    required Option<NoteFailure> failureOption,
   }) = _NoteWatcherState;
 
   factory NoteWatcherState.initial() => NoteWatcherState(
@@ -40,5 +41,6 @@ abstract class NoteWatcherState with _$NoteWatcherState {
         // notes: <Note>[],
         rangeStart: DateTime.now(),
         rangeEnd: DateTime.now(),
+        failureOption: none(),
       );
 }

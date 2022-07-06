@@ -30,7 +30,8 @@ class _$NoteWatcherStateTearOff {
       required DateTime focusedDay,
       required DateTime? selectedDay,
       required DateTime? rangeStart,
-      required DateTime? rangeEnd}) {
+      required DateTime? rangeEnd,
+      required Option<NoteFailure> failureOption}) {
     return _NoteWatcherState(
       loadStatus: loadStatus,
       account: account,
@@ -44,6 +45,7 @@ class _$NoteWatcherStateTearOff {
       selectedDay: selectedDay,
       rangeStart: rangeStart,
       rangeEnd: rangeEnd,
+      failureOption: failureOption,
     );
   }
 }
@@ -68,6 +70,7 @@ mixin _$NoteWatcherState {
       throw _privateConstructorUsedError; // required List<Note> notes,
   DateTime? get rangeStart => throw _privateConstructorUsedError;
   DateTime? get rangeEnd => throw _privateConstructorUsedError;
+  Option<NoteFailure> get failureOption => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $NoteWatcherStateCopyWith<NoteWatcherState> get copyWith =>
@@ -91,7 +94,8 @@ abstract class $NoteWatcherStateCopyWith<$Res> {
       DateTime focusedDay,
       DateTime? selectedDay,
       DateTime? rangeStart,
-      DateTime? rangeEnd});
+      DateTime? rangeEnd,
+      Option<NoteFailure> failureOption});
 
   $LoadStatusCopyWith<$Res> get loadStatus;
   $AccountCopyWith<$Res> get account;
@@ -120,6 +124,7 @@ class _$NoteWatcherStateCopyWithImpl<$Res>
     Object? selectedDay = freezed,
     Object? rangeStart = freezed,
     Object? rangeEnd = freezed,
+    Object? failureOption = freezed,
   }) {
     return _then(_value.copyWith(
       loadStatus: loadStatus == freezed
@@ -170,6 +175,10 @@ class _$NoteWatcherStateCopyWithImpl<$Res>
           ? _value.rangeEnd
           : rangeEnd // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      failureOption: failureOption == freezed
+          ? _value.failureOption
+          : failureOption // ignore: cast_nullable_to_non_nullable
+              as Option<NoteFailure>,
     ));
   }
 
@@ -207,7 +216,8 @@ abstract class _$NoteWatcherStateCopyWith<$Res>
       DateTime focusedDay,
       DateTime? selectedDay,
       DateTime? rangeStart,
-      DateTime? rangeEnd});
+      DateTime? rangeEnd,
+      Option<NoteFailure> failureOption});
 
   @override
   $LoadStatusCopyWith<$Res> get loadStatus;
@@ -240,6 +250,7 @@ class __$NoteWatcherStateCopyWithImpl<$Res>
     Object? selectedDay = freezed,
     Object? rangeStart = freezed,
     Object? rangeEnd = freezed,
+    Object? failureOption = freezed,
   }) {
     return _then(_NoteWatcherState(
       loadStatus: loadStatus == freezed
@@ -290,6 +301,10 @@ class __$NoteWatcherStateCopyWithImpl<$Res>
           ? _value.rangeEnd
           : rangeEnd // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      failureOption: failureOption == freezed
+          ? _value.failureOption
+          : failureOption // ignore: cast_nullable_to_non_nullable
+              as Option<NoteFailure>,
     ));
   }
 }
@@ -309,7 +324,8 @@ class _$_NoteWatcherState implements _NoteWatcherState {
       required this.focusedDay,
       required this.selectedDay,
       required this.rangeStart,
-      required this.rangeEnd});
+      required this.rangeEnd,
+      required this.failureOption});
 
   @override
   final LoadStatus loadStatus;
@@ -335,10 +351,12 @@ class _$_NoteWatcherState implements _NoteWatcherState {
   final DateTime? rangeStart;
   @override
   final DateTime? rangeEnd;
+  @override
+  final Option<NoteFailure> failureOption;
 
   @override
   String toString() {
-    return 'NoteWatcherState(loadStatus: $loadStatus, account: $account, notes: $notes, dailyIncomeAmount: $dailyIncomeAmount, dailyExpenseAmount: $dailyExpenseAmount, dailyNetAmount: $dailyNetAmount, calendarFormat: $calendarFormat, rangeSelectionMode: $rangeSelectionMode, focusedDay: $focusedDay, selectedDay: $selectedDay, rangeStart: $rangeStart, rangeEnd: $rangeEnd)';
+    return 'NoteWatcherState(loadStatus: $loadStatus, account: $account, notes: $notes, dailyIncomeAmount: $dailyIncomeAmount, dailyExpenseAmount: $dailyExpenseAmount, dailyNetAmount: $dailyNetAmount, calendarFormat: $calendarFormat, rangeSelectionMode: $rangeSelectionMode, focusedDay: $focusedDay, selectedDay: $selectedDay, rangeStart: $rangeStart, rangeEnd: $rangeEnd, failureOption: $failureOption)';
   }
 
   @override
@@ -366,7 +384,9 @@ class _$_NoteWatcherState implements _NoteWatcherState {
                 .equals(other.selectedDay, selectedDay) &&
             const DeepCollectionEquality()
                 .equals(other.rangeStart, rangeStart) &&
-            const DeepCollectionEquality().equals(other.rangeEnd, rangeEnd));
+            const DeepCollectionEquality().equals(other.rangeEnd, rangeEnd) &&
+            const DeepCollectionEquality()
+                .equals(other.failureOption, failureOption));
   }
 
   @override
@@ -383,7 +403,8 @@ class _$_NoteWatcherState implements _NoteWatcherState {
       const DeepCollectionEquality().hash(focusedDay),
       const DeepCollectionEquality().hash(selectedDay),
       const DeepCollectionEquality().hash(rangeStart),
-      const DeepCollectionEquality().hash(rangeEnd));
+      const DeepCollectionEquality().hash(rangeEnd),
+      const DeepCollectionEquality().hash(failureOption));
 
   @JsonKey(ignore: true)
   @override
@@ -404,7 +425,8 @@ abstract class _NoteWatcherState implements NoteWatcherState {
       required DateTime focusedDay,
       required DateTime? selectedDay,
       required DateTime? rangeStart,
-      required DateTime? rangeEnd}) = _$_NoteWatcherState;
+      required DateTime? rangeEnd,
+      required Option<NoteFailure> failureOption}) = _$_NoteWatcherState;
 
   @override
   LoadStatus get loadStatus;
@@ -430,6 +452,8 @@ abstract class _NoteWatcherState implements NoteWatcherState {
   DateTime? get rangeStart;
   @override
   DateTime? get rangeEnd;
+  @override
+  Option<NoteFailure> get failureOption;
   @override
   @JsonKey(ignore: true)
   _$NoteWatcherStateCopyWith<_NoteWatcherState> get copyWith =>

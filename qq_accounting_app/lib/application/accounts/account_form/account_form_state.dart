@@ -7,12 +7,14 @@ class AccountFormState with _$AccountFormState {
     required Account account,
     required String tempAmount,
     required AccountFormStatus status,
+    required Option<AccountFailure> failureOption,
   }) = _AccountFormState;
 
   factory AccountFormState.initial() => AccountFormState(
         account: Account.empty(),
         tempAmount: '',
         status: const AccountFormStatus.initial(),
+        failureOption: none(),
       );
 
   bool get isEditing => status == const AccountFormStatus.editing();

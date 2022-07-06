@@ -1,5 +1,6 @@
 // ignore_for_file: unnecessary_string_interpolations
 
+import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -8,6 +9,7 @@ import '../../../domain/accounts/account.dart';
 import '../../../domain/core/load_status.dart';
 import '../../../domain/notes/i_note_repository.dart';
 import '../../../domain/notes/note.dart';
+import '../../../domain/notes/note_failure.dart';
 
 part 'note_watcher_cubit.freezed.dart';
 part 'note_watcher_state.dart';
@@ -32,14 +34,24 @@ class NoteWatcherCubit extends Cubit<NoteWatcherState> {
   }) async {
     // NOTE: sqflite疑似只能用yyyy-mm-dd篩選
     String day = dateTime.toString().substring(0, 10);
+    Either<NoteFailure, List<Note>> failureOrNoteList;
 
-    List<Note> noteList = await _noteRepository.getNotesFromTimeToTime(
+    failureOrNoteList = await _noteRepository.getNotesDuringPeriod(
       state.account.id!,
       day,
       day,
     );
 
-    notesReceived(noteList);
+    failureOrNoteList.fold(
+      (f) => emit(
+        state.copyWith(
+          failureOption: some(f),
+        ),
+      ),
+      (noteList) async {
+        notesReceived(noteList);
+      },
+    );
   }
 
   Future<void> getDuringDayStarted({
@@ -51,13 +63,24 @@ class NoteWatcherCubit extends Cubit<NoteWatcherState> {
     String subStartTime = startTime.toString().substring(0, 10);
     String subEndTime = endTime.toString().substring(0, 10);
 
-    List<Note> noteList = await _noteRepository.getNotesFromTimeToTime(
+    Either<NoteFailure, List<Note>> failureOrNoteList;
+
+    failureOrNoteList = await _noteRepository.getNotesDuringPeriod(
       state.account.id!,
       subStartTime,
       subEndTime,
     );
 
-    notesReceived(noteList);
+    failureOrNoteList.fold(
+      (f) => emit(
+        state.copyWith(
+          failureOption: some(f),
+        ),
+      ),
+      (noteList) async {
+        notesReceived(noteList);
+      },
+    );
   }
 
   void notesReceived(List<Note> noteList) {

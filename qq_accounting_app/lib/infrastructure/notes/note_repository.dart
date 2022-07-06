@@ -1,7 +1,9 @@
+import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../domain/notes/i_note_repository.dart';
 import '../../domain/notes/note.dart';
+import '../../domain/notes/note_failure.dart';
 import '../core/database_provider.dart';
 import 'note_dtos.dart';
 
@@ -22,22 +24,26 @@ class NoteRepository implements INoteRepository {
   //       result.map((note) => NoteDto.fromJson(note).toDomain()).toList();
   //   return notes;
   // }
-
-  Future<List<Note>> getNotesFromTimeToTime(
+  @override
+  Future<Either<NoteFailure, List<Note>>> getNotesDuringPeriod(
     int accountId,
     String startTime,
     String endTime,
   ) async {
-    final db = await _databaseProvider.database;
+    try {
+      final db = await _databaseProvider.database;
 
-    List<Map<String, dynamic>> result;
-    result = await db.rawQuery(
-        "SELECT DISTINCT notes.* FROM notes WHERE accountId = ? AND date(dateTime) BETWEEN date(?) AND date(?)",
-        [accountId, startTime, endTime]);
+      List<Map<String, dynamic>> result;
+      result = await db.rawQuery(
+          "SELECT DISTINCT notes.* FROM notes WHERE accountId = ? AND date(dateTime) BETWEEN date(?) AND date(?)",
+          [accountId, startTime, endTime]);
 
-    List<Note> _notes =
-        result.map((note) => NoteDto.fromJson(note).toDomain()).toList();
-    return _notes;
+      List<Note> notes =
+          result.map((note) => NoteDto.fromJson(note).toDomain()).toList();
+      return right(notes);
+    } catch (e) {
+      return left(NoteFailure.api(e.toString()));
+    }
   }
 
   // // 考慮如何移除01
@@ -48,73 +54,101 @@ class NoteRepository implements INoteRepository {
   //   return notes.where((note) => note.amountType == amountType).toList();
   // }
   // 考慮如何移除02
-  Future<int> computeNetAmount(int accountId) async {
-    int _totalExpense = await getTotalAmountByAmountType(accountId, 'expense');
-    int _totalIncome = await getTotalAmountByAmountType(accountId, 'income');
-    return _totalIncome - _totalExpense;
-  }
+  // Future<int> computeNetAmount(int accountId) async {
 
-  Future<int> getTotalAmountByAmountType(
+  //   int totalExpense = await getTotalAmountByAmountType(accountId, 'expense');
+  //   int totalIncome = await getTotalAmountByAmountType(accountId, 'income');
+  //   return totalIncome - totalExpense;
+  // }
+
+  @override
+  Future<Either<NoteFailure, int>> getTotalAmountByAmountType(
     int accountId,
     String amountType,
   ) async {
-    final db = await _databaseProvider.database;
+    try {
+      final db = await _databaseProvider.database;
 
-    List<Map<String, dynamic>> result;
-    result = await db.rawQuery(
-        "SELECT DISTINCT notes.* FROM notes WHERE accountId = ? AND amountType = ?",
-        [accountId, amountType]);
+      List<Map<String, dynamic>> result;
+      result = await db.rawQuery(
+          "SELECT DISTINCT notes.* FROM notes WHERE accountId = ? AND amountType = ?",
+          [accountId, amountType]);
 
-    List<Note> _notes =
-        result.map((note) => NoteDto.fromJson(note).toDomain()).toList();
+      List<Note> notes =
+          result.map((note) => NoteDto.fromJson(note).toDomain()).toList();
 
-    int _totalAmount = 0;
+      int totalAmount = 0;
 
-    _notes.forEach((note) => _totalAmount += note.amount);
+      for (var note in notes) {
+        totalAmount += note.amount;
+      }
 
-    return _totalAmount;
+      return right(totalAmount);
+    } catch (e) {
+      return left(NoteFailure.api(e.toString()));
+    }
   }
 
-  Future<List<Note>> getNotesByAmountTypeFromTimeToTime(
+  @override
+  Future<Either<NoteFailure, List<Note>>> getNotesByAmountTypeDuringPeriod(
     int accountId,
     String amountType,
     String startTime,
     String endTime,
   ) async {
-    final db = await _databaseProvider.database;
+    try {
+      final db = await _databaseProvider.database;
 
-    List<Map<String, dynamic>> result;
-    result = await db.rawQuery(
-        "SELECT DISTINCT notes.* FROM notes WHERE accountId = ? AND amountType = ? AND date(dateTime) BETWEEN date(?) AND date(?)",
-        [accountId, amountType, startTime, endTime]);
+      List<Map<String, dynamic>> result;
+      result = await db.rawQuery(
+          "SELECT DISTINCT notes.* FROM notes WHERE accountId = ? AND amountType = ? AND date(dateTime) BETWEEN date(?) AND date(?)",
+          [accountId, amountType, startTime, endTime]);
 
-    List<Note> _notes =
-        result.map((note) => NoteDto.fromJson(note).toDomain()).toList();
-    return _notes;
+      List<Note> notes =
+          result.map((note) => NoteDto.fromJson(note).toDomain()).toList();
+      return right(notes);
+    } catch (e) {
+      return left(NoteFailure.api(e.toString()));
+    }
   }
 
   // NOTE: CUD
-  Future<int> create(Note note) async {
-    final db = await _databaseProvider.database;
-    final noteDto = NoteDto.fromDomain(note);
+  @override
+  Future<Option<NoteFailure>> create(Note note) async {
+    try {
+      final db = await _databaseProvider.database;
+      final noteDto = NoteDto.fromDomain(note);
 
-    var result = db.insert("notes", noteDto.toJson());
-    return result;
+      await db.insert("notes", noteDto.toJson());
+      return none();
+    } catch (e) {
+      return some(NoteFailure.api(e.toString()));
+    }
   }
 
-  Future<int> update(Note note) async {
-    final db = await _databaseProvider.database;
-    final noteDto = NoteDto.fromDomain(note);
+  @override
+  Future<Option<NoteFailure>> update(Note note) async {
+    try {
+      final db = await _databaseProvider.database;
+      final noteDto = NoteDto.fromDomain(note);
 
-    var result = db.update("notes", noteDto.toJson(),
-        where: "id = ?", whereArgs: [note.id]);
-    return result;
+      await db.update("notes", noteDto.toJson(),
+          where: "id = ?", whereArgs: [note.id]);
+      return none();
+    } catch (e) {
+      return some(NoteFailure.api(e.toString()));
+    }
   }
 
-  Future<int> delete(int noteId) async {
-    final db = await _databaseProvider.database;
+  @override
+  Future<Option<NoteFailure>> delete(int noteId) async {
+    try {
+      final db = await _databaseProvider.database;
 
-    var result = db.delete("notes", where: "id = ?", whereArgs: [noteId]);
-    return result;
+      await db.delete("notes", where: "id = ?", whereArgs: [noteId]);
+      return none();
+    } catch (e) {
+      return some(NoteFailure.api(e.toString()));
+    }
   }
 }

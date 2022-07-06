@@ -21,11 +21,13 @@ class _$AccountFormStateTearOff {
   _AccountFormState call(
       {required Account account,
       required String tempAmount,
-      required AccountFormStatus status}) {
+      required AccountFormStatus status,
+      required Option<AccountFailure> failureOption}) {
     return _AccountFormState(
       account: account,
       tempAmount: tempAmount,
       status: status,
+      failureOption: failureOption,
     );
   }
 }
@@ -38,6 +40,8 @@ mixin _$AccountFormState {
   Account get account => throw _privateConstructorUsedError;
   String get tempAmount => throw _privateConstructorUsedError;
   AccountFormStatus get status => throw _privateConstructorUsedError;
+  Option<AccountFailure> get failureOption =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AccountFormStateCopyWith<AccountFormState> get copyWith =>
@@ -49,7 +53,11 @@ abstract class $AccountFormStateCopyWith<$Res> {
   factory $AccountFormStateCopyWith(
           AccountFormState value, $Res Function(AccountFormState) then) =
       _$AccountFormStateCopyWithImpl<$Res>;
-  $Res call({Account account, String tempAmount, AccountFormStatus status});
+  $Res call(
+      {Account account,
+      String tempAmount,
+      AccountFormStatus status,
+      Option<AccountFailure> failureOption});
 
   $AccountCopyWith<$Res> get account;
   $AccountFormStatusCopyWith<$Res> get status;
@@ -69,6 +77,7 @@ class _$AccountFormStateCopyWithImpl<$Res>
     Object? account = freezed,
     Object? tempAmount = freezed,
     Object? status = freezed,
+    Object? failureOption = freezed,
   }) {
     return _then(_value.copyWith(
       account: account == freezed
@@ -83,6 +92,10 @@ class _$AccountFormStateCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as AccountFormStatus,
+      failureOption: failureOption == freezed
+          ? _value.failureOption
+          : failureOption // ignore: cast_nullable_to_non_nullable
+              as Option<AccountFailure>,
     ));
   }
 
@@ -108,7 +121,11 @@ abstract class _$AccountFormStateCopyWith<$Res>
           _AccountFormState value, $Res Function(_AccountFormState) then) =
       __$AccountFormStateCopyWithImpl<$Res>;
   @override
-  $Res call({Account account, String tempAmount, AccountFormStatus status});
+  $Res call(
+      {Account account,
+      String tempAmount,
+      AccountFormStatus status,
+      Option<AccountFailure> failureOption});
 
   @override
   $AccountCopyWith<$Res> get account;
@@ -132,6 +149,7 @@ class __$AccountFormStateCopyWithImpl<$Res>
     Object? account = freezed,
     Object? tempAmount = freezed,
     Object? status = freezed,
+    Object? failureOption = freezed,
   }) {
     return _then(_AccountFormState(
       account: account == freezed
@@ -146,15 +164,23 @@ class __$AccountFormStateCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as AccountFormStatus,
+      failureOption: failureOption == freezed
+          ? _value.failureOption
+          : failureOption // ignore: cast_nullable_to_non_nullable
+              as Option<AccountFailure>,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_AccountFormState extends _AccountFormState {
+class _$_AccountFormState extends _AccountFormState
+    with DiagnosticableTreeMixin {
   const _$_AccountFormState(
-      {required this.account, required this.tempAmount, required this.status})
+      {required this.account,
+      required this.tempAmount,
+      required this.status,
+      required this.failureOption})
       : super._();
 
   @override
@@ -163,10 +189,23 @@ class _$_AccountFormState extends _AccountFormState {
   final String tempAmount;
   @override
   final AccountFormStatus status;
+  @override
+  final Option<AccountFailure> failureOption;
 
   @override
-  String toString() {
-    return 'AccountFormState(account: $account, tempAmount: $tempAmount, status: $status)';
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'AccountFormState(account: $account, tempAmount: $tempAmount, status: $status, failureOption: $failureOption)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'AccountFormState'))
+      ..add(DiagnosticsProperty('account', account))
+      ..add(DiagnosticsProperty('tempAmount', tempAmount))
+      ..add(DiagnosticsProperty('status', status))
+      ..add(DiagnosticsProperty('failureOption', failureOption));
   }
 
   @override
@@ -177,7 +216,9 @@ class _$_AccountFormState extends _AccountFormState {
             const DeepCollectionEquality().equals(other.account, account) &&
             const DeepCollectionEquality()
                 .equals(other.tempAmount, tempAmount) &&
-            const DeepCollectionEquality().equals(other.status, status));
+            const DeepCollectionEquality().equals(other.status, status) &&
+            const DeepCollectionEquality()
+                .equals(other.failureOption, failureOption));
   }
 
   @override
@@ -185,7 +226,8 @@ class _$_AccountFormState extends _AccountFormState {
       runtimeType,
       const DeepCollectionEquality().hash(account),
       const DeepCollectionEquality().hash(tempAmount),
-      const DeepCollectionEquality().hash(status));
+      const DeepCollectionEquality().hash(status),
+      const DeepCollectionEquality().hash(failureOption));
 
   @JsonKey(ignore: true)
   @override
@@ -197,7 +239,8 @@ abstract class _AccountFormState extends AccountFormState {
   const factory _AccountFormState(
       {required Account account,
       required String tempAmount,
-      required AccountFormStatus status}) = _$_AccountFormState;
+      required AccountFormStatus status,
+      required Option<AccountFailure> failureOption}) = _$_AccountFormState;
   const _AccountFormState._() : super._();
 
   @override
@@ -206,6 +249,8 @@ abstract class _AccountFormState extends AccountFormState {
   String get tempAmount;
   @override
   AccountFormStatus get status;
+  @override
+  Option<AccountFailure> get failureOption;
   @override
   @JsonKey(ignore: true)
   _$AccountFormStateCopyWith<_AccountFormState> get copyWith =>
@@ -335,12 +380,18 @@ class __$InitialCopyWithImpl<$Res> extends _$AccountFormStatusCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Initial implements _Initial {
+class _$_Initial with DiagnosticableTreeMixin implements _Initial {
   const _$_Initial();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'AccountFormStatus.initial()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'AccountFormStatus.initial'));
   }
 
   @override
@@ -455,12 +506,18 @@ class __$EditingCopyWithImpl<$Res> extends _$AccountFormStatusCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Editing implements _Editing {
+class _$_Editing with DiagnosticableTreeMixin implements _Editing {
   const _$_Editing();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'AccountFormStatus.editing()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'AccountFormStatus.editing'));
   }
 
   @override
@@ -575,12 +632,18 @@ class __$SavingCopyWithImpl<$Res> extends _$AccountFormStatusCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Saving implements _Saving {
+class _$_Saving with DiagnosticableTreeMixin implements _Saving {
   const _$_Saving();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'AccountFormStatus.saving()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'AccountFormStatus.saving'));
   }
 
   @override
@@ -697,12 +760,18 @@ class __$CompletedCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Completed implements _Completed {
+class _$_Completed with DiagnosticableTreeMixin implements _Completed {
   const _$_Completed();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'AccountFormStatus.completed()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'AccountFormStatus.completed'));
   }
 
   @override
@@ -817,12 +886,18 @@ class __$FailureCopyWithImpl<$Res> extends _$AccountFormStatusCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Failure implements _Failure {
+class _$_Failure with DiagnosticableTreeMixin implements _Failure {
   const _$_Failure();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'AccountFormStatus.failure()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'AccountFormStatus.failure'));
   }
 
   @override
