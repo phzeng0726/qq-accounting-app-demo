@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../application/accounts/account_form/account_form_cubit.dart';
 import '../../../application/charts/statistic_chart/statistic_chart_cubit.dart';
 import '../../../application/notes/note_watcher/note_watcher_cubit.dart';
-import '../../../constants.dart';
 import '../../../domain/accounts/account.dart';
 import '../../routes/router.gr.dart';
 

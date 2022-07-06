@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../application/notes/note_watcher/note_watcher_cubit.dart';
-import '../../core/widgets/load_status_screen.dart';
+import '../../../core/widgets/load_status_screen.dart';
 import 'note_overview_widgets_export.dart';
 
 class NoteOverviewBody extends StatelessWidget {

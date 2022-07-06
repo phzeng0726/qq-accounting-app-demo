@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../domain/accounts/account.dart';
 import '../../domain/notes/account.dart';
 
 part 'account_dtos.freezed.dart';

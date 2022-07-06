@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:qq_accounting_app/infrastructure/notes/account_dtos.dart';
 
+import '../../domain/accounts/account.dart';
 import '../../domain/notes/account.dart';
 import '../../domain/notes/i_account_repository.dart';
 import '../core/database_provider.dart';
@@ -10,6 +11,7 @@ class AccountRepository implements IAccountRepository {
   final DatabaseProvider _databaseProvider = DatabaseProvider.db;
 
   AccountRepository();
+  @override
   Future<List<Account>> getAllAccounts() async {
     final db = await _databaseProvider.database;
 
@@ -23,6 +25,7 @@ class AccountRepository implements IAccountRepository {
     return accounts;
   }
 
+  @override
   Future<Account?> getAccountById(int accountId) async {
     final db = await _databaseProvider.database;
 
@@ -42,6 +45,7 @@ class AccountRepository implements IAccountRepository {
     return accounts;
   }
 
+  @override
   Future<int> create(Account account) async {
     final db = await _databaseProvider.database;
     final accountDto = AccountDto.fromDomain(account);
@@ -50,6 +54,7 @@ class AccountRepository implements IAccountRepository {
     return result;
   }
 
+  @override
   Future<int> update(Account account) async {
     final db = await _databaseProvider.database;
     final accountDto = AccountDto.fromDomain(account);
@@ -59,6 +64,7 @@ class AccountRepository implements IAccountRepository {
     return result;
   }
 
+  @override
   Future<int> delete(int accountId) async {
     final db = await _databaseProvider.database;
 

@@ -2,13 +2,17 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:qq_accounting_app/presentation/notes/widgets/note_overview_body.dart';
+import 'package:qq_accounting_app/presentation/notes/note_overview/widgets/note_overview_body.dart';
 
-import '../../../application/charts/statistic_chart/statistic_chart_cubit.dart';
-import '../../../application/notes/note_actor/note_actor_cubit.dart';
-import '../../../application/notes/note_form/note_form_cubit.dart';
-import '../../../application/notes/note_watcher/note_watcher_cubit.dart';
-import '../../domain/notes/note.dart';
+import '../../../../application/charts/statistic_chart/statistic_chart_cubit.dart';
+import '../../../../application/notes/note_actor/note_actor_cubit.dart';
+import '../../../../application/notes/note_form/note_form_cubit.dart';
+import '../../../../application/notes/note_watcher/note_watcher_cubit.dart';
+import '../../../domain/notes/note.dart';
+import '../../routes/router.gr.dart';
+
+
+// TODO 寫完表格後accountBalance會改變，要如何更改
 
 class NoteOverviewPage extends StatelessWidget {
   final int? accountId;
@@ -96,14 +100,13 @@ class NoteOverviewPage extends StatelessWidget {
                 );
           },
         ),
-        // TODO 寫完表格後accountBalance會改變，要如何更改
       ],
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
           title: Text(FlutterI18n.translate(context, "note.title")),
           actions: [
-            // DateTimePickerIconButton(),
+            // const DateTimePickerIconButton(),
             IconButton(
               onPressed: () {
                 final noteState = context.read<NoteWatcherCubit>().state;
@@ -113,7 +116,7 @@ class NoteOverviewPage extends StatelessWidget {
                       dateTime: noteState.focusedDay,
                     );
                 context.read<NoteFormCubit>().initialized(initNote, false);
-                // context.pushRoute(const NoteFormRoute());
+                context.pushRoute(const NoteFormRoute());
               },
               icon: const Icon(Icons.add),
             ),

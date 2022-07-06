@@ -11,6 +11,18 @@
         }
     },
     "note": {
-        "title": "記帳首頁"
+        "title": "記帳首頁",
+        "form": {
+            "editTitle": "編輯",
+            "createTitle": "輸入",
+            "dialog": {
+                "title": "發生錯誤",
+                "content": {
+                    "amountMustGreaterThan0": "金額輸入值需大於 {dollarSign}0",
+                    "insufficientBalance ": "帳戶餘額 {dollarSign}{amount} 不足"
+                },
+                "buttonText": "確認"
+            }
+        }
     }
 }
