@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import '../../../../application/accounts/account_blocs.dart';
-import '../../../../application/notes/note_watcher/note_watcher_bloc.dart';
+import '../../../../application/notes/note_watcher/note_watcher_cubit.dart';
 import '../../../../domain/notes/note.dart';
 // https://pub.dev/packages/table_calendar
 
 class ManualCalendar extends StatelessWidget {
+  const ManualCalendar({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NoteWatcherBloc, NoteWatcherState>(
+    return BlocBuilder<NoteWatcherCubit, NoteWatcherState>(
         builder: (context, state) {
       return TableCalendar<Note>(
         locale: 'zh_CN',
@@ -26,19 +28,18 @@ class ManualCalendar extends StatelessWidget {
           CalendarFormat.week: '顯示為週',
         },
         // eventLoader: _getEventsForDay,
-        calendarStyle: CalendarStyle(
+        calendarStyle: const CalendarStyle(
           outsideDaysVisible: false, // 別月的日期要不要顯示
         ),
         onDaySelected: (selectedDay, focusedDay) => context
-            .read<NoteWatcherBloc>()
-            .add(NoteWatcherEvent.onDaySelected(selectedDay, focusedDay)),
+            .read<NoteWatcherCubit>()
+            .onDaySelected(selectedDay, focusedDay),
         // onRangeSelected: (startTime, endTime, focusedDay) => context
-        //     .read<NoteWatcherBloc>()
+        //     .read<NoteWatcherCubit>()
         //     .add(NoteWatcherEvent.onRangeSelected(
         //         startTime, endTime, focusedDay)),
-        onFormatChanged: (format) => context
-            .read<NoteWatcherBloc>()
-            .add(NoteWatcherEvent.onFormatChanged(format)),
+        onFormatChanged: (format) =>
+            context.read<NoteWatcherCubit>().onFormatChanged(format),
         // onPageChanged: (focusedDay) {
         //   _focusedDay = focusedDay;
         // },

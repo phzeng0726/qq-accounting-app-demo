@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:qq_accounting_app/presentation/notes/note_home/widgets/manual_calendar.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../application/notes/note_blocs.dart';
+import '../../../../application/notes/note_watcher/note_watcher_cubit.dart';
+import 'manual_calendar.dart';
 import 'note_home_body_widgets.dart';
 
 class NoteHomeBody extends StatelessWidget {
+  const NoteHomeBody({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NoteWatcherBloc, NoteWatcherState>(
+    return BlocBuilder<NoteWatcherCubit, NoteWatcherState>(
       builder: (context, state) {
         return state.loadStatus.map(
           initial: (_) => Container(),
           inProgress: (_) => const Center(
             child: CircularProgressIndicator(),
           ),
-          success: (_) {
+          succeed: (_) {
             return Center(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -24,28 +27,31 @@ class NoteHomeBody extends StatelessWidget {
                         DateTime.now().toString().substring(0, 10)) ...[
                       ElevatedButton(
                           onPressed: () {
-                            context.read<NoteWatcherBloc>().add(
-                                NoteWatcherEvent.onDaySelected(
-                                    DateTime.now(), DateTime.now()));
+                            context
+                                .read<NoteWatcherCubit>()
+                                .onDaySelected(DateTime.now(), DateTime.now());
                           },
-                          child: Text('返回當日'))
+                          child: const Text('返回當日'))
                     ],
-                    ManualCalendar(),
+                    const ManualCalendar(),
                     ExpansionTile(
                       initiallyExpanded: true,
-                      title: Text('日明細'),
-                      subtitle: DailyTotalRow(),
-                      leading: Icon(Icons.receipt_long_outlined),
-                      children: List.generate(state.notes.length,
-                          (index) => DetailListTile(state.notes[index])),
+                      title: const Text('日明細'),
+                      subtitle: const DailyTotalRow(),
+                      leading: const Icon(Icons.receipt_long_outlined),
+                      children: List.generate(
+                          state.notes.length,
+                          (index) => DetailListTile(
+                                editedNote: state.notes[index],
+                              )),
                     ),
                     ExpansionTile(
                         initiallyExpanded: true,
-                        title: Text('日統計'),
-                        leading: Icon(Icons.data_usage_outlined),
+                        title: const Text('日統計'),
+                        leading: const Icon(Icons.data_usage_outlined),
                         // trailing: ,
                         children: [
-                          AmountTypeSwitchButton(),
+                          const AmountTypeSwitchButton(),
                           AmountCircularChart(state.notes)
                         ]),
                   ],
@@ -53,8 +59,8 @@ class NoteHomeBody extends StatelessWidget {
               ),
             );
           },
-          failure: (state) {
-            return Text('${state}');
+          failed: (state) {
+            return Text('$state');
           },
         );
       },

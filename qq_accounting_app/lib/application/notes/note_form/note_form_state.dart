@@ -1,4 +1,4 @@
-part of 'note_form_bloc.dart';
+part of 'note_form_cubit.dart';
 
 // Each Widget is located at an index which is unique
 int randomNumber = 0;

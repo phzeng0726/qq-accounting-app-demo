@@ -9,7 +9,7 @@
 // class DailyDetailsTile extends StatelessWidget {
 //   @override
 //   Widget build(BuildContext context) {
-//     return BlocBuilder<NoteWatcherBloc, NoteWatcherState>(
+//     return BlocBuilder<NoteWatcherCubit, NoteWatcherState>(
 //         // buildWhen: (p, c) => p.signInState != c.signInState,
 //         builder: (context, state) {
 //       return ExpansionTile(

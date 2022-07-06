@@ -43,7 +43,7 @@ class RootRouter extends _i5.RootStackRouter {
     },
     NoteFormRoute.name: (routeData) {
       return _i5.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i4.NoteFormPage());
+          routeData: routeData, child: const _i4.NoteFormPage());
     }
   };
 

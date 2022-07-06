@@ -18,7 +18,7 @@ class AccountsView extends StatelessWidget {
       itemBuilder: (context, index) {
         final account = accounts[index];
         // print(account.initialAmount +
-        //     context.read<NoteWatcherBloc>().state.totalNetAmount);
+        //     context.read<NoteWatcherCubit>().state.totalNetAmount);
         // return FutureBuilder(
         //     future: NoteRepository().computeNetAmount(account.id!),
         //     builder: (context, AsyncSnapshot snapshot) {
@@ -38,25 +38,28 @@ class AccountsView extends StatelessWidget {
                     onTap: () {
                       // // NOTE: 因為寫了note表單後餘額還是會變動，與其傳入accountBalance，不如直接傳account抓取initialAmount，後續計算邏輯簡單很多
                       // context
-                      //     .read<NoteWatcherBloc>()
+                      //     .read<NoteWatcherCubit>()
                       //     .add(NoteWatcherEvent.selectedAccount(account));
 
                       // context
-                      //     .read<StatisticChartBloc>()
+                      //     .read<StatisticChartCubit>()
                       //     .add(StatisticChartEvent.selectedAccount(account));
 
-                      // context.read<NoteWatcherBloc>().add(
+                      // context.read<NoteWatcherCubit>().add(
                       //     NoteWatcherEvent.getSingleDayStarted(DateTime.now()));
 
-                      // context.read<StatisticChartBloc>().add(
+                      // context.read<StatisticChartCubit>().add(
                       //     StatisticChartEvent.getSingleDayStarted(
-                      //         context.read<StatisticChartBloc>().state.amountType,
+                      //         context.read<StatisticChartCubit>().state.amountType,
                       //         DateTime.now()));
 
                       // context.router.push(NoteHomeRoute(accountId: account.id));
                     },
                     onLongPress: () {
-                      context.read<AccountFormCubit>().editAccount(account);
+                      context.read<AccountFormCubit>().initAccount(
+                            initialAccount: account,
+                            isEditing: true,
+                          );
                       context.pushRoute(const AccountFormRoute());
                     },
                   ),

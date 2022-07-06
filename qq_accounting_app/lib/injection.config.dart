@@ -7,7 +7,6 @@
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
-import 'application/notes/note_actor/note_actor_bloc.dart' as _i11;
 import 'domain/accounts/i_account_repository.dart' as _i3;
 import 'domain/charts/i_chart_repository.dart' as _i7;
 import 'domain/notes/i_account_repository.dart' as _i5;
@@ -27,7 +26,5 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.lazySingleton<_i5.IAccountRepository>(() => _i6.AccountRepository());
   gh.lazySingleton<_i7.IChartRepository>(() => _i8.ChartRepository());
   gh.lazySingleton<_i9.INoteRepository>(() => _i10.NoteRepository());
-  gh.factory<_i11.NoteActorBloc>(
-      () => _i11.NoteActorBloc(get<_i9.INoteRepository>()));
   return get;
 }

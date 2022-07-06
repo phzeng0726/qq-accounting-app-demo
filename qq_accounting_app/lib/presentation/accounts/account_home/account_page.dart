@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qq_accounting_app/application/accounts/account_watcher/account_watcher_cubit.dart';
 import 'package:qq_accounting_app/application/accounts/account_form/account_form_cubit.dart';
+import 'package:qq_accounting_app/domain/accounts/account.dart';
 import 'package:qq_accounting_app/presentation/accounts/account_home/widgets/account_list_view.dart';
 import 'package:qq_accounting_app/presentation/accounts/account_home/widgets/empty_widget.dart';
 import 'package:qq_accounting_app/presentation/routes/router.gr.dart';
@@ -32,7 +33,10 @@ class AccountPage extends StatelessWidget {
             IconButton(
                 onPressed: () {
                   print('Initial account form');
-                  context.read<AccountFormCubit>().createAccount();
+                  context.read<AccountFormCubit>().initAccount(
+                        initialAccount: Account.empty(),
+                        isEditing: false,
+                      );
                   context.pushRoute(const AccountFormRoute());
                 },
                 icon: const Icon(Icons.add)),
@@ -47,10 +51,10 @@ class AccountPage extends StatelessWidget {
                           key: Key('__initial__'),
                           text: 'Initial',
                         ),
-                    loading: () => const Center(
+                    inProgress: () => const Center(
                           child: CircularProgressIndicator(),
                         ),
-                    success: () => state.accounts.isEmpty
+                    succeed: () => state.accounts.isEmpty
                         ? const EmptyWidget(
                             key: Key('__empty__'),
                             text: '帳戶列表為空！快來新增你的第一個帳戶吧！',
@@ -58,7 +62,7 @@ class AccountPage extends StatelessWidget {
                         : AccountsView(
                             accounts: state.accounts,
                           ),
-                    failure: () => const EmptyWidget(
+                    failed: () => const EmptyWidget(
                           key: Key('__fetchDataFailed__'),
                           text: '資料讀取失敗！',
                         )),

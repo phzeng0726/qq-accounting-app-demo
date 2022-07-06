@@ -1,36 +1,39 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:qq_accounting_app/application/notes/note_blocs.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qq_accounting_app/domain/notes/note.dart';
+
+import '../../../../application/notes/note_actor/note_actor_cubit.dart';
 
 class NoteDeleteButton extends StatelessWidget {
   final Note note;
-  NoteDeleteButton(this.note);
+  const NoteDeleteButton({
+    Key? key,
+    required this.note,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.delete),
+      icon: const Icon(Icons.delete),
       onPressed: () async {
         await showDialog(
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text("警告"),
-              content: Text("是否要刪除此筆資料？"),
+              title: const Text("警告"),
+              content: const Text("是否要刪除此筆資料？"),
               actions: [
                 ElevatedButton(
                   onPressed: () {
-                    context
-                        .read<NoteActorBloc>()
-                        .add(NoteActorEvent.deleted(note.id!));
-                    print('Success deleted ${note}');
+                    context.read<NoteActorCubit>().deleted(note.id!);
+
                     context.router.popUntil((route) => route.isFirst);
                   },
-                  child: Text('是'),
+                  child: const Text('是'),
                 ),
                 ElevatedButton(
                   onPressed: () => context.router.pop(),
-                  child: Text('否'),
+                  child: const Text('否'),
                 ),
               ],
             );

@@ -28,7 +28,6 @@ class NoteWatcherCubit extends Cubit<NoteWatcherState> {
   }
 
   Future<void> getSingleDayStarted({
-    required String amountType,
     required DateTime dateTime,
   }) async {
     // NOTE: sqflite疑似只能用yyyy-mm-dd篩選

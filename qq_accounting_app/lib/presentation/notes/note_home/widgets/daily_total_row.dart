@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../application/notes/note_blocs.dart';
+import '../../../../application/notes/note_watcher/note_watcher_cubit.dart';
 import '../../../../constants.dart';
 
 class DailyTotalRow extends StatelessWidget {
+  const DailyTotalRow({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NoteWatcherBloc, NoteWatcherState>(
+    return BlocBuilder<NoteWatcherCubit, NoteWatcherState>(
       builder: (context, state) {
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -14,20 +17,20 @@ class DailyTotalRow extends StatelessWidget {
             RichText(
               text: TextSpan(text: '', children: [
                 TextSpan(
-                  text: '收入 ${dollorSign} ${state.dailyIncomeAmount}',
+                  text: '收入 $dollorSign ${state.dailyIncomeAmount}',
                   style: TextStyle(color: NoteColors.incomeTextColor),
                 ),
-                TextSpan(
+                const TextSpan(
                     text: '｜', style: TextStyle(fontWeight: FontWeight.bold)),
                 TextSpan(
-                  text: '支出 ${dollorSign} ${state.dailyExpenseAmount} ',
+                  text: '支出 $dollorSign ${state.dailyExpenseAmount} ',
                   style: TextStyle(color: NoteColors.expenseTextColor),
                 ),
               ]),
             ),
             RichText(
                 text: TextSpan(
-              text: '淨額 ${dollorSign} ${state.dailyNetAmount} ',
+              text: '淨額 $dollorSign ${state.dailyNetAmount} ',
               style: TextStyle(
                   color: state.dailyNetAmount > 0
                       ? NoteColors.incomeTextColor

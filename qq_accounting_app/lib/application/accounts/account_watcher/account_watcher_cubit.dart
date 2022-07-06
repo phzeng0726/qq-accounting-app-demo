@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../domain/accounts/account.dart';
@@ -16,7 +16,7 @@ class AccountWatcherCubit extends Cubit<AccountWatcherState> {
 
   Future<void> fetchAccounts() async {
     // NOTE: emit 可以透過套件改成yield state.copyWith()
-    emit( 
+    emit(
       state.copyWith(
         status: const LoadStatus.inProgress(),
       ),

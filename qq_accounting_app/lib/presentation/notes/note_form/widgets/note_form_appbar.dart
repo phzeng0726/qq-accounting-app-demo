@@ -1,16 +1,22 @@
-import 'package:auto_route/src/router/auto_router_x.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:qq_accounting_app/infrastructure/notes/note_repository.dart';
-import 'note_delete_button.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../application/notes/note_blocs.dart';
+import '../../../../application/notes/note_form/note_form_cubit.dart';
+import '../../../../application/notes/note_watcher/note_watcher_cubit.dart';
 import '../../../../constants.dart';
 import '../../../../domain/notes/note.dart';
+import '../../../../infrastructure/notes/note_repository.dart';
+import 'note_delete_button.dart';
 
 class NoteFormAppBar extends StatelessWidget with PreferredSizeWidget {
   final Note note;
   final bool isEditing;
-  NoteFormAppBar(this.note, this.isEditing);
+  const NoteFormAppBar({
+    Key? key,
+    required this.note,
+    required this.isEditing,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,20 +25,22 @@ class NoteFormAppBar extends StatelessWidget with PreferredSizeWidget {
             ? NoteColors.expenseBackgroundColor
             : NoteColors.incomeBackgroundColor,
         centerTitle: true,
-        title: isEditing ? Text('編輯') : Text('輸入'),
+        title: isEditing ? const Text('編輯') : const Text('輸入'),
         elevation: 0,
         actions: [
           if (isEditing) ...[
-            NoteDeleteButton(note),
+            NoteDeleteButton(
+              note: note,
+            ),
           ],
           IconButton(
-            icon: Icon(Icons.pets),
+            icon: const Icon(Icons.pets),
             onPressed: () async {
-              int _initialAmount =
-                  context.read<NoteWatcherBloc>().state.account.initialAmount;
-              int _netAmount =
+              int initialAmount =
+                  context.read<NoteWatcherCubit>().state.account.initialAmount;
+              int netAmount =
                   await NoteRepository().computeNetAmount(note.accountId);
-              int _accountBalance = _initialAmount + _netAmount;
+              int accountBalance = initialAmount + netAmount;
 
               if (note.amount <= 0) {
                 // show the dialog
@@ -40,37 +48,37 @@ class NoteFormAppBar extends StatelessWidget with PreferredSizeWidget {
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: Text("發生錯誤"),
-                      content: Text("金額輸入值需大於 ${dollorSign} 0"),
+                      title: const Text("發生錯誤"),
+                      content: Text("金額輸入值需大於 $dollorSign 0"),
                       actions: [
                         InkWell(
                           onTap: () => context.router.pop(),
-                          child: Text('OK'),
+                          child: const Text('OK'),
                         ),
                       ],
                     );
                   },
                 );
               } else if (note.amountType == 'expense' &&
-                  note.amount > _accountBalance) {
+                  note.amount > accountBalance) {
                 // show the dialog
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: Text("發生錯誤"),
-                      content: Text("帳戶餘額（${dollorSign} ${_accountBalance}）不足"),
+                      title: const Text("發生錯誤"),
+                      content: Text("帳戶餘額（$dollorSign $accountBalance）不足"),
                       actions: [
                         InkWell(
                           onTap: () => context.router.pop(),
-                          child: Text('OK'),
+                          child: const Text('OK'),
                         ),
                       ],
                     );
                   },
                 );
               } else {
-                context.read<NoteFormBloc>().add(NoteFormEvent.saved());
+                context.read<NoteFormCubit>().saved();
                 context.router.pop();
               }
             },
@@ -79,5 +87,5 @@ class NoteFormAppBar extends StatelessWidget with PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

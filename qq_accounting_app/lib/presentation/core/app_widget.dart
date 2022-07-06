@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qq_accounting_app/application/accounts/account_watcher/account_watcher_cubit.dart';
 import 'package:qq_accounting_app/application/accounts/account_form/account_form_cubit.dart';
-import 'package:qq_accounting_app/application/accounts/core/theme_cubit.dart';
 import 'package:qq_accounting_app/infrastructure/accounts/account_repository.dart';
 import 'package:qq_accounting_app/presentation/routes/router.gr.dart';
 
@@ -15,6 +14,7 @@ import 'package:qq_accounting_app/presentation/routes/router.gr.dart';
 // import '../../domain/notes/i_note_repository.dart';
 // import '../../injection.dart';
 // import '../../localization.dart';
+import '../../application/core/theme_cubit.dart';
 import '../routes/router.gr.dart';
 // import 'package:flutter_localizations/flutter_localizations.dart';
 

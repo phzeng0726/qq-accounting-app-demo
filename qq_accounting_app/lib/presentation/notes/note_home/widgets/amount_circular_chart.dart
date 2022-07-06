@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-import '../../../../application/charts/charts_bloc.dart';
+import '../../../../application/charts/statistic_chart/statistic_chart_cubit.dart';
 import '../../../../domain/charts/chart_item.dart';
-import '../../../../domain/core/load_state.dart';
 import '../../../../domain/notes/note.dart';
 
 class AmountCircularChart extends StatelessWidget {
@@ -12,12 +12,12 @@ class AmountCircularChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<StatisticChartBloc, StatisticChartState>(
+    return BlocBuilder<StatisticChartCubit, StatisticChartState>(
       // listenWhen: (p, c) =>
       //     p.loadStatus != c.loadStatus && c.loadStatus == LoadStatus.inProgress(),
       // listener: (context, state) {
       //   context
-      //       .read<StatisticChartBloc>()
+      //       .read<StatisticChartCubit>()
       //       .add(StatisticChartEvent.getSingleDayStarted(
       //         state.amountType,
       //         state.dateTime,
@@ -29,7 +29,7 @@ class AmountCircularChart extends StatelessWidget {
           inProgress: (_) => const Center(
             child: CircularProgressIndicator(),
           ),
-          success: (_) => state.chartItems.isEmpty
+          succeed: (_) => state.chartItems.isEmpty
               ? Text('無資料')
               : SfCircularChart(
                   legend:
@@ -57,7 +57,7 @@ class AmountCircularChart extends StatelessWidget {
                           radius: '60%',
                           enableTooltip: true),
                     ]),
-          failure: (state) {
+          failed: (state) {
             return Text('${state}');
           },
         );

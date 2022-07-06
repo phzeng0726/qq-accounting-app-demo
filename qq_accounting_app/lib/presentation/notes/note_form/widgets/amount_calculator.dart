@@ -1,29 +1,32 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:math_expressions/math_expressions.dart';
 
-import '../../../../application/notes/note_blocs.dart';
+import '../../../../application/notes/note_form/note_form_cubit.dart';
 import 'amount_type_switch_button.dart';
 
 class AmountCalculator extends StatelessWidget {
+  const AmountCalculator({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     double mWidth = MediaQuery.of(context).size.width;
     double mHeight = MediaQuery.of(context).size.height;
 
-    return BlocBuilder<NoteFormBloc, NoteFormState>(
+    return BlocBuilder<NoteFormCubit, NoteFormState>(
 //         // buildWhen: (p, c) => p.signInState != c.signInState,
         builder: (context, state) {
       void numClick(String text) {
-        String _tempAmount = state.tempAmount;
+        String tempAmount = state.tempAmount;
         context
-            .read<NoteFormBloc>()
-            .add(NoteFormEvent.tempAmountChanged(_tempAmount += text));
+            .read<NoteFormCubit>()
+            .tempAmountChanged(tempAmount += text);
       }
 
       void clear(String text) {
-        context.read<NoteFormBloc>().add(NoteFormEvent.tempAmountChanged(''));
+        context.read<NoteFormCubit>().tempAmountChanged('');
       }
 
       void evaluate(String text) {
@@ -31,15 +34,15 @@ class AmountCalculator extends StatelessWidget {
         Expression exp = p.parse(state.tempAmount);
         ContextModel cm = ContextModel();
 
-        context.read<NoteFormBloc>().add(NoteFormEvent.tempAmountChanged(
-            exp.evaluate(EvaluationType.REAL, cm).round().toString()));
+        context.read<NoteFormCubit>().tempAmountChanged(
+            exp.evaluate(EvaluationType.REAL, cm).round().toString());
       }
 
       return Container(
         width: mWidth,
         height: mHeight * 0.75,
         child: Padding(
-          padding: EdgeInsets.all(12.0),
+          padding: const EdgeInsets.all(12.0),
           child: Container(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -48,10 +51,10 @@ class AmountCalculator extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    AmountTypeSwitchButton(),
+                    const AmountTypeSwitchButton(),
                     ElevatedButton(
                       onPressed: () => clear(''),
-                      child: Text('C'),
+                      child: const Text('C'),
                     ),
                   ],
                 ),
@@ -61,7 +64,7 @@ class AmountCalculator extends StatelessWidget {
                   color: Colors.white.withOpacity(0.2),
                   child: Text(
                     state.tempAmount,
-                    style: TextStyle(fontSize: 28.0),
+                    style: const TextStyle(fontSize: 28.0),
                     textAlign: TextAlign.right,
                   ),
                 ),
@@ -77,15 +80,15 @@ class AmountCalculator extends StatelessWidget {
                             children: [
                               ElevatedButton(
                                 onPressed: () => numClick('7'),
-                                child: Text('7'),
+                                child: const Text('7'),
                               ),
                               ElevatedButton(
                                 onPressed: () => numClick('8'),
-                                child: Text('8'),
+                                child: const Text('8'),
                               ),
                               ElevatedButton(
                                 onPressed: () => numClick('9'),
-                                child: Text('9'),
+                                child: const Text('9'),
                               ),
                             ],
                           ),
@@ -94,15 +97,15 @@ class AmountCalculator extends StatelessWidget {
                             children: [
                               ElevatedButton(
                                 onPressed: () => numClick('4'),
-                                child: Text('4'),
+                                child: const Text('4'),
                               ),
                               ElevatedButton(
                                 onPressed: () => numClick('5'),
-                                child: Text('5'),
+                                child: const Text('5'),
                               ),
                               ElevatedButton(
                                 onPressed: () => numClick('6'),
-                                child: Text('6'),
+                                child: const Text('6'),
                               ),
                             ],
                           ),
@@ -111,15 +114,15 @@ class AmountCalculator extends StatelessWidget {
                             children: [
                               ElevatedButton(
                                 onPressed: () => numClick('1'),
-                                child: Text('1'),
+                                child: const Text('1'),
                               ),
                               ElevatedButton(
                                 onPressed: () => numClick('2'),
-                                child: Text('2'),
+                                child: const Text('2'),
                               ),
                               ElevatedButton(
                                 onPressed: () => numClick('3'),
-                                child: Text('3'),
+                                child: const Text('3'),
                               ),
                             ],
                           ),
@@ -128,15 +131,15 @@ class AmountCalculator extends StatelessWidget {
                             children: [
                               ElevatedButton(
                                 onPressed: () => numClick('0'),
-                                child: Text('0'),
+                                child: const Text('0'),
                               ),
                               ElevatedButton(
                                 onPressed: () => numClick('.'),
-                                child: Text('.'),
+                                child: const Text('.'),
                               ),
                               ElevatedButton(
                                 onPressed: () => evaluate('='),
-                                child: Text('='),
+                                child: const Text('='),
                               ),
                             ],
                           ),
@@ -149,27 +152,26 @@ class AmountCalculator extends StatelessWidget {
                         children: [
                           ElevatedButton(
                             onPressed: () => numClick('/'),
-                            child: Text('/'),
+                            child: const Text('/'),
                           ),
                           ElevatedButton(
                             onPressed: () => numClick('*'),
-                            child: Text('*'),
+                            child: const Text('*'),
                           ),
                           ElevatedButton(
                             onPressed: () => numClick('-'),
-                            child: Text('-'),
+                            child: const Text('-'),
                           ),
                           ElevatedButton(
                             onPressed: () => numClick('+'),
-                            child: Text('+'),
+                            child: const Text('+'),
                           ),
                           ElevatedButton(
                             onPressed: () {
-                              context.read<NoteFormBloc>().add(
-                                  NoteFormEvent.amountSaved(state.tempAmount));
+                              context.read<NoteFormCubit>().amountSaved(state.tempAmount);
                               context.router.pop();
                             },
-                            child: Text('完成'), // TODO 只有送出的時候才要改popup外的那個金額
+                            child: const Text('完成'), // TODO 只有送出的時候才要改popup外的那個金額
                           ),
                         ],
                       ),
