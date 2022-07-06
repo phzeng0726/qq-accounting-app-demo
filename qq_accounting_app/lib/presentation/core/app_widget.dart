@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:qq_accounting_app/application/charts/statistic_chart/statistic_chart_cubit.dart';
+import 'package:qq_accounting_app/application/notes/note_actor/note_actor_cubit.dart';
+import 'package:qq_accounting_app/application/notes/note_watcher/note_watcher_cubit.dart';
+import 'package:qq_accounting_app/domain/charts/i_chart_repository.dart';
 
 import '../../application/accounts/account_form/account_form_cubit.dart';
 import '../../application/accounts/account_watcher/account_watcher_cubit.dart';
@@ -33,6 +37,18 @@ class AppWidget extends StatelessWidget {
           ),
           BlocProvider(
             create: (_) => NoteFormCubit(getIt<INoteRepository>()),
+          ),
+          BlocProvider(
+            create: (_) => NoteActorCubit(getIt<INoteRepository>()),
+          ),
+          BlocProvider(
+            create: (_) => NoteWatcherCubit(getIt<INoteRepository>()),
+          ),
+          BlocProvider(
+            create: (_) => StatisticChartCubit(
+              getIt<INoteRepository>(),
+              getIt<IChartRepository>(),
+            ),
           ),
         ],
         child: BlocBuilder<ThemeCubit, ThemeState>(

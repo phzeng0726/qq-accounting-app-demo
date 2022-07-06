@@ -1,9 +1,16 @@
 {
+    "appTitle": "記帳本Demo",
     "home": {
-        "title": "帳戶列表",
+        "title": "帳戶首頁",
         "emptyAccountListNotice": "帳戶列表為空！快來新增你的第一個帳戶吧！",
         "accountForm": {
-            "title": "帳戶AAA"
+            "title": "帳戶",
+            "accountTitle": "帳戶名稱",
+            "currencyType": "幣別",
+            "initialAmount": "初始金額"
         }
+    },
+    "note": {
+        "title": "記帳首頁"
     }
 }

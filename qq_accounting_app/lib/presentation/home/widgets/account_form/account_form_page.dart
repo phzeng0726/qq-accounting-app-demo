@@ -5,7 +5,8 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 
 import '../../../../application/accounts/account_form/account_form_cubit.dart';
 import '../../../../domain/accounts/account.dart';
-import '../../../accounts/account_form/widgets/account_form_table.dart';
+import 'widgets/account_form_table.dart';
+
 
 class AccountFormPage extends StatelessWidget {
   const AccountFormPage({Key? key}) : super(key: key);
@@ -27,9 +28,9 @@ class AccountFormPage extends StatelessWidget {
                       onPressed: () => context
                           .read<AccountFormCubit>()
                           .deleteAccount(account),
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.delete,
-                        color: Colors.red.withOpacity(0.2),
+                        color: Colors.red,
                       )),
                   IconButton(
                       onPressed: () {

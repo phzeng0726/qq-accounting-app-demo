@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:qq_accounting_app/presentation/accounts/account_form/widgets/currency_type_picker_button.dart';
-import 'package:qq_accounting_app/presentation/accounts/account_form/widgets/initial_amount_enter_button.dart';
-import 'package:qq_accounting_app/presentation/accounts/account_form/widgets/title_box.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
+
+import 'currency_type_picker_button.dart';
+import 'initial_amount_enter_button.dart';
+import 'title_box.dart';
 
 class AccountFormTable extends StatelessWidget {
   const AccountFormTable({
@@ -18,32 +20,34 @@ class AccountFormTable extends StatelessWidget {
             tiles: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text('帳戶名稱'),
-                  TitleBox(),
+                children: [
+                  Text(
+                    FlutterI18n.translate(
+                        context, "home.accountForm.accountTitle"),
+                  ),
+                  const TitleBox(),
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text('幣別'),
-                  CurrencyTypePickerButton(),
+                children: [
+                  Text(
+                    FlutterI18n.translate(
+                        context, "home.accountForm.currencyType"),
+                  ),
+                  const CurrencyTypePickerButton(),
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text('初始金額'),
-                  InitialAmountEnterButton(),
+                children:  [
+                  Text(
+                    FlutterI18n.translate(
+                        context, "home.accountForm.initialAmount"),
+                  ),
+                  const InitialAmountEnterButton(),
                 ],
               ),
-              // ElevatedButton(
-              //   onPressed: () {
-              //     context.read<AccountFormCubit>().saved();
-              //     context.router.pop();
-              //   },
-              //   child: const Text('確定'),
-              // ),
             ],
           ).toList(),
         ));

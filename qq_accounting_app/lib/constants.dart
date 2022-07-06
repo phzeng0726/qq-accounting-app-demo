@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 // NOTE: 有可能會換幣值，所以用dollorSign，不然一般插入"$"可以直接寫"\$"
-String dollorSign = String.fromCharCodes(Runes('\u0024'));
+String dollarSign = String.fromCharCodes(Runes('\u0024'));
 
 const double kDefaultPadding = 20.0;
 const double kDefaultHeightSize = 20.0;
