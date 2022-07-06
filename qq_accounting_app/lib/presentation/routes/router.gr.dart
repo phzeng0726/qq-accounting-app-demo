@@ -14,7 +14,7 @@ import 'package:auto_route/auto_route.dart' as _i5;
 import 'package:flutter/material.dart' as _i6;
 
 import '../accounts/account_form/account_form_page.dart' as _i2;
-import '../accounts/account_home/account_page.dart' as _i1;
+import '../home/home_page.dart' as _i1;
 import '../notes/note_form/note_form_page.dart' as _i4;
 import '../notes/note_home/note_home_page.dart' as _i3;
 
@@ -24,9 +24,9 @@ class RootRouter extends _i5.RootStackRouter {
 
   @override
   final Map<String, _i5.PageFactory> pagesMap = {
-    AccountRoute.name: (routeData) {
+    HomeRoute.name: (routeData) {
       return _i5.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i1.AccountPage());
+          routeData: routeData, child: const _i1.HomePage());
     },
     AccountFormRoute.name: (routeData) {
       return _i5.MaterialPageX<dynamic>(
@@ -49,7 +49,7 @@ class RootRouter extends _i5.RootStackRouter {
 
   @override
   List<_i5.RouteConfig> get routes => [
-        _i5.RouteConfig(AccountRoute.name, path: '/'),
+        _i5.RouteConfig(HomeRoute.name, path: '/'),
         _i5.RouteConfig(AccountFormRoute.name, path: '/account-form-page'),
         _i5.RouteConfig(NoteHomeRoute.name, path: ':accountId'),
         _i5.RouteConfig(NoteFormRoute.name, path: '/note-form-page')
@@ -57,11 +57,11 @@ class RootRouter extends _i5.RootStackRouter {
 }
 
 /// generated route for
-/// [_i1.AccountPage]
-class AccountRoute extends _i5.PageRouteInfo<void> {
-  const AccountRoute() : super(AccountRoute.name, path: '/');
+/// [_i1.HomePage]
+class HomeRoute extends _i5.PageRouteInfo<void> {
+  const HomeRoute() : super(HomeRoute.name, path: '/');
 
-  static const String name = 'AccountRoute';
+  static const String name = 'HomeRoute';
 }
 
 /// generated route for

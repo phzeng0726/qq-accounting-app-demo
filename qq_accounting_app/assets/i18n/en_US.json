@@ -1,0 +1,86 @@
+{
+    "auth": {
+        "login": "Login",
+        "submitting": "Submitting...",
+        "emailAddress": "Email",
+        "emailAddressHint": "Enter your email address",
+        "password": "Password",
+        "passwordHint": "6 - 20 words",
+        "notRegistered": "Not registered yet?",
+        "createAnAccount": "Create an Account",
+        "authError": {
+            "serverError": "Server error",
+            "unexpected": "Unexpected error",
+            "insufficientPermission": "Insufficient permission",
+            "invalidEmailAndPassword": "Invalid email",
+            "emailAddressAlreadyInUse": "Email already in use",
+            "invalidEmail": "Invalid email",
+            "weakPassword": "Weak password"
+        },
+        "validator": {
+            "passwordNotEmpty": "Password is not empty",
+            "passwordLengthNotice": "Wrong password length",
+            "emailNotEmpty": "Email is not empty",
+            "emailFormalError": "Wrong email format"
+        },
+        "register": {
+            "title": "Register",
+            "submitting": "Registering...",
+            "dialogTitle": "Congrats!",
+            "dialogContent": "You have successfully registered.",
+            "dialogButtonText": "OK"
+        }
+    },
+    "home": {
+        "title": "Chat App",
+        "myFriends": "Friends",
+        "search": "Search",
+        "drawer": {
+            "setting": {
+                "title": "Setting",
+                "language": "Language",
+                "switchLangMsg": "Switch language to {lang}"
+            },
+            "introduction": {
+                "title": "App Introduction"
+            },
+            "logout": "Log out"
+        },
+        "homeFailure": {
+            "serverError": "Server error",
+            "unexpected": "Unexpected error",
+            "insufficientPermission": "Insufficient permission",
+            "userNotExist": "User not exist"
+        },
+        "searchUserOverview": {
+            "searchBoxHint": "Type the user's email.",
+            "addFriend": "Add friend",
+            "alreadyFriend": "Already friend"
+        },
+        "friendsOverview": {
+            "emptyFriends": "Opps...! Friend list is empty. That's join a friend!"
+        }
+    },
+    "userProfile": {
+        "aboutMe": "Add a few words about yourself",
+        "aboutMeTitle": "About me",
+        "userName": "Username",
+        "userNameTitle": "Username",
+        "openGallery": "From gallery",
+        "openCamera": "From camera"
+    },
+    "chat": {
+        "messageBoxHint": "Message",
+        "chatFailure": {
+            "serverError": "Server error",
+            "unexpected": "Unexpected error",
+            "insufficientPermission": "Insufficient permission",
+            "userNotExist": "User not exist"
+        }
+    },
+    "loadStatus": {
+        "initial": "Load initial",
+        "inProgress": "Load in progress...",
+        "failed": "Load failed"
+    }
+}

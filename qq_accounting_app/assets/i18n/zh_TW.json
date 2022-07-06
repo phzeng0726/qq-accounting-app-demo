@@ -1,0 +1,9 @@
+{
+    "home": {
+        "title": "帳戶列表",
+        "emptyAccountListNotice": "帳戶列表為空！快來新增你的第一個帳戶吧！",
+        "accountForm": {
+            "title": "帳戶AAA"
+        }
+    }
+}

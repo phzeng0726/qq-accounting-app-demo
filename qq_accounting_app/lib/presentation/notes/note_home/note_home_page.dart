@@ -1,15 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:qq_accounting_app/presentation/notes/note_home/widgets/note_home_appbar.dart';
 
 import '../../../application/charts/statistic_chart/statistic_chart_cubit.dart';
 import '../../../application/notes/note_actor/note_actor_cubit.dart';
 import '../../../application/notes/note_form/note_form_cubit.dart';
 import '../../../application/notes/note_watcher/note_watcher_cubit.dart';
-import '../../../localization.dart';
-import 'widgets/create_note_form_button.dart';
-import 'widgets/datetime_picker_icon_button.dart';
+import 'widgets/note_home_appbar.dart';
 import 'widgets/note_home_body.dart';
 
 class NoteHomePage extends StatelessWidget {

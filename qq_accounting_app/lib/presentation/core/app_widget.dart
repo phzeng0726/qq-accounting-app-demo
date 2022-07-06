@@ -1,22 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:qq_accounting_app/application/accounts/account_watcher/account_watcher_cubit.dart';
-import 'package:qq_accounting_app/application/accounts/account_form/account_form_cubit.dart';
-import 'package:qq_accounting_app/infrastructure/accounts/account_repository.dart';
-import 'package:qq_accounting_app/presentation/routes/router.gr.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
-// import '../../application/accounts/account_blocs.dart';
-// import '../../application/charts/statistic_chart/statistic_chart_bloc.dart';
-// import '../../application/core/theme_cubit.dart';
-// import '../../application/notes/note_blocs.dart';
-// import '../../domain/charts/i_chart_repository.dart';
-// import '../../domain/notes/i_account_repository.dart';
-// import '../../domain/notes/i_note_repository.dart';
-// import '../../injection.dart';
-// import '../../localization.dart';
-import '../../application/core/theme_cubit.dart';
+import '../../application/accounts/account_form/account_form_cubit.dart';
+import '../../application/accounts/account_watcher/account_watcher_cubit.dart';
+import '../../application/notes/note_form/note_form_cubit.dart';
+import '../../application/theme/theme_cubit.dart';
+import '../../constants.dart';
+import '../../domain/accounts/i_account_repository.dart';
+import '../../domain/notes/i_note_repository.dart';
+import '../../injection.dart';
 import '../routes/router.gr.dart';
-// import 'package:flutter_localizations/flutter_localizations.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({Key? key}) : super(key: key);
@@ -30,24 +25,34 @@ class AppWidget extends StatelessWidget {
             create: (_) => ThemeCubit(),
           ),
           BlocProvider(
-            create: (_) =>
-                AccountWatcherCubit(AccountRepository())..fetchAccounts(),
+            create: (_) => AccountFormCubit(getIt<IAccountRepository>()),
           ),
           BlocProvider(
-            create: (_) => AccountFormCubit(AccountRepository()),
+            create: (_) => AccountWatcherCubit(getIt<IAccountRepository>())
+              ..fetchAccounts(),
+          ),
+          BlocProvider(
+            create: (_) => NoteFormCubit(getIt<INoteRepository>()),
           ),
         ],
-        child: BlocBuilder<ThemeCubit, ThemeData>(
-          builder: (_, theme) {
+        child: BlocBuilder<ThemeCubit, ThemeState>(
+          builder: (context, state) {
             return MaterialApp.router(
-              // title: FlutterBlocLocalizations().appTitle,
               debugShowCheckedModeBanner: false,
-              theme: theme,
-              // localizationsDelegates: const [GlobalMaterialLocalizations.delegate],
-              supportedLocales: const [Locale('en'), Locale('zh', 'TW')],
-              // onGenerateRoute: AppRouter.onGenerateRoute,
-              // initialRoute: SplashScreen.routeName,
-              // builder: ExtendedNavigator.builder(router: app_router.Router()),
+              theme: state.themeData,
+              localizationsDelegates: [
+                FlutterI18nDelegate(
+                  translationLoader: FileTranslationLoader(
+                    useCountryCode: true,
+                    fallbackFile: localeMapList.first['id'],
+                    basePath: 'assets/i18n',
+                    forcedLocale: state.currentLang,
+                  ),
+                ),
+                // GlobalWidgetsLocalizations.delegate,
+                // GlobalMaterialLocalizations.delegate,
+              ],
+              supportedLocales: localeMapList.map((map) => map['locale']),
               routerDelegate: rootRouter.delegate(),
               routeInformationParser: rootRouter.defaultRouteParser(),
             );
