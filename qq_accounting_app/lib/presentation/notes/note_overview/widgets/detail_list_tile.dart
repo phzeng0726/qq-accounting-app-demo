@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:qq_accounting_app/presentation/routes/router.gr.dart';
 
 import '../../../../application/notes/note_form/note_form_cubit.dart';
 import '../../../../constants.dart';
@@ -26,7 +27,7 @@ class DetailListTile extends StatelessWidget {
                   : NoteColors.incomeTextColor)),
       onLongPress: () {
         context.read<NoteFormCubit>().initialized(editedNote, true);
-        // context.pushRoute(const NoteFormRoute());
+        context.pushRoute(const NoteFormRoute());
       },
     );
   }

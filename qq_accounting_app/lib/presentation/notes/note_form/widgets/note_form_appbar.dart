@@ -2,10 +2,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:qq_accounting_app/presentation/notes/note_form/widgets/validator_dialog.dart';
 
 import '../../../../application/notes/note_form/note_form_cubit.dart';
 import '../../../../application/notes/note_watcher/note_watcher_cubit.dart';
 import '../../../../constants.dart';
+import '../../../../domain/notes/note.dart';
 import '../../../../infrastructure/notes/note_repository.dart';
 import 'note_delete_button.dart';
 
@@ -16,6 +18,57 @@ class NoteFormAppBar extends StatelessWidget with PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    Widget submitButton(Note note) {
+      return IconButton(
+        icon: const Icon(Icons.pets),
+        onPressed: () async {
+          // 當天的淨收支
+          int initialAmount =
+              context.read<NoteWatcherCubit>().state.account.initialAmount;
+
+          int netAmount =
+              await NoteRepository().computeNetAmount(note.accountId);
+          print('netAmount$netAmount');
+          int accountBalance = initialAmount + netAmount;
+          if (note.amount <= 0) {
+            // show the dialog
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return ValidatorDialog(
+                  titleStr:
+                      FlutterI18n.translate(context, "note.form.dialog.title"),
+                  contentStr: FlutterI18n.translate(
+                      context, "note.form.dialog.content.amountMustGreaterThan0"),
+                  buttonStr: FlutterI18n.translate(
+                      context, "note.form.dialog.buttonText"),
+                );
+              },
+            );
+          } else if (note.amountType == 'expense' &&
+              note.amount > accountBalance) {
+            // show the dialog
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return ValidatorDialog(
+                  titleStr:
+                      FlutterI18n.translate(context, "note.form.dialog.title"),
+                  contentStr: FlutterI18n.translate(
+                      context, "note.form.dialog.content.insufficientBalance"),
+                  buttonStr: FlutterI18n.translate(
+                      context, "note.form.dialog.buttonText"),
+                );
+              },
+            );
+          } else {
+            context.read<NoteFormCubit>().saved();
+            context.router.pop();
+          }
+        },
+      );
+    }
+
     return BlocBuilder<NoteFormCubit, NoteFormState>(
       builder: (context, state) {
         final note = state.note;
@@ -36,67 +89,7 @@ class NoteFormAppBar extends StatelessWidget with PreferredSizeWidget {
                   note: note,
                 ),
               ],
-              IconButton(
-                icon: const Icon(Icons.pets),
-                onPressed: () async {
-                  final note = state.note;
-                  int initialAmount = context
-                      .read<NoteWatcherCubit>()
-                      .state
-                      .account
-                      .initialAmount;
-                  int netAmount =
-                      await NoteRepository().computeNetAmount(note.accountId);
-                  int accountBalance = initialAmount + netAmount;
-                  if (note.amount <= 0) {
-                    // show the dialog
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text(FlutterI18n.translate(
-                              context, "note.form.dialog.title")),
-                          content: Text(
-                            FlutterI18n.translate(context,
-                                "note.form.dialog.content.amountMustGreaterThan0"),
-                          ),
-                          actions: [
-                            InkWell(
-                              onTap: () => context.router.pop(),
-                              child: Text(FlutterI18n.translate(
-                                  context, "note.form.dialog.buttonText")),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  } else if (note.amountType == 'expense' &&
-                      note.amount > accountBalance) {
-                    // show the dialog
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text(FlutterI18n.translate(
-                              context, "note.form.dialog.title")),
-                          content: Text(FlutterI18n.translate(context,
-                              "note.form.dialog.content.insufficientBalance")),
-                          actions: [
-                            InkWell(
-                              onTap: () => context.router.pop(),
-                              child: Text(FlutterI18n.translate(
-                                  context, "note.form.dialog.buttonText")),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  } else {
-                    context.read<NoteFormCubit>().saved();
-                    context.router.pop();
-                  }
-                },
-              ),
+              submitButton(state.note),
             ]);
       },
     );

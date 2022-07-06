@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'note_form_body_widgets_exports.dart';
 
 class NoteFormBody extends StatelessWidget {
+  const NoteFormBody({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -11,46 +13,46 @@ class NoteFormBody extends StatelessWidget {
           children: ListTile.divideTiles(
             context: context,
             tiles: [
-              AmountTypeSwitchButton(),
+              const AmountTypeSwitchButton(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('日期'),
-                  DateTimePickerButton(),
+                  const Text('日期'),
+                  const DateTimePickerButton(),
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('金額'),
-                  AmountEnterButton(),
+                  const Text('金額'),
+                  const AmountEnterButton(),
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('類別'),
-                  CategoryPickerButton(),
+                  const Text('類別'),
+                  const CategoryPickerButton(),
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('項目名稱'),
-                  ItemNameBox(),
+                  const Text('項目名稱'),
+                  const ItemNameBox(),
                 ],
               ),
               Container(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('備註'),
-                    SizedBox(
+                    const Text('備註'),
+                    const SizedBox(
                       height: 8.0,
                     ),
                     Container(
-                      padding: EdgeInsets.symmetric(vertical: 8.0),
-                      child: MemoBox(),
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: const MemoBox(),
                     ),
                   ],
                 ),

@@ -9,6 +9,8 @@ abstract class StatisticChartState with _$StatisticChartState {
     required List<ChartItem> chartItems,
     required DateTime dateTime,
     required Account account,
+    required Option<NoteFailure> noteFailureOption,
+    required Option<ChartFailure> chartFailureOption,
   }) = _StatisticChartState;
 
   factory StatisticChartState.initial() => StatisticChartState(
@@ -17,5 +19,7 @@ abstract class StatisticChartState with _$StatisticChartState {
         chartItems: <ChartItem>[],
         dateTime: DateTime.now(),
         account: Account.empty(),
+        noteFailureOption: none(),
+        chartFailureOption: none(),
       );
 }

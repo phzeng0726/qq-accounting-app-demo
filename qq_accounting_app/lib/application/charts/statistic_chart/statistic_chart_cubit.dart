@@ -3,6 +3,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:qq_accounting_app/domain/charts/chart_failure.dart';
 import 'package:qq_accounting_app/domain/notes/note_failure.dart';
 
 import '../../../domain/accounts/account.dart';
@@ -54,6 +55,8 @@ class StatisticChartCubit extends Cubit<StatisticChartState> {
     required DateTime dateTime,
   }) async {
     Either<NoteFailure, List<Note>> failureOrNoteList;
+    Either<ChartFailure, List<ChartItem>> failureOrChartItemList;
+
     // NOTE: sqflite疑似只能用yyyy-mm-dd篩選
     String day = dateTime.toString().substring(0, 10);
 
@@ -65,12 +68,30 @@ class StatisticChartCubit extends Cubit<StatisticChartState> {
     );
 
     failureOrNoteList.fold(
-      (f) => null,
+      (f) => emit(
+        state.copyWith(
+          loadStatus: const LoadStatus.failed(),
+          noteFailureOption: some(f),
+        ),
+      ),
       (noteList) async {
-        List<ChartItem> chartItems =
+        failureOrChartItemList =
             await _chartRepository.combineCategoryForChart(noteList);
 
-        chartItemsLoaded(chartItems);
+        failureOrChartItemList.fold(
+          (f) => emit(
+            state.copyWith(
+              loadStatus: const LoadStatus.failed(),
+              chartFailureOption: some(f),
+            ),
+          ),
+          (chartItems) => emit(
+            state.copyWith(
+              loadStatus: const LoadStatus.succeed(),
+              chartItems: chartItems,
+            ),
+          ),
+        );
       },
     );
   }
@@ -81,6 +102,7 @@ class StatisticChartCubit extends Cubit<StatisticChartState> {
     required DateTime endTime,
   }) async {
     Either<NoteFailure, List<Note>> failureOrNoteList;
+    Either<ChartFailure, List<ChartItem>> failureOrChartItemList;
 
     // NOTE: sqflite疑似只能用yyyy-mm-dd篩選
     String subStartTime = startTime.toString().substring(0, 10);
@@ -94,22 +116,31 @@ class StatisticChartCubit extends Cubit<StatisticChartState> {
     );
 
     failureOrNoteList.fold(
-      (f) => null,
+      (f) => emit(
+        state.copyWith(
+          loadStatus: const LoadStatus.failed(),
+          noteFailureOption: some(f),
+        ),
+      ),
       (noteList) async {
-        List<ChartItem> chartItems =
+        failureOrChartItemList =
             await _chartRepository.combineCategoryForChart(noteList);
 
-        chartItemsLoaded(chartItems);
+        failureOrChartItemList.fold(
+          (f) => emit(
+            state.copyWith(
+              loadStatus: const LoadStatus.failed(),
+              chartFailureOption: some(f),
+            ),
+          ),
+          (chartItems) => emit(
+            state.copyWith(
+              loadStatus: const LoadStatus.succeed(),
+              chartItems: chartItems,
+            ),
+          ),
+        );
       },
-    );
-  }
-
-  void chartItemsLoaded(List<ChartItem> chartItems) {
-    emit(
-      state.copyWith(
-        loadStatus: const LoadStatus.succeed(),
-        chartItems: chartItems,
-      ),
     );
   }
 }

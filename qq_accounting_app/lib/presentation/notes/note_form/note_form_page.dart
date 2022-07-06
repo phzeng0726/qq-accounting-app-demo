@@ -12,13 +12,12 @@ class NoteFormPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<NoteFormCubit, NoteFormState>(
-        // buildWhen: (p, c) => p.signInState != c.signInState,
         builder: (context, state) {
       return Scaffold(
         backgroundColor: state.note.amountType == 'expense'
             ? NoteColors.expenseBackgroundColor
             : NoteColors.incomeBackgroundColor,
-        appBar: NoteFormAppBar(),
+        appBar: const NoteFormAppBar(),
         body: NoteFormBody(),
       );
     });

@@ -32,9 +32,10 @@ class DailyTotalRow extends StatelessWidget {
                 text: TextSpan(
               text: '淨額 $dollarSign ${state.dailyNetAmount} ',
               style: TextStyle(
-                  color: state.dailyNetAmount > 0
-                      ? NoteColors.incomeTextColor
-                      : NoteColors.expenseTextColor),
+                color: state.dailyNetAmount > 0
+                    ? NoteColors.incomeTextColor
+                    : NoteColors.expenseTextColor,
+              ),
             )),
           ],
         );

@@ -8,7 +8,10 @@ import '../../../../domain/notes/note.dart';
 
 class AmountCircularChart extends StatelessWidget {
   final List<Note> notes;
-  AmountCircularChart(this.notes);
+  const AmountCircularChart({
+    Key? key,
+    required this.notes,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +48,7 @@ class AmountCircularChart extends StatelessWidget {
                           yValueMapper: (ChartItem data, _) => data.amount,
                           dataLabelMapper: (ChartItem data, _) =>
                               '${data.category}: ${(data.percentage * 100).toStringAsFixed(2)}%',
-                          dataLabelSettings: DataLabelSettings(
+                          dataLabelSettings: const DataLabelSettings(
                               isVisible: true,
                               // NOTE: Avoid labels intersection
                               labelIntersectAction: LabelIntersectAction.shift,
@@ -58,7 +61,7 @@ class AmountCircularChart extends StatelessWidget {
                           enableTooltip: true),
                     ]),
           failed: (state) {
-            return Text('${state}');
+            return Text('$state');
           },
         );
       },

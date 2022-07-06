@@ -10,6 +10,7 @@ class Account with _$Account {
     required String title, // 標題（台幣帳戶 之類的）
     required String currencyType, // 幣別
     required int initialAmount, // 初始總資產金額
+    // int? netAmount,
   }) = _Account;
 
   factory Account.empty() => const Account(
@@ -17,6 +18,7 @@ class Account with _$Account {
         title: '未命名帳戶',
         currencyType: '新台幣',
         initialAmount: 0,
+        // netAmount: null,
         // totalIncomeAmount: 0,
         // totalExpenseAmount: 0,
       );
@@ -26,6 +28,7 @@ class Account with _$Account {
         title: 'cc',
         currencyType: '新台幣',
         initialAmount: 0,
+        // netAmount: null,
         // totalIncomeAmount: 0,
         // totalExpenseAmount: 0,
       );

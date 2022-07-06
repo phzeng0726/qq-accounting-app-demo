@@ -11,11 +11,10 @@ class CategorySheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> _categoryList = <String>[];
+    List<String> categoryList = <String>[];
     return BlocBuilder<AccountWatcherCubit, AccountWatcherState>(
         // buildWhen: (p, c) => p.signInState != c.signInState,
         builder: (context, state) {
-      String _amountType = context.read<NoteFormCubit>().state.note.amountType;
       double mWidth = MediaQuery.of(context).size.width;
       double mHeight = MediaQuery.of(context).size.height;
 
@@ -25,7 +24,7 @@ class CategorySheet extends StatelessWidget {
       //   _categoryList = state.incomeCategoryList;
       // }
 
-      return Container(
+      return SizedBox(
         width: mWidth,
         height: mHeight * 0.75,
         child: Column(
@@ -37,20 +36,20 @@ class CategorySheet extends StatelessWidget {
                 // crossAxisCount is the number of columns
                 crossAxisCount: 3,
                 // This creates two columns with two items in each column
-                children: List.generate(_categoryList.length, (index) {
+                children: List.generate(categoryList.length, (index) {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
                       onTap: () {
                         context.read<NoteFormCubit>().categoryChanged(
-                                _categoryList[index]);
+                                categoryList[index]);
                         context.router.pop();
                       },
                       child: Container(
                         color: Colors.white.withOpacity(0.2),
                         child: Center(
                           child: Text(
-                            _categoryList[index],
+                            categoryList[index],
                           ),
                         ),
                       ),

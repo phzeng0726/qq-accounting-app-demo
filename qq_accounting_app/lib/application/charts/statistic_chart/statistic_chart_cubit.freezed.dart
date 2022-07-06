@@ -23,13 +23,17 @@ class _$StatisticChartStateTearOff {
       required String amountType,
       required List<ChartItem> chartItems,
       required DateTime dateTime,
-      required Account account}) {
+      required Account account,
+      required Option<NoteFailure> noteFailureOption,
+      required Option<ChartFailure> chartFailureOption}) {
     return _StatisticChartState(
       loadStatus: loadStatus,
       amountType: amountType,
       chartItems: chartItems,
       dateTime: dateTime,
       account: account,
+      noteFailureOption: noteFailureOption,
+      chartFailureOption: chartFailureOption,
     );
   }
 }
@@ -44,6 +48,10 @@ mixin _$StatisticChartState {
   List<ChartItem> get chartItems => throw _privateConstructorUsedError;
   DateTime get dateTime => throw _privateConstructorUsedError;
   Account get account => throw _privateConstructorUsedError;
+  Option<NoteFailure> get noteFailureOption =>
+      throw _privateConstructorUsedError;
+  Option<ChartFailure> get chartFailureOption =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $StatisticChartStateCopyWith<StatisticChartState> get copyWith =>
@@ -60,7 +68,9 @@ abstract class $StatisticChartStateCopyWith<$Res> {
       String amountType,
       List<ChartItem> chartItems,
       DateTime dateTime,
-      Account account});
+      Account account,
+      Option<NoteFailure> noteFailureOption,
+      Option<ChartFailure> chartFailureOption});
 
   $LoadStatusCopyWith<$Res> get loadStatus;
   $AccountCopyWith<$Res> get account;
@@ -82,6 +92,8 @@ class _$StatisticChartStateCopyWithImpl<$Res>
     Object? chartItems = freezed,
     Object? dateTime = freezed,
     Object? account = freezed,
+    Object? noteFailureOption = freezed,
+    Object? chartFailureOption = freezed,
   }) {
     return _then(_value.copyWith(
       loadStatus: loadStatus == freezed
@@ -104,6 +116,14 @@ class _$StatisticChartStateCopyWithImpl<$Res>
           ? _value.account
           : account // ignore: cast_nullable_to_non_nullable
               as Account,
+      noteFailureOption: noteFailureOption == freezed
+          ? _value.noteFailureOption
+          : noteFailureOption // ignore: cast_nullable_to_non_nullable
+              as Option<NoteFailure>,
+      chartFailureOption: chartFailureOption == freezed
+          ? _value.chartFailureOption
+          : chartFailureOption // ignore: cast_nullable_to_non_nullable
+              as Option<ChartFailure>,
     ));
   }
 
@@ -134,7 +154,9 @@ abstract class _$StatisticChartStateCopyWith<$Res>
       String amountType,
       List<ChartItem> chartItems,
       DateTime dateTime,
-      Account account});
+      Account account,
+      Option<NoteFailure> noteFailureOption,
+      Option<ChartFailure> chartFailureOption});
 
   @override
   $LoadStatusCopyWith<$Res> get loadStatus;
@@ -160,6 +182,8 @@ class __$StatisticChartStateCopyWithImpl<$Res>
     Object? chartItems = freezed,
     Object? dateTime = freezed,
     Object? account = freezed,
+    Object? noteFailureOption = freezed,
+    Object? chartFailureOption = freezed,
   }) {
     return _then(_StatisticChartState(
       loadStatus: loadStatus == freezed
@@ -182,6 +206,14 @@ class __$StatisticChartStateCopyWithImpl<$Res>
           ? _value.account
           : account // ignore: cast_nullable_to_non_nullable
               as Account,
+      noteFailureOption: noteFailureOption == freezed
+          ? _value.noteFailureOption
+          : noteFailureOption // ignore: cast_nullable_to_non_nullable
+              as Option<NoteFailure>,
+      chartFailureOption: chartFailureOption == freezed
+          ? _value.chartFailureOption
+          : chartFailureOption // ignore: cast_nullable_to_non_nullable
+              as Option<ChartFailure>,
     ));
   }
 }
@@ -194,7 +226,9 @@ class _$_StatisticChartState implements _StatisticChartState {
       required this.amountType,
       required this.chartItems,
       required this.dateTime,
-      required this.account});
+      required this.account,
+      required this.noteFailureOption,
+      required this.chartFailureOption});
 
   @override
   final LoadStatus loadStatus;
@@ -206,10 +240,14 @@ class _$_StatisticChartState implements _StatisticChartState {
   final DateTime dateTime;
   @override
   final Account account;
+  @override
+  final Option<NoteFailure> noteFailureOption;
+  @override
+  final Option<ChartFailure> chartFailureOption;
 
   @override
   String toString() {
-    return 'StatisticChartState(loadStatus: $loadStatus, amountType: $amountType, chartItems: $chartItems, dateTime: $dateTime, account: $account)';
+    return 'StatisticChartState(loadStatus: $loadStatus, amountType: $amountType, chartItems: $chartItems, dateTime: $dateTime, account: $account, noteFailureOption: $noteFailureOption, chartFailureOption: $chartFailureOption)';
   }
 
   @override
@@ -224,7 +262,11 @@ class _$_StatisticChartState implements _StatisticChartState {
             const DeepCollectionEquality()
                 .equals(other.chartItems, chartItems) &&
             const DeepCollectionEquality().equals(other.dateTime, dateTime) &&
-            const DeepCollectionEquality().equals(other.account, account));
+            const DeepCollectionEquality().equals(other.account, account) &&
+            const DeepCollectionEquality()
+                .equals(other.noteFailureOption, noteFailureOption) &&
+            const DeepCollectionEquality()
+                .equals(other.chartFailureOption, chartFailureOption));
   }
 
   @override
@@ -234,7 +276,9 @@ class _$_StatisticChartState implements _StatisticChartState {
       const DeepCollectionEquality().hash(amountType),
       const DeepCollectionEquality().hash(chartItems),
       const DeepCollectionEquality().hash(dateTime),
-      const DeepCollectionEquality().hash(account));
+      const DeepCollectionEquality().hash(account),
+      const DeepCollectionEquality().hash(noteFailureOption),
+      const DeepCollectionEquality().hash(chartFailureOption));
 
   @JsonKey(ignore: true)
   @override
@@ -245,11 +289,14 @@ class _$_StatisticChartState implements _StatisticChartState {
 
 abstract class _StatisticChartState implements StatisticChartState {
   const factory _StatisticChartState(
-      {required LoadStatus loadStatus,
-      required String amountType,
-      required List<ChartItem> chartItems,
-      required DateTime dateTime,
-      required Account account}) = _$_StatisticChartState;
+          {required LoadStatus loadStatus,
+          required String amountType,
+          required List<ChartItem> chartItems,
+          required DateTime dateTime,
+          required Account account,
+          required Option<NoteFailure> noteFailureOption,
+          required Option<ChartFailure> chartFailureOption}) =
+      _$_StatisticChartState;
 
   @override
   LoadStatus get loadStatus;
@@ -261,6 +308,10 @@ abstract class _StatisticChartState implements StatisticChartState {
   DateTime get dateTime;
   @override
   Account get account;
+  @override
+  Option<NoteFailure> get noteFailureOption;
+  @override
+  Option<ChartFailure> get chartFailureOption;
   @override
   @JsonKey(ignore: true)
   _$StatisticChartStateCopyWith<_StatisticChartState> get copyWith =>

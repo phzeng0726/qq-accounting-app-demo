@@ -19,21 +19,21 @@ class AccountFormCubit extends Cubit<AccountFormState> {
     required Account initialAccount,
     required bool isEditing,
   }) {
-    if (isEditing) {
-      emit(
-        state.copyWith(
-          account: initialAccount,
-          status: const AccountFormStatus.editing(),
-        ),
-      );
-    } else {
-      emit(
-        state.copyWith(
-          account: initialAccount, // Account.empty(),
-          status: const AccountFormStatus.initial(),
-        ),
-      );
-    }
+    isEditing
+        ? emit(
+            state.copyWith(
+              account: initialAccount,
+              isEditing: isEditing,
+              status: const AccountFormStatus.editing(),
+            ),
+          )
+        : emit(
+            state.copyWith(
+              account: initialAccount, // Account.empty(),
+              isEditing: isEditing,
+              status: const AccountFormStatus.initial(),
+            ),
+          );
   }
 
   void titleChanged(String title) {
@@ -102,7 +102,11 @@ class AccountFormCubit extends Cubit<AccountFormState> {
     // NOTE: 依據編輯狀態之類的決定是否該新增
     Option<AccountFailure> failureOption;
 
-    emit(state.copyWith(status: const AccountFormStatus.saving()));
+    emit(
+      state.copyWith(
+        status: const AccountFormStatus.saving(),
+      ),
+    );
 
     failureOption = state.isEditing
         ? await _accountRepository.update(state.account)

@@ -11,9 +11,9 @@ import '../../../../application/notes/note_watcher/note_watcher_cubit.dart';
 import '../../../domain/notes/note.dart';
 import '../../routes/router.gr.dart';
 
-
+// TODO note form 初始化有問題，應該是provider放錯
 // TODO 寫完表格後accountBalance會改變，要如何更改
-
+// TODO 明細金額無法顯示
 class NoteOverviewPage extends StatelessWidget {
   final int? accountId;
   const NoteOverviewPage({

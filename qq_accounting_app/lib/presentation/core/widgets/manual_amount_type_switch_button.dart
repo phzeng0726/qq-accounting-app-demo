@@ -15,17 +15,17 @@ class ManualAmountTypeSwitchButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Radius _borderRadius = Radius.circular(4.0);
-    double _buttonWidth = 100.0;
-    double _buttonHeight = 40.0;
-    Color _unselectedColor = Colors.grey;
-    Color _selectedColor;
+    Radius borderRadius = const Radius.circular(4.0);
+    double buttonWidth = 100.0;
+    double buttonHeight = 40.0;
+    Color unselectedColor = Colors.grey;
+    Color selectedColor;
 
     if (selectedAmountType == 'expense') {
-      _selectedColor = NoteColors.expenseButtonColor;
+      selectedColor = NoteColors.expenseButtonColor;
     } else {
       // 'income'
-      _selectedColor = NoteColors.incomeButtonColor;
+      selectedColor = NoteColors.incomeButtonColor;
     }
 
     return Row(
@@ -34,35 +34,35 @@ class ManualAmountTypeSwitchButton extends StatelessWidget {
         InkWell(
           onTap: onExpensePressed,
           child: Container(
-            width: _buttonWidth,
-            height: _buttonHeight,
-            decoration: new BoxDecoration(
+            width: buttonWidth,
+            height: buttonHeight,
+            decoration: BoxDecoration(
               // 按鈕顏色
               color: selectedAmountType == 'expense'
-                  ? _selectedColor
-                  : _unselectedColor,
+                  ? selectedColor
+                  : unselectedColor,
               // 圓角
               borderRadius: BorderRadius.only(
-                  topLeft: _borderRadius, bottomLeft: _borderRadius),
+                  topLeft: borderRadius, bottomLeft: borderRadius),
             ),
-            child: Center(child: Text('支出')),
+            child: const Center(child: Text('支出')),
           ),
         ),
         InkWell(
           onTap: onIncomePressed,
           child: Container(
-            width: _buttonWidth,
-            height: _buttonHeight,
-            decoration: new BoxDecoration(
+            width: buttonWidth,
+            height: buttonHeight,
+            decoration: BoxDecoration(
               //背景
               color: selectedAmountType == 'income'
-                  ? _selectedColor
-                  : _unselectedColor,
+                  ? selectedColor
+                  : unselectedColor,
               // 圓角
               borderRadius: BorderRadius.only(
-                  topRight: _borderRadius, bottomRight: _borderRadius),
+                  topRight: borderRadius, bottomRight: borderRadius),
             ),
-            child: Center(child: Text('收入')),
+            child: const Center(child: Text('收入')),
           ),
         ),
       ],

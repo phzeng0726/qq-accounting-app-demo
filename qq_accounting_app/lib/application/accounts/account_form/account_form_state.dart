@@ -8,6 +8,7 @@ class AccountFormState with _$AccountFormState {
     required String tempAmount,
     required AccountFormStatus status,
     required Option<AccountFailure> failureOption,
+    required bool isEditing,
   }) = _AccountFormState;
 
   factory AccountFormState.initial() => AccountFormState(
@@ -15,16 +16,15 @@ class AccountFormState with _$AccountFormState {
         tempAmount: '',
         status: const AccountFormStatus.initial(),
         failureOption: none(),
+        isEditing: false,
       );
-
-  bool get isEditing => status == const AccountFormStatus.editing();
 }
 
 @freezed
 class AccountFormStatus with _$AccountFormStatus {
   const factory AccountFormStatus.initial() = _Initial;
-  const factory AccountFormStatus.editing() = _Editing;
   const factory AccountFormStatus.saving() = _Saving;
+  const factory AccountFormStatus.editing() = _Editing;
   const factory AccountFormStatus.completed() = _Completed;
   const factory AccountFormStatus.failure() = _Failure;
 }

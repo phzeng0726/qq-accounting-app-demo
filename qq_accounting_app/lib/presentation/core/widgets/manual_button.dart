@@ -12,19 +12,19 @@ class ManualButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double _buttonHeight = 50.0;
-    double _buttonWidth = 150.0;
-    Radius _borderRadius = Radius.circular(4.0); // 圓角
-    Color _buttonColor = Colors.white.withOpacity(0.2); // 按鈕顏色
+    double buttonHeight = 50.0;
+    double buttonWidth = 150.0;
+    Radius borderRadius = const Radius.circular(4.0); // 圓角
+    Color buttonColor = Colors.white.withOpacity(0.2); // 按鈕顏色
 
     return InkWell(
       onTap: onPressed,
       child: Container(
-          height: _buttonHeight,
-          width: _buttonWidth,
-          decoration: new BoxDecoration(
-            color: _buttonColor,
-            borderRadius: BorderRadius.all(_borderRadius),
+          height: buttonHeight,
+          width: buttonWidth,
+          decoration: BoxDecoration(
+            color: buttonColor,
+            borderRadius: BorderRadius.all(borderRadius),
           ),
           child: Center(child: child)),
     );

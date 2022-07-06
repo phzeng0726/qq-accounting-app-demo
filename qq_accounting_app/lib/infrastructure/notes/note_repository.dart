@@ -54,12 +54,23 @@ class NoteRepository implements INoteRepository {
   //   return notes.where((note) => note.amountType == amountType).toList();
   // }
   // 考慮如何移除02
-  // Future<int> computeNetAmount(int accountId) async {
+  @override
+  Future<int> computeNetAmount(int accountId) async {
+    final eitherExpense = await getTotalAmountByAmountType(
+      accountId,
+      'expense',
+    );
+    final eitherIncome = await getTotalAmountByAmountType(
+      accountId,
+      'income',
+    );
 
-  //   int totalExpense = await getTotalAmountByAmountType(accountId, 'expense');
-  //   int totalIncome = await getTotalAmountByAmountType(accountId, 'income');
-  //   return totalIncome - totalExpense;
-  // }
+
+    final totalExpense = eitherExpense.getOrElse(() => throw UnimplementedError());
+    final totalIncome = eitherIncome.getOrElse(() => throw UnimplementedError());
+
+    return totalIncome - totalExpense;
+  }
 
   @override
   Future<Either<NoteFailure, int>> getTotalAmountByAmountType(

@@ -6,10 +6,10 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import '../../application/accounts/account_form/account_form_cubit.dart';
 import '../../application/accounts/account_watcher/account_watcher_cubit.dart';
 import '../../domain/accounts/account.dart';
-import 'widgets/account_overview_body.dart';
-import 'widgets/empty_widget.dart';
 import '../core/widgets/load_status_screen.dart';
 import '../routes/router.gr.dart';
+import 'widgets/account_overview_body.dart';
+import 'widgets/empty_widget.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -35,6 +35,7 @@ class HomePage extends StatelessWidget {
           actions: [
             IconButton(
               onPressed: () {
+                // 創新的
                 context.read<AccountFormCubit>().initAccount(
                       initialAccount: Account.empty(),
                       isEditing: false,
@@ -60,6 +61,7 @@ class HomePage extends StatelessWidget {
                           )
                         : AccountOverviewBody(
                             accountList: state.accounts,
+                            netAmountList: state.netAmountList,
                           ),
                   ),
                 ),

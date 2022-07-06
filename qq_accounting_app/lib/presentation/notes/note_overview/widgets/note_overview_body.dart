@@ -48,7 +48,9 @@ class NoteOverviewBody extends StatelessWidget {
                       // trailing: ,
                       children: [
                         const AmountTypeSwitchButton(),
-                        AmountCircularChart(state.notes)
+                        AmountCircularChart(
+                          notes: state.notes,
+                        )
                       ]),
                 ],
               ),

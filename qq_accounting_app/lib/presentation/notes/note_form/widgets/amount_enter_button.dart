@@ -19,7 +19,7 @@ class AmountEnterButton extends StatelessWidget {
             await showModalBottomSheet(
                 context: context,
                 builder: (builder) {
-                  return AmountCalculator();
+                  return const AmountCalculator();
                 });
           });
     });

@@ -22,12 +22,14 @@ class _$AccountFormStateTearOff {
       {required Account account,
       required String tempAmount,
       required AccountFormStatus status,
-      required Option<AccountFailure> failureOption}) {
+      required Option<AccountFailure> failureOption,
+      required bool isEditing}) {
     return _AccountFormState(
       account: account,
       tempAmount: tempAmount,
       status: status,
       failureOption: failureOption,
+      isEditing: isEditing,
     );
   }
 }
@@ -42,6 +44,7 @@ mixin _$AccountFormState {
   AccountFormStatus get status => throw _privateConstructorUsedError;
   Option<AccountFailure> get failureOption =>
       throw _privateConstructorUsedError;
+  bool get isEditing => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AccountFormStateCopyWith<AccountFormState> get copyWith =>
@@ -57,7 +60,8 @@ abstract class $AccountFormStateCopyWith<$Res> {
       {Account account,
       String tempAmount,
       AccountFormStatus status,
-      Option<AccountFailure> failureOption});
+      Option<AccountFailure> failureOption,
+      bool isEditing});
 
   $AccountCopyWith<$Res> get account;
   $AccountFormStatusCopyWith<$Res> get status;
@@ -78,6 +82,7 @@ class _$AccountFormStateCopyWithImpl<$Res>
     Object? tempAmount = freezed,
     Object? status = freezed,
     Object? failureOption = freezed,
+    Object? isEditing = freezed,
   }) {
     return _then(_value.copyWith(
       account: account == freezed
@@ -96,6 +101,10 @@ class _$AccountFormStateCopyWithImpl<$Res>
           ? _value.failureOption
           : failureOption // ignore: cast_nullable_to_non_nullable
               as Option<AccountFailure>,
+      isEditing: isEditing == freezed
+          ? _value.isEditing
+          : isEditing // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 
@@ -125,7 +134,8 @@ abstract class _$AccountFormStateCopyWith<$Res>
       {Account account,
       String tempAmount,
       AccountFormStatus status,
-      Option<AccountFailure> failureOption});
+      Option<AccountFailure> failureOption,
+      bool isEditing});
 
   @override
   $AccountCopyWith<$Res> get account;
@@ -150,6 +160,7 @@ class __$AccountFormStateCopyWithImpl<$Res>
     Object? tempAmount = freezed,
     Object? status = freezed,
     Object? failureOption = freezed,
+    Object? isEditing = freezed,
   }) {
     return _then(_AccountFormState(
       account: account == freezed
@@ -168,6 +179,10 @@ class __$AccountFormStateCopyWithImpl<$Res>
           ? _value.failureOption
           : failureOption // ignore: cast_nullable_to_non_nullable
               as Option<AccountFailure>,
+      isEditing: isEditing == freezed
+          ? _value.isEditing
+          : isEditing // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -180,7 +195,8 @@ class _$_AccountFormState extends _AccountFormState
       {required this.account,
       required this.tempAmount,
       required this.status,
-      required this.failureOption})
+      required this.failureOption,
+      required this.isEditing})
       : super._();
 
   @override
@@ -191,10 +207,12 @@ class _$_AccountFormState extends _AccountFormState
   final AccountFormStatus status;
   @override
   final Option<AccountFailure> failureOption;
+  @override
+  final bool isEditing;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'AccountFormState(account: $account, tempAmount: $tempAmount, status: $status, failureOption: $failureOption)';
+    return 'AccountFormState(account: $account, tempAmount: $tempAmount, status: $status, failureOption: $failureOption, isEditing: $isEditing)';
   }
 
   @override
@@ -205,7 +223,8 @@ class _$_AccountFormState extends _AccountFormState
       ..add(DiagnosticsProperty('account', account))
       ..add(DiagnosticsProperty('tempAmount', tempAmount))
       ..add(DiagnosticsProperty('status', status))
-      ..add(DiagnosticsProperty('failureOption', failureOption));
+      ..add(DiagnosticsProperty('failureOption', failureOption))
+      ..add(DiagnosticsProperty('isEditing', isEditing));
   }
 
   @override
@@ -218,7 +237,8 @@ class _$_AccountFormState extends _AccountFormState
                 .equals(other.tempAmount, tempAmount) &&
             const DeepCollectionEquality().equals(other.status, status) &&
             const DeepCollectionEquality()
-                .equals(other.failureOption, failureOption));
+                .equals(other.failureOption, failureOption) &&
+            const DeepCollectionEquality().equals(other.isEditing, isEditing));
   }
 
   @override
@@ -227,7 +247,8 @@ class _$_AccountFormState extends _AccountFormState
       const DeepCollectionEquality().hash(account),
       const DeepCollectionEquality().hash(tempAmount),
       const DeepCollectionEquality().hash(status),
-      const DeepCollectionEquality().hash(failureOption));
+      const DeepCollectionEquality().hash(failureOption),
+      const DeepCollectionEquality().hash(isEditing));
 
   @JsonKey(ignore: true)
   @override
@@ -240,7 +261,8 @@ abstract class _AccountFormState extends AccountFormState {
       {required Account account,
       required String tempAmount,
       required AccountFormStatus status,
-      required Option<AccountFailure> failureOption}) = _$_AccountFormState;
+      required Option<AccountFailure> failureOption,
+      required bool isEditing}) = _$_AccountFormState;
   const _AccountFormState._() : super._();
 
   @override
@@ -251,6 +273,8 @@ abstract class _AccountFormState extends AccountFormState {
   AccountFormStatus get status;
   @override
   Option<AccountFailure> get failureOption;
+  @override
+  bool get isEditing;
   @override
   @JsonKey(ignore: true)
   _$AccountFormStateCopyWith<_AccountFormState> get copyWith =>
@@ -265,12 +289,12 @@ class _$AccountFormStatusTearOff {
     return const _Initial();
   }
 
-  _Editing editing() {
-    return const _Editing();
-  }
-
   _Saving saving() {
     return const _Saving();
+  }
+
+  _Editing editing() {
+    return const _Editing();
   }
 
   _Completed completed() {
@@ -290,8 +314,8 @@ mixin _$AccountFormStatus {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() editing,
     required TResult Function() saving,
+    required TResult Function() editing,
     required TResult Function() completed,
     required TResult Function() failure,
   }) =>
@@ -299,8 +323,8 @@ mixin _$AccountFormStatus {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? editing,
     TResult Function()? saving,
+    TResult Function()? editing,
     TResult Function()? completed,
     TResult Function()? failure,
   }) =>
@@ -308,8 +332,8 @@ mixin _$AccountFormStatus {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? editing,
     TResult Function()? saving,
+    TResult Function()? editing,
     TResult Function()? completed,
     TResult Function()? failure,
     required TResult orElse(),
@@ -318,8 +342,8 @@ mixin _$AccountFormStatus {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_Editing value) editing,
     required TResult Function(_Saving value) saving,
+    required TResult Function(_Editing value) editing,
     required TResult Function(_Completed value) completed,
     required TResult Function(_Failure value) failure,
   }) =>
@@ -327,8 +351,8 @@ mixin _$AccountFormStatus {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_Editing value)? editing,
     TResult Function(_Saving value)? saving,
+    TResult Function(_Editing value)? editing,
     TResult Function(_Completed value)? completed,
     TResult Function(_Failure value)? failure,
   }) =>
@@ -336,8 +360,8 @@ mixin _$AccountFormStatus {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_Editing value)? editing,
     TResult Function(_Saving value)? saving,
+    TResult Function(_Editing value)? editing,
     TResult Function(_Completed value)? completed,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
@@ -407,8 +431,8 @@ class _$_Initial with DiagnosticableTreeMixin implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() editing,
     required TResult Function() saving,
+    required TResult Function() editing,
     required TResult Function() completed,
     required TResult Function() failure,
   }) {
@@ -419,8 +443,8 @@ class _$_Initial with DiagnosticableTreeMixin implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? editing,
     TResult Function()? saving,
+    TResult Function()? editing,
     TResult Function()? completed,
     TResult Function()? failure,
   }) {
@@ -431,8 +455,8 @@ class _$_Initial with DiagnosticableTreeMixin implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? editing,
     TResult Function()? saving,
+    TResult Function()? editing,
     TResult Function()? completed,
     TResult Function()? failure,
     required TResult orElse(),
@@ -447,8 +471,8 @@ class _$_Initial with DiagnosticableTreeMixin implements _Initial {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_Editing value) editing,
     required TResult Function(_Saving value) saving,
+    required TResult Function(_Editing value) editing,
     required TResult Function(_Completed value) completed,
     required TResult Function(_Failure value) failure,
   }) {
@@ -459,8 +483,8 @@ class _$_Initial with DiagnosticableTreeMixin implements _Initial {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_Editing value)? editing,
     TResult Function(_Saving value)? saving,
+    TResult Function(_Editing value)? editing,
     TResult Function(_Completed value)? completed,
     TResult Function(_Failure value)? failure,
   }) {
@@ -471,8 +495,8 @@ class _$_Initial with DiagnosticableTreeMixin implements _Initial {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_Editing value)? editing,
     TResult Function(_Saving value)? saving,
+    TResult Function(_Editing value)? editing,
     TResult Function(_Completed value)? completed,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
@@ -486,132 +510,6 @@ class _$_Initial with DiagnosticableTreeMixin implements _Initial {
 
 abstract class _Initial implements AccountFormStatus {
   const factory _Initial() = _$_Initial;
-}
-
-/// @nodoc
-abstract class _$EditingCopyWith<$Res> {
-  factory _$EditingCopyWith(_Editing value, $Res Function(_Editing) then) =
-      __$EditingCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$EditingCopyWithImpl<$Res> extends _$AccountFormStatusCopyWithImpl<$Res>
-    implements _$EditingCopyWith<$Res> {
-  __$EditingCopyWithImpl(_Editing _value, $Res Function(_Editing) _then)
-      : super(_value, (v) => _then(v as _Editing));
-
-  @override
-  _Editing get _value => super._value as _Editing;
-}
-
-/// @nodoc
-
-class _$_Editing with DiagnosticableTreeMixin implements _Editing {
-  const _$_Editing();
-
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'AccountFormStatus.editing()';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'AccountFormStatus.editing'));
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _Editing);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() editing,
-    required TResult Function() saving,
-    required TResult Function() completed,
-    required TResult Function() failure,
-  }) {
-    return editing();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? editing,
-    TResult Function()? saving,
-    TResult Function()? completed,
-    TResult Function()? failure,
-  }) {
-    return editing?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? editing,
-    TResult Function()? saving,
-    TResult Function()? completed,
-    TResult Function()? failure,
-    required TResult orElse(),
-  }) {
-    if (editing != null) {
-      return editing();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Editing value) editing,
-    required TResult Function(_Saving value) saving,
-    required TResult Function(_Completed value) completed,
-    required TResult Function(_Failure value) failure,
-  }) {
-    return editing(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Editing value)? editing,
-    TResult Function(_Saving value)? saving,
-    TResult Function(_Completed value)? completed,
-    TResult Function(_Failure value)? failure,
-  }) {
-    return editing?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Editing value)? editing,
-    TResult Function(_Saving value)? saving,
-    TResult Function(_Completed value)? completed,
-    TResult Function(_Failure value)? failure,
-    required TResult orElse(),
-  }) {
-    if (editing != null) {
-      return editing(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _Editing implements AccountFormStatus {
-  const factory _Editing() = _$_Editing;
 }
 
 /// @nodoc
@@ -659,8 +557,8 @@ class _$_Saving with DiagnosticableTreeMixin implements _Saving {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() editing,
     required TResult Function() saving,
+    required TResult Function() editing,
     required TResult Function() completed,
     required TResult Function() failure,
   }) {
@@ -671,8 +569,8 @@ class _$_Saving with DiagnosticableTreeMixin implements _Saving {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? editing,
     TResult Function()? saving,
+    TResult Function()? editing,
     TResult Function()? completed,
     TResult Function()? failure,
   }) {
@@ -683,8 +581,8 @@ class _$_Saving with DiagnosticableTreeMixin implements _Saving {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? editing,
     TResult Function()? saving,
+    TResult Function()? editing,
     TResult Function()? completed,
     TResult Function()? failure,
     required TResult orElse(),
@@ -699,8 +597,8 @@ class _$_Saving with DiagnosticableTreeMixin implements _Saving {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_Editing value) editing,
     required TResult Function(_Saving value) saving,
+    required TResult Function(_Editing value) editing,
     required TResult Function(_Completed value) completed,
     required TResult Function(_Failure value) failure,
   }) {
@@ -711,8 +609,8 @@ class _$_Saving with DiagnosticableTreeMixin implements _Saving {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_Editing value)? editing,
     TResult Function(_Saving value)? saving,
+    TResult Function(_Editing value)? editing,
     TResult Function(_Completed value)? completed,
     TResult Function(_Failure value)? failure,
   }) {
@@ -723,8 +621,8 @@ class _$_Saving with DiagnosticableTreeMixin implements _Saving {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_Editing value)? editing,
     TResult Function(_Saving value)? saving,
+    TResult Function(_Editing value)? editing,
     TResult Function(_Completed value)? completed,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
@@ -738,6 +636,132 @@ class _$_Saving with DiagnosticableTreeMixin implements _Saving {
 
 abstract class _Saving implements AccountFormStatus {
   const factory _Saving() = _$_Saving;
+}
+
+/// @nodoc
+abstract class _$EditingCopyWith<$Res> {
+  factory _$EditingCopyWith(_Editing value, $Res Function(_Editing) then) =
+      __$EditingCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$EditingCopyWithImpl<$Res> extends _$AccountFormStatusCopyWithImpl<$Res>
+    implements _$EditingCopyWith<$Res> {
+  __$EditingCopyWithImpl(_Editing _value, $Res Function(_Editing) _then)
+      : super(_value, (v) => _then(v as _Editing));
+
+  @override
+  _Editing get _value => super._value as _Editing;
+}
+
+/// @nodoc
+
+class _$_Editing with DiagnosticableTreeMixin implements _Editing {
+  const _$_Editing();
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'AccountFormStatus.editing()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'AccountFormStatus.editing'));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _Editing);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() saving,
+    required TResult Function() editing,
+    required TResult Function() completed,
+    required TResult Function() failure,
+  }) {
+    return editing();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? saving,
+    TResult Function()? editing,
+    TResult Function()? completed,
+    TResult Function()? failure,
+  }) {
+    return editing?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? saving,
+    TResult Function()? editing,
+    TResult Function()? completed,
+    TResult Function()? failure,
+    required TResult orElse(),
+  }) {
+    if (editing != null) {
+      return editing();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Saving value) saving,
+    required TResult Function(_Editing value) editing,
+    required TResult Function(_Completed value) completed,
+    required TResult Function(_Failure value) failure,
+  }) {
+    return editing(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Saving value)? saving,
+    TResult Function(_Editing value)? editing,
+    TResult Function(_Completed value)? completed,
+    TResult Function(_Failure value)? failure,
+  }) {
+    return editing?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Saving value)? saving,
+    TResult Function(_Editing value)? editing,
+    TResult Function(_Completed value)? completed,
+    TResult Function(_Failure value)? failure,
+    required TResult orElse(),
+  }) {
+    if (editing != null) {
+      return editing(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Editing implements AccountFormStatus {
+  const factory _Editing() = _$_Editing;
 }
 
 /// @nodoc
@@ -787,8 +811,8 @@ class _$_Completed with DiagnosticableTreeMixin implements _Completed {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() editing,
     required TResult Function() saving,
+    required TResult Function() editing,
     required TResult Function() completed,
     required TResult Function() failure,
   }) {
@@ -799,8 +823,8 @@ class _$_Completed with DiagnosticableTreeMixin implements _Completed {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? editing,
     TResult Function()? saving,
+    TResult Function()? editing,
     TResult Function()? completed,
     TResult Function()? failure,
   }) {
@@ -811,8 +835,8 @@ class _$_Completed with DiagnosticableTreeMixin implements _Completed {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? editing,
     TResult Function()? saving,
+    TResult Function()? editing,
     TResult Function()? completed,
     TResult Function()? failure,
     required TResult orElse(),
@@ -827,8 +851,8 @@ class _$_Completed with DiagnosticableTreeMixin implements _Completed {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_Editing value) editing,
     required TResult Function(_Saving value) saving,
+    required TResult Function(_Editing value) editing,
     required TResult Function(_Completed value) completed,
     required TResult Function(_Failure value) failure,
   }) {
@@ -839,8 +863,8 @@ class _$_Completed with DiagnosticableTreeMixin implements _Completed {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_Editing value)? editing,
     TResult Function(_Saving value)? saving,
+    TResult Function(_Editing value)? editing,
     TResult Function(_Completed value)? completed,
     TResult Function(_Failure value)? failure,
   }) {
@@ -851,8 +875,8 @@ class _$_Completed with DiagnosticableTreeMixin implements _Completed {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_Editing value)? editing,
     TResult Function(_Saving value)? saving,
+    TResult Function(_Editing value)? editing,
     TResult Function(_Completed value)? completed,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
@@ -913,8 +937,8 @@ class _$_Failure with DiagnosticableTreeMixin implements _Failure {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() editing,
     required TResult Function() saving,
+    required TResult Function() editing,
     required TResult Function() completed,
     required TResult Function() failure,
   }) {
@@ -925,8 +949,8 @@ class _$_Failure with DiagnosticableTreeMixin implements _Failure {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? editing,
     TResult Function()? saving,
+    TResult Function()? editing,
     TResult Function()? completed,
     TResult Function()? failure,
   }) {
@@ -937,8 +961,8 @@ class _$_Failure with DiagnosticableTreeMixin implements _Failure {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? editing,
     TResult Function()? saving,
+    TResult Function()? editing,
     TResult Function()? completed,
     TResult Function()? failure,
     required TResult orElse(),
@@ -953,8 +977,8 @@ class _$_Failure with DiagnosticableTreeMixin implements _Failure {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_Editing value) editing,
     required TResult Function(_Saving value) saving,
+    required TResult Function(_Editing value) editing,
     required TResult Function(_Completed value) completed,
     required TResult Function(_Failure value) failure,
   }) {
@@ -965,8 +989,8 @@ class _$_Failure with DiagnosticableTreeMixin implements _Failure {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_Editing value)? editing,
     TResult Function(_Saving value)? saving,
+    TResult Function(_Editing value)? editing,
     TResult Function(_Completed value)? completed,
     TResult Function(_Failure value)? failure,
   }) {
@@ -977,8 +1001,8 @@ class _$_Failure with DiagnosticableTreeMixin implements _Failure {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_Editing value)? editing,
     TResult Function(_Saving value)? saving,
+    TResult Function(_Editing value)? editing,
     TResult Function(_Completed value)? completed,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
