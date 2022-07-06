@@ -11,80 +11,89 @@ class AccountFormCubit extends Cubit<AccountFormState> {
 
   AccountFormCubit(this._accountRepository) : super(AccountFormState.initial());
 
-  void createAccount() {
-    // NOTE: 創新的NOTE
-    emit(
-      state.copyWith(
-        account: Account.empty(),
-        status: const AccountFormStatus.initial(),
-      ),
-    );
-  }
-
-  void editAccount(Account initialAccount) {
-    // NOTE: 舊的NOTE下去編輯
-    emit(
-      state.copyWith(
-        account: initialAccount,
-        status: const AccountFormStatus.editing(),
-      ),
-    );
-  }
-
-  Future<void> deleteAccount(Account initialAccount) async {
-    try {
+  void initAccount({
+    required Account initialAccount,
+    required bool isEditing,
+  }) {
+    if (isEditing) {
       emit(
-        state.copyWith(status: const AccountFormStatus.saving()),
+        state.copyWith(
+          account: initialAccount,
+          status: const AccountFormStatus.editing(),
+        ),
       );
-      await _accountRepository.delete(initialAccount.id);
+    } else {
       emit(
-        state.copyWith(status: const AccountFormStatus.completed()),
-      );
-    } catch (_) {
-      emit(
-        state.copyWith(status: const AccountFormStatus.failure()),
+        state.copyWith(
+          account: initialAccount, // Account.empty(),
+          status: const AccountFormStatus.initial(),
+        ),
       );
     }
   }
 
-  void titleChanged(String titleStr) {
+  void titleChanged(String title) {
     emit(
       state.copyWith(
         account: state.account.copyWith(
-          title: titleStr,
+          title: title,
         ),
       ),
     );
   }
 
-  void currencyTypeChanged(String currencyTypeStr) {
+  void currencyTypeChanged(String currencyType) {
     emit(
       state.copyWith(
         account: state.account.copyWith(
-          currencyType: currencyTypeStr,
+          currencyType: currencyType,
         ),
       ),
     );
   }
 
-  void tempAmountChanged(String amountStr) {
+  void tempAmountChanged(String amount) {
     emit(
       state.copyWith(
-        tempAmount: amountStr,
+        tempAmount: amount,
       ),
     );
   }
 
-  void initialAmountSaved(String initialAmountStr) {
+  void initialAmountSaved(String initialAmount) {
     emit(
       state.copyWith(
         account: state.account.copyWith(
-          initialAmount: int.parse(initialAmountStr),
+          initialAmount: int.parse(initialAmount),
         ),
       ),
     );
   }
 
+  // TODO 改either
+  Future<void> deleteAccount(Account initialAccount) async {
+    try {
+      emit(
+        state.copyWith(
+          status: const AccountFormStatus.saving(),
+        ),
+      );
+      await _accountRepository.delete(initialAccount.id);
+      emit(
+        state.copyWith(
+          status: const AccountFormStatus.completed(),
+        ),
+      );
+    } catch (_) {
+      emit(
+        state.copyWith(
+          status: const AccountFormStatus.failure(),
+        ),
+      );
+    }
+  }
+
+  // TODO 改either
   Future<void> saved() async {
     // NOTE: 依據編輯狀態之類的決定是否該新增
     try {
@@ -105,5 +114,12 @@ class AccountFormCubit extends Cubit<AccountFormState> {
       );
     }
     return;
+  }
+
+  @override
+  Future<void> close() {
+    // _userListSubscription?.cancel();
+
+    return super.close();
   }
 }

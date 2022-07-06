@@ -1,4 +1,4 @@
-part of 'note_watcher_bloc.dart';
+part of 'note_watcher_cubit.dart';
 
 // TODO: 到時候需要添加Option 確認是否有error
 @freezed

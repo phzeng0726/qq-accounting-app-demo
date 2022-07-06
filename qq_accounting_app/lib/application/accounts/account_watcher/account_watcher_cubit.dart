@@ -1,12 +1,12 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:qq_accounting_app/domain/accounts/account.dart';
-import 'package:qq_accounting_app/infrastructure/accounts/account_repository.dart';
 
+import '../../../domain/accounts/account.dart';
 import '../../../domain/core/load_status.dart';
+import '../../../infrastructure/accounts/account_repository.dart';
 
-part 'account_watcher_state.dart';
 part 'account_watcher_cubit.freezed.dart';
+part 'account_watcher_state.dart';
 
 class AccountWatcherCubit extends Cubit<AccountWatcherState> {
   final AccountRepository _accountRepository;
