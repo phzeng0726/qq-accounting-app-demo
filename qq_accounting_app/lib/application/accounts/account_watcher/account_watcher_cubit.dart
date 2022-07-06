@@ -3,6 +3,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:qq_accounting_app/domain/accounts/account.dart';
 import 'package:qq_accounting_app/infrastructure/accounts/account_repository.dart';
 
+import '../../../domain/core/load_status.dart';
+
 part 'account_watcher_state.dart';
 part 'account_watcher_cubit.freezed.dart';
 
@@ -16,7 +18,7 @@ class AccountWatcherCubit extends Cubit<AccountWatcherState> {
     // NOTE: emit 可以透過套件改成yield state.copyWith()
     emit( 
       state.copyWith(
-        status: const LoadStatus.loading(),
+        status: const LoadStatus.inProgress(),
       ),
     );
 
@@ -25,13 +27,13 @@ class AccountWatcherCubit extends Cubit<AccountWatcherState> {
     return failureOrSuccess.fold(
       (failure) => emit(
         state.copyWith(
-          status: const LoadStatus.failure(),
+          status: const LoadStatus.failed(),
         ),
       ),
-      (accounts) => emit(
+      (accountList) => emit(
         state.copyWith(
-          status: const LoadStatus.success(),
-          accounts: accounts,
+          status: const LoadStatus.succeed(),
+          accounts: accountList,
         ),
       ),
     );

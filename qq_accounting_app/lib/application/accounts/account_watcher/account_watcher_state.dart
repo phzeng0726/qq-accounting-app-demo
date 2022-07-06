@@ -13,11 +13,3 @@ class AccountWatcherState with _$AccountWatcherState {
         accounts: <Account>[],
       );
 }
-
-@freezed
-class LoadStatus with _$LoadStatus {
-  const factory LoadStatus.initial() = _Initial;
-  const factory LoadStatus.loading() = _Loading;
-  const factory LoadStatus.success() = _Success;
-  const factory LoadStatus.failure() = _Failure;
-}

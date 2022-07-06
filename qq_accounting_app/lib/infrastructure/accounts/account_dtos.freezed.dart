@@ -15,19 +15,19 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 AccountDto _$AccountDtoFromJson(Map<String, dynamic> json) {
-  return _SongDTO.fromJson(json);
+  return _AccountDto.fromJson(json);
 }
 
 /// @nodoc
 class _$AccountDtoTearOff {
   const _$AccountDtoTearOff();
 
-  _SongDTO call(
+  _AccountDto call(
       {int? id,
       required String title,
       required String currencyType,
       required int initialAmount}) {
-    return _SongDTO(
+    return _AccountDto(
       id: id,
       title: title,
       currencyType: currencyType,
@@ -101,21 +101,23 @@ class _$AccountDtoCopyWithImpl<$Res> implements $AccountDtoCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$SongDTOCopyWith<$Res> implements $AccountDtoCopyWith<$Res> {
-  factory _$SongDTOCopyWith(_SongDTO value, $Res Function(_SongDTO) then) =
-      __$SongDTOCopyWithImpl<$Res>;
+abstract class _$AccountDtoCopyWith<$Res> implements $AccountDtoCopyWith<$Res> {
+  factory _$AccountDtoCopyWith(
+          _AccountDto value, $Res Function(_AccountDto) then) =
+      __$AccountDtoCopyWithImpl<$Res>;
   @override
   $Res call({int? id, String title, String currencyType, int initialAmount});
 }
 
 /// @nodoc
-class __$SongDTOCopyWithImpl<$Res> extends _$AccountDtoCopyWithImpl<$Res>
-    implements _$SongDTOCopyWith<$Res> {
-  __$SongDTOCopyWithImpl(_SongDTO _value, $Res Function(_SongDTO) _then)
-      : super(_value, (v) => _then(v as _SongDTO));
+class __$AccountDtoCopyWithImpl<$Res> extends _$AccountDtoCopyWithImpl<$Res>
+    implements _$AccountDtoCopyWith<$Res> {
+  __$AccountDtoCopyWithImpl(
+      _AccountDto _value, $Res Function(_AccountDto) _then)
+      : super(_value, (v) => _then(v as _AccountDto));
 
   @override
-  _SongDTO get _value => super._value as _SongDTO;
+  _AccountDto get _value => super._value as _AccountDto;
 
   @override
   $Res call({
@@ -124,7 +126,7 @@ class __$SongDTOCopyWithImpl<$Res> extends _$AccountDtoCopyWithImpl<$Res>
     Object? currencyType = freezed,
     Object? initialAmount = freezed,
   }) {
-    return _then(_SongDTO(
+    return _then(_AccountDto(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -147,16 +149,16 @@ class __$SongDTOCopyWithImpl<$Res> extends _$AccountDtoCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_SongDTO extends _SongDTO {
-  const _$_SongDTO(
+class _$_AccountDto extends _AccountDto {
+  const _$_AccountDto(
       {this.id,
       required this.title,
       required this.currencyType,
       required this.initialAmount})
       : super._();
 
-  factory _$_SongDTO.fromJson(Map<String, dynamic> json) =>
-      _$$_SongDTOFromJson(json);
+  factory _$_AccountDto.fromJson(Map<String, dynamic> json) =>
+      _$$_AccountDtoFromJson(json);
 
   @override
   final int? id;
@@ -176,7 +178,7 @@ class _$_SongDTO extends _SongDTO {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _SongDTO &&
+            other is _AccountDto &&
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.title, title) &&
             const DeepCollectionEquality()
@@ -195,24 +197,25 @@ class _$_SongDTO extends _SongDTO {
 
   @JsonKey(ignore: true)
   @override
-  _$SongDTOCopyWith<_SongDTO> get copyWith =>
-      __$SongDTOCopyWithImpl<_SongDTO>(this, _$identity);
+  _$AccountDtoCopyWith<_AccountDto> get copyWith =>
+      __$AccountDtoCopyWithImpl<_AccountDto>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SongDTOToJson(this);
+    return _$$_AccountDtoToJson(this);
   }
 }
 
-abstract class _SongDTO extends AccountDto {
-  const factory _SongDTO(
+abstract class _AccountDto extends AccountDto {
+  const factory _AccountDto(
       {int? id,
       required String title,
       required String currencyType,
-      required int initialAmount}) = _$_SongDTO;
-  const _SongDTO._() : super._();
+      required int initialAmount}) = _$_AccountDto;
+  const _AccountDto._() : super._();
 
-  factory _SongDTO.fromJson(Map<String, dynamic> json) = _$_SongDTO.fromJson;
+  factory _AccountDto.fromJson(Map<String, dynamic> json) =
+      _$_AccountDto.fromJson;
 
   @override
   int? get id;
@@ -224,6 +227,6 @@ abstract class _SongDTO extends AccountDto {
   int get initialAmount;
   @override
   @JsonKey(ignore: true)
-  _$SongDTOCopyWith<_SongDTO> get copyWith =>
+  _$AccountDtoCopyWith<_AccountDto> get copyWith =>
       throw _privateConstructorUsedError;
 }

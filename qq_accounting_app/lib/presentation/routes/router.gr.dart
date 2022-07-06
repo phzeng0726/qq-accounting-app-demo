@@ -10,38 +10,55 @@
 //
 // ignore_for_file: type=lint
 
-import 'package:auto_route/auto_route.dart' as _i3;
-import 'package:flutter/material.dart' as _i4;
+import 'package:auto_route/auto_route.dart' as _i5;
+import 'package:flutter/material.dart' as _i6;
 
 import '../accounts/account_form/account_form_page.dart' as _i2;
 import '../accounts/account_home/account_page.dart' as _i1;
+import '../notes/note_form/note_form_page.dart' as _i4;
+import '../notes/note_home/note_home_page.dart' as _i3;
 
-class RootRouter extends _i3.RootStackRouter {
-  RootRouter([_i4.GlobalKey<_i4.NavigatorState>? navigatorKey])
+class RootRouter extends _i5.RootStackRouter {
+  RootRouter([_i6.GlobalKey<_i6.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
-  final Map<String, _i3.PageFactory> pagesMap = {
+  final Map<String, _i5.PageFactory> pagesMap = {
     AccountRoute.name: (routeData) {
-      return _i3.MaterialPageX<dynamic>(
+      return _i5.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i1.AccountPage());
     },
     AccountFormRoute.name: (routeData) {
-      return _i3.MaterialPageX<dynamic>(
+      return _i5.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i2.AccountFormPage());
+    },
+    NoteHomeRoute.name: (routeData) {
+      final pathParams = routeData.inheritedPathParams;
+      final args = routeData.argsAs<NoteHomeRouteArgs>(
+          orElse: () =>
+              NoteHomeRouteArgs(accountId: pathParams.optInt('accountId')));
+      return _i5.MaterialPageX<dynamic>(
+          routeData: routeData,
+          child: _i3.NoteHomePage(key: args.key, accountId: args.accountId));
+    },
+    NoteFormRoute.name: (routeData) {
+      return _i5.MaterialPageX<dynamic>(
+          routeData: routeData, child: _i4.NoteFormPage());
     }
   };
 
   @override
-  List<_i3.RouteConfig> get routes => [
-        _i3.RouteConfig(AccountRoute.name, path: '/'),
-        _i3.RouteConfig(AccountFormRoute.name, path: '/account-form-page')
+  List<_i5.RouteConfig> get routes => [
+        _i5.RouteConfig(AccountRoute.name, path: '/'),
+        _i5.RouteConfig(AccountFormRoute.name, path: '/account-form-page'),
+        _i5.RouteConfig(NoteHomeRoute.name, path: ':accountId'),
+        _i5.RouteConfig(NoteFormRoute.name, path: '/note-form-page')
       ];
 }
 
 /// generated route for
 /// [_i1.AccountPage]
-class AccountRoute extends _i3.PageRouteInfo<void> {
+class AccountRoute extends _i5.PageRouteInfo<void> {
   const AccountRoute() : super(AccountRoute.name, path: '/');
 
   static const String name = 'AccountRoute';
@@ -49,9 +66,42 @@ class AccountRoute extends _i3.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.AccountFormPage]
-class AccountFormRoute extends _i3.PageRouteInfo<void> {
+class AccountFormRoute extends _i5.PageRouteInfo<void> {
   const AccountFormRoute()
       : super(AccountFormRoute.name, path: '/account-form-page');
 
   static const String name = 'AccountFormRoute';
+}
+
+/// generated route for
+/// [_i3.NoteHomePage]
+class NoteHomeRoute extends _i5.PageRouteInfo<NoteHomeRouteArgs> {
+  NoteHomeRoute({_i6.Key? key, required int? accountId})
+      : super(NoteHomeRoute.name,
+            path: ':accountId',
+            args: NoteHomeRouteArgs(key: key, accountId: accountId),
+            rawPathParams: {'accountId': accountId});
+
+  static const String name = 'NoteHomeRoute';
+}
+
+class NoteHomeRouteArgs {
+  const NoteHomeRouteArgs({this.key, required this.accountId});
+
+  final _i6.Key? key;
+
+  final int? accountId;
+
+  @override
+  String toString() {
+    return 'NoteHomeRouteArgs{key: $key, accountId: $accountId}';
+  }
+}
+
+/// generated route for
+/// [_i4.NoteFormPage]
+class NoteFormRoute extends _i5.PageRouteInfo<void> {
+  const NoteFormRoute() : super(NoteFormRoute.name, path: '/note-form-page');
+
+  static const String name = 'NoteFormRoute';
 }

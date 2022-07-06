@@ -2,6 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:qq_accounting_app/presentation/accounts/account_form/account_form_page.dart';
 import 'package:qq_accounting_app/presentation/accounts/account_home/account_page.dart';
 
+import '../notes/note_form/note_form_page.dart';
+import '../notes/note_home/note_home_page.dart';
+
 // import '../accounts/account_form/account_form_page.dart';
 // import '../notes/note_form/note_form_page.dart';
 // import '../notes/note_home/note_home_page.dart';
@@ -20,9 +23,8 @@ import 'package:qq_accounting_app/presentation/accounts/account_home/account_pag
   routes: <AutoRoute>[
     AutoRoute(page: AccountPage, path: '/', initial: true),
     AutoRoute(page: AccountFormPage),
-
-    // AutoRoute(page: NoteHomePage, path: ':accountId'),
-    // AutoRoute(page: NoteFormPage), // single note page || path: ':noteId'
+    AutoRoute(page: NoteHomePage, path: ':accountId'),
+    AutoRoute(page: NoteFormPage), // single note page || path: ':noteId'
     // // Looks like you're trying to navigate to a nested route without adding their parent to stack first
     // AutoRoute(page: HomePage, path: '/', children: [
     //   AutoRoute(

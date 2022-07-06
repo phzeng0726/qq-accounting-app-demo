@@ -13,7 +13,7 @@ class AccountDto with _$AccountDto {
     required String title, // 標題（台幣帳戶 之類的）
     required String currencyType, // 幣別
     required int initialAmount, // 初始總資產金額
-  }) = _SongDTO;
+  }) = _AccountDto;
 
 
   factory AccountDto.fromDomain(Account account) {
