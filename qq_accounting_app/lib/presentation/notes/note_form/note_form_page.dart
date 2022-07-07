@@ -18,7 +18,7 @@ class NoteFormPage extends StatelessWidget {
             ? NoteColors.expenseBackgroundColor
             : NoteColors.incomeBackgroundColor,
         appBar: const NoteFormAppBar(),
-        body: NoteFormBody(),
+        body: const NoteFormBody(),
       );
     });
   }

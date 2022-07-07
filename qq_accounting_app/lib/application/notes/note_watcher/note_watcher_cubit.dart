@@ -29,6 +29,43 @@ class NoteWatcherCubit extends Cubit<NoteWatcherState> {
     );
   }
 
+  Future<void> getDailyAmountStarted({
+    required DateTime dateTime,
+  }) async {
+    // NOTE: sqflite疑似只能用yyyy-mm-dd篩選
+    String day = dateTime.toString().substring(0, 10);
+
+    Either<NoteFailure, int> eitherExpense;
+    Either<NoteFailure, int> eitherIncome;
+
+    eitherExpense =
+        await _noteRepository.getTotalAmountByAmountTypeDuringPeriod(
+      state.account.id!,
+      'expense',
+      day,
+      day,
+    );
+
+    eitherIncome = await _noteRepository.getTotalAmountByAmountTypeDuringPeriod(
+      state.account.id!,
+      'income',
+      day,
+      day,
+    );
+    final totalExpense =
+        eitherExpense.getOrElse(() => throw UnimplementedError());
+    final totalIncome =
+        eitherIncome.getOrElse(() => throw UnimplementedError());
+
+    emit(
+      state.copyWith(
+        dailyIncomeAmount: totalIncome,
+        dailyExpenseAmount: totalExpense,
+        dailyNetAmount: totalIncome - totalExpense,
+      ),
+    );
+  }
+
   Future<void> getSingleDayStarted({
     required DateTime dateTime,
   }) async {

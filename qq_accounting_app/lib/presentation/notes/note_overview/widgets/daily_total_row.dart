@@ -14,29 +14,34 @@ class DailyTotalRow extends StatelessWidget {
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            RichText(
-              text: TextSpan(text: '', children: [
-                TextSpan(
-                  text: '收入 $dollarSign ${state.dailyIncomeAmount}',
-                  style: TextStyle(color: NoteColors.incomeTextColor),
-                ),
-                const TextSpan(
-                    text: '｜', style: TextStyle(fontWeight: FontWeight.bold)),
-                TextSpan(
-                  text: '支出 $dollarSign ${state.dailyExpenseAmount} ',
-                  style: TextStyle(color: NoteColors.expenseTextColor),
-                ),
-              ]),
-            ),
-            RichText(
-                text: TextSpan(
-              text: '淨額 $dollarSign ${state.dailyNetAmount} ',
-              style: TextStyle(
-                color: state.dailyNetAmount > 0
-                    ? NoteColors.incomeTextColor
-                    : NoteColors.expenseTextColor,
+            Flexible(
+              child: Column(
+                children: [
+                  Text(
+                    '收入 $dollarSign ${state.dailyIncomeAmount}',
+                    style: TextStyle(color: NoteColors.incomeTextColor),
+                  ),
+                  Text(
+                    '支出 $dollarSign ${state.dailyExpenseAmount}',
+                    style: TextStyle(color: NoteColors.expenseTextColor),
+                  ),
+                ],
               ),
-            )),
+            ),
+            Flexible(
+              child: RichText(
+                maxLines: 2,
+                softWrap: true,
+                text: TextSpan(
+                  text: '淨額 $dollarSign ${state.dailyNetAmount} ',
+                  style: TextStyle(
+                    color: state.dailyNetAmount > 0
+                        ? NoteColors.incomeTextColor
+                        : NoteColors.expenseTextColor,
+                  ),
+                ),
+              ),
+            ),
           ],
         );
       },

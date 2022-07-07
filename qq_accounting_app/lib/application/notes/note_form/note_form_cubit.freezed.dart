@@ -23,13 +23,17 @@ class _$NoteFormStateTearOff {
       required String tempAmount,
       required bool showErrorMessages,
       required bool isEditing,
-      required bool isSaving}) {
+      required bool isSaving,
+      required bool isValidating,
+      required Option<NoteFailure> failureOption}) {
     return _NoteFormState(
       note: note,
       tempAmount: tempAmount,
       showErrorMessages: showErrorMessages,
       isEditing: isEditing,
       isSaving: isSaving,
+      isValidating: isValidating,
+      failureOption: failureOption,
     );
   }
 }
@@ -45,6 +49,8 @@ mixin _$NoteFormState {
   bool get showErrorMessages => throw _privateConstructorUsedError;
   bool get isEditing => throw _privateConstructorUsedError;
   bool get isSaving => throw _privateConstructorUsedError;
+  bool get isValidating => throw _privateConstructorUsedError;
+  Option<NoteFailure> get failureOption => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $NoteFormStateCopyWith<NoteFormState> get copyWith =>
@@ -61,7 +67,9 @@ abstract class $NoteFormStateCopyWith<$Res> {
       String tempAmount,
       bool showErrorMessages,
       bool isEditing,
-      bool isSaving});
+      bool isSaving,
+      bool isValidating,
+      Option<NoteFailure> failureOption});
 
   $NoteCopyWith<$Res> get note;
 }
@@ -82,6 +90,8 @@ class _$NoteFormStateCopyWithImpl<$Res>
     Object? showErrorMessages = freezed,
     Object? isEditing = freezed,
     Object? isSaving = freezed,
+    Object? isValidating = freezed,
+    Object? failureOption = freezed,
   }) {
     return _then(_value.copyWith(
       note: note == freezed
@@ -104,6 +114,14 @@ class _$NoteFormStateCopyWithImpl<$Res>
           ? _value.isSaving
           : isSaving // ignore: cast_nullable_to_non_nullable
               as bool,
+      isValidating: isValidating == freezed
+          ? _value.isValidating
+          : isValidating // ignore: cast_nullable_to_non_nullable
+              as bool,
+      failureOption: failureOption == freezed
+          ? _value.failureOption
+          : failureOption // ignore: cast_nullable_to_non_nullable
+              as Option<NoteFailure>,
     ));
   }
 
@@ -127,7 +145,9 @@ abstract class _$NoteFormStateCopyWith<$Res>
       String tempAmount,
       bool showErrorMessages,
       bool isEditing,
-      bool isSaving});
+      bool isSaving,
+      bool isValidating,
+      Option<NoteFailure> failureOption});
 
   @override
   $NoteCopyWith<$Res> get note;
@@ -151,6 +171,8 @@ class __$NoteFormStateCopyWithImpl<$Res>
     Object? showErrorMessages = freezed,
     Object? isEditing = freezed,
     Object? isSaving = freezed,
+    Object? isValidating = freezed,
+    Object? failureOption = freezed,
   }) {
     return _then(_NoteFormState(
       note: note == freezed
@@ -173,6 +195,14 @@ class __$NoteFormStateCopyWithImpl<$Res>
           ? _value.isSaving
           : isSaving // ignore: cast_nullable_to_non_nullable
               as bool,
+      isValidating: isValidating == freezed
+          ? _value.isValidating
+          : isValidating // ignore: cast_nullable_to_non_nullable
+              as bool,
+      failureOption: failureOption == freezed
+          ? _value.failureOption
+          : failureOption // ignore: cast_nullable_to_non_nullable
+              as Option<NoteFailure>,
     ));
   }
 }
@@ -185,7 +215,9 @@ class _$_NoteFormState implements _NoteFormState {
       required this.tempAmount,
       required this.showErrorMessages,
       required this.isEditing,
-      required this.isSaving});
+      required this.isSaving,
+      required this.isValidating,
+      required this.failureOption});
 
   @override
   final Note note;
@@ -197,10 +229,14 @@ class _$_NoteFormState implements _NoteFormState {
   final bool isEditing;
   @override
   final bool isSaving;
+  @override
+  final bool isValidating;
+  @override
+  final Option<NoteFailure> failureOption;
 
   @override
   String toString() {
-    return 'NoteFormState(note: $note, tempAmount: $tempAmount, showErrorMessages: $showErrorMessages, isEditing: $isEditing, isSaving: $isSaving)';
+    return 'NoteFormState(note: $note, tempAmount: $tempAmount, showErrorMessages: $showErrorMessages, isEditing: $isEditing, isSaving: $isSaving, isValidating: $isValidating, failureOption: $failureOption)';
   }
 
   @override
@@ -214,7 +250,11 @@ class _$_NoteFormState implements _NoteFormState {
             const DeepCollectionEquality()
                 .equals(other.showErrorMessages, showErrorMessages) &&
             const DeepCollectionEquality().equals(other.isEditing, isEditing) &&
-            const DeepCollectionEquality().equals(other.isSaving, isSaving));
+            const DeepCollectionEquality().equals(other.isSaving, isSaving) &&
+            const DeepCollectionEquality()
+                .equals(other.isValidating, isValidating) &&
+            const DeepCollectionEquality()
+                .equals(other.failureOption, failureOption));
   }
 
   @override
@@ -224,7 +264,9 @@ class _$_NoteFormState implements _NoteFormState {
       const DeepCollectionEquality().hash(tempAmount),
       const DeepCollectionEquality().hash(showErrorMessages),
       const DeepCollectionEquality().hash(isEditing),
-      const DeepCollectionEquality().hash(isSaving));
+      const DeepCollectionEquality().hash(isSaving),
+      const DeepCollectionEquality().hash(isValidating),
+      const DeepCollectionEquality().hash(failureOption));
 
   @JsonKey(ignore: true)
   @override
@@ -238,7 +280,9 @@ abstract class _NoteFormState implements NoteFormState {
       required String tempAmount,
       required bool showErrorMessages,
       required bool isEditing,
-      required bool isSaving}) = _$_NoteFormState;
+      required bool isSaving,
+      required bool isValidating,
+      required Option<NoteFailure> failureOption}) = _$_NoteFormState;
 
   @override
   Note get note;
@@ -250,6 +294,10 @@ abstract class _NoteFormState implements NoteFormState {
   bool get isEditing;
   @override
   bool get isSaving;
+  @override
+  bool get isValidating;
+  @override
+  Option<NoteFailure> get failureOption;
   @override
   @JsonKey(ignore: true)
   _$NoteFormStateCopyWith<_NoteFormState> get copyWith =>

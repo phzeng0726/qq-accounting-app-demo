@@ -31,6 +31,8 @@ abstract class NoteFormState with _$NoteFormState {
     required bool showErrorMessages,
     required bool isEditing,
     required bool isSaving,
+    required bool isValidating,
+    required Option<NoteFailure> failureOption,
     // required Option<Either<NoteFailure, Unit>> saveFailureOrSuccessOption,
   }) = _NoteFormState;
 
@@ -38,8 +40,10 @@ abstract class NoteFormState with _$NoteFormState {
         note: _testNote,
         tempAmount: '',
         showErrorMessages: false,
+        isValidating: false,
         isEditing: false,
         isSaving: false,
+        failureOption: none(),
         // saveFailureOrSuccessOption: none(),
       );
 }

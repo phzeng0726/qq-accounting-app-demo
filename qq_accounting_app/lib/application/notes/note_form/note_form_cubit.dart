@@ -1,10 +1,12 @@
 // ignore_for_file: unnecessary_string_interpolations
 
+import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../domain/notes/i_note_repository.dart';
 import '../../../domain/notes/note.dart';
+import '../../../domain/notes/note_failure.dart';
 
 part 'note_form_cubit.freezed.dart';
 part 'note_form_state.dart';
@@ -20,11 +22,14 @@ class NoteFormCubit extends Cubit<NoteFormState> {
     Note initialNote,
     bool isEditing,
   ) {
-    emit(state.copyWith(
-      note: initialNote,
-      tempAmount: initialNote.amount.toString(),
-      isEditing: isEditing,
-    ));
+    emit(
+      state.copyWith(
+        isValidating: false,
+        note: initialNote,
+        tempAmount: initialNote.amount.toString(),
+        isEditing: isEditing,
+      ),
+    );
   }
 
   void amountTypeChanged(String amountType) async {
@@ -82,26 +87,60 @@ class NoteFormCubit extends Cubit<NoteFormState> {
     ));
   }
 
-  void saved() async {
-    emit(
-      state.copyWith(
-        isSaving: true,
-      ),
-    );
-    state.isEditing
-        ? await _noteRepository.update(state.note)
-        : await _noteRepository.create(state.note);
+  Future<void> saved({required int initialAmount}) async {
+    Option<NoteFailure> failureAmountValidatorOption;
+    Option<NoteFailure> failureSavingOption;
 
     emit(
       state.copyWith(
-        isSaving: false,
+        isSaving: true,
+        isValidating: true,
+        failureOption: none(),
+      ),
+    );
+    failureAmountValidatorOption = await _noteRepository.netAmountValidator(
+      note: state.note,
+      initialAmount: initialAmount,
+    );
+
+    failureAmountValidatorOption.fold(
+      () async { // validating無誤，進入saving階段
+        emit(
+          state.copyWith(
+            isValidating: false,
+          ),
+        );
+
+        failureSavingOption = state.isEditing
+            ? await _noteRepository.update(state.note)
+            : await _noteRepository.create(state.note);
+
+        failureSavingOption.fold(
+          () => emit( // 完全無誤
+            state.copyWith(
+              isSaving: false,
+            ),
+          ),
+          (f) => emit( // Saving出錯
+            state.copyWith(
+              isSaving: false,
+              failureOption: some(f),
+            ),
+          ),
+        );
+      },
+      (f) => emit( // validating出錯
+        state.copyWith(
+          isSaving: false,
+          isValidating: false,
+          failureOption: some(f),
+        ),
       ),
     );
   }
 
   @override
   Future<void> close() async {
-    // await _noteStreamSubscription?.cancel();
     return super.close();
   }
 }

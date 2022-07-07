@@ -28,27 +28,27 @@ class HomePage extends StatelessWidget {
           },
         ),
       ],
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(FlutterI18n.translate(context, "home.title")),
-          centerTitle: true,
-          actions: [
-            IconButton(
-              onPressed: () {
-                // 創新的
-                context.read<AccountFormCubit>().initAccount(
-                      initialAccount: Account.empty(),
-                      isEditing: false,
-                    );
-                context.pushRoute(const AccountFormRoute());
-              },
-              icon: const Icon(Icons.add),
+      child: BlocBuilder<AccountWatcherCubit, AccountWatcherState>(
+        builder: (context, state) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(FlutterI18n.translate(context, "home.title")),
+              centerTitle: true,
+              actions: [
+                IconButton(
+                  onPressed: () {
+                    // 創新的
+                    context.read<AccountFormCubit>().initAccount(
+                          initialAccount: Account.empty(),
+                          isEditing: false,
+                        );
+                    context.pushRoute(const AccountFormRoute());
+                  },
+                  icon: const Icon(Icons.add),
+                ),
+              ],
             ),
-          ],
-        ),
-        body: BlocBuilder<AccountWatcherCubit, AccountWatcherState>(
-          builder: (context, state) {
-            return Column(
+            body: Column(
               children: [
                 Expanded(
                   child: LoadStatusScreen(
@@ -66,9 +66,9 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
               ],
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }

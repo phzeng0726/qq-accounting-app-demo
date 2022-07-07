@@ -12,7 +12,6 @@ class EmptyWidget extends StatelessWidget {
     return Center(
       child: Text(
         text,
-        style: Theme.of(context).textTheme.headline5,
       ),
     );
   }

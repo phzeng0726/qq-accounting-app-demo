@@ -36,6 +36,9 @@ class NoteOverviewPage extends StatelessWidget {
             context.read<NoteWatcherCubit>().getSingleDayStarted(
                   dateTime: noteFormDateTime,
                 );
+            context.read<NoteWatcherCubit>().getDailyAmountStarted(
+                  dateTime: noteFormDateTime,
+                );
             // 重整圖表
             context.read<StatisticChartCubit>().getSingleDayStarted(
                   amountType:
@@ -50,6 +53,9 @@ class NoteOverviewPage extends StatelessWidget {
           listener: (context, state) {
             // 重整note
             context.read<NoteWatcherCubit>().getSingleDayStarted(
+                  dateTime: state.note.dateTime,
+                );
+            context.read<NoteWatcherCubit>().getDailyAmountStarted(
                   dateTime: state.note.dateTime,
                 );
             // 重整chart
@@ -80,6 +86,9 @@ class NoteOverviewPage extends StatelessWidget {
                 .dateTimeChanged(state.focusedDay);
             // 重整note
             context.read<NoteWatcherCubit>().getSingleDayStarted(
+                  dateTime: state.focusedDay,
+                );
+            context.read<NoteWatcherCubit>().getDailyAmountStarted(
                   dateTime: state.focusedDay,
                 );
             // 重整圖表

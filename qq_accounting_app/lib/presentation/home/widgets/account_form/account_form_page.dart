@@ -7,7 +7,6 @@ import '../../../../application/accounts/account_form/account_form_cubit.dart';
 import '../../../../domain/accounts/account.dart';
 import 'widgets/account_form_table.dart';
 
-
 class AccountFormPage extends StatelessWidget {
   const AccountFormPage({Key? key}) : super(key: key);
 
@@ -25,9 +24,10 @@ class AccountFormPage extends StatelessWidget {
               child: ButtonBar(
                 children: [
                   IconButton(
-                      onPressed: () => context
-                          .read<AccountFormCubit>()
-                          .deleteAccount(account),
+                      onPressed: () {
+                        context.read<AccountFormCubit>().deleteAccount(account);
+                        context.router.pop();
+                      },
                       icon: const Icon(
                         Icons.delete,
                         color: Colors.red,

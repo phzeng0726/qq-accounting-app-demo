@@ -13,17 +13,6 @@ class NoteRepository implements INoteRepository {
 
   NoteRepository();
   // NOTE: R
-  // Future<List<Note>> getNotes() async {
-  //   final db = await _databaseProvider.database;
-
-  //   List<Map<String, dynamic>> result;
-
-  //   result = await db.rawQuery(
-  //       "SELECT DISTINCT notes.*, accounts.title AS accountTitle FROM notes LEFT JOIN accounts ON notes.accountId = accounts.id");
-  //   List<Note> notes =
-  //       result.map((note) => NoteDto.fromJson(note).toDomain()).toList();
-  //   return notes;
-  // }
   @override
   Future<Either<NoteFailure, List<Note>>> getNotesDuringPeriod(
     int accountId,
@@ -46,14 +35,6 @@ class NoteRepository implements INoteRepository {
     }
   }
 
-  // // 考慮如何移除01
-  // Future<List<Note>> filterNotesByAmountType(
-  //   List<Note> notes,
-  //   String amountType,
-  // ) async {
-  //   return notes.where((note) => note.amountType == amountType).toList();
-  // }
-  // 考慮如何移除02
   @override
   Future<int> computeNetAmount(int accountId) async {
     final eitherExpense = await getTotalAmountByAmountType(
@@ -65,11 +46,34 @@ class NoteRepository implements INoteRepository {
       'income',
     );
 
-
-    final totalExpense = eitherExpense.getOrElse(() => throw UnimplementedError());
-    final totalIncome = eitherIncome.getOrElse(() => throw UnimplementedError());
+    final totalExpense =
+        eitherExpense.getOrElse(() => throw UnimplementedError());
+    final totalIncome =
+        eitherIncome.getOrElse(() => throw UnimplementedError());
 
     return totalIncome - totalExpense;
+  }
+
+  @override
+  Future<Option<NoteFailure>> netAmountValidator({
+    required Note note,
+    required int initialAmount,
+  }) async {
+    try {
+      int netAmount = await computeNetAmount(note.accountId);
+
+      int accountBalance = initialAmount + netAmount;
+
+      if (note.amount <= 0) {
+        return some(const NoteFailure.api('amountMustGreaterThan0'));
+      } else if (note.amountType == 'expense' && note.amount > accountBalance) {
+        return some(const NoteFailure.api('insufficientBalance'));
+      } else {
+        return none();
+      }
+    } catch (e) {
+      return some(NoteFailure.api(e.toString()));
+    }
   }
 
   @override
@@ -118,6 +122,37 @@ class NoteRepository implements INoteRepository {
       List<Note> notes =
           result.map((note) => NoteDto.fromJson(note).toDomain()).toList();
       return right(notes);
+    } catch (e) {
+      return left(NoteFailure.api(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<NoteFailure, int>>
+      getTotalAmountByAmountTypeDuringPeriod(
+    int accountId,
+    String amountType,
+    String startTime,
+    String endTime,
+  ) async {
+    try {
+      final db = await _databaseProvider.database;
+
+      List<Map<String, dynamic>> result;
+      result = await db.rawQuery(
+          "SELECT DISTINCT notes.* FROM notes WHERE accountId = ? AND amountType = ? AND date(dateTime) BETWEEN date(?) AND date(?)",
+          [accountId, amountType, startTime, endTime]);
+
+      List<Note> notes =
+          result.map((note) => NoteDto.fromJson(note).toDomain()).toList();
+
+      int totalAmount = 0;
+
+      for (var note in notes) {
+        totalAmount += note.amount;
+      }
+
+      return right(totalAmount);
     } catch (e) {
       return left(NoteFailure.api(e.toString()));
     }
