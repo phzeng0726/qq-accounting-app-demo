@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 import '../../../constants.dart';
 
@@ -45,7 +46,13 @@ class ManualAmountTypeSwitchButton extends StatelessWidget {
               borderRadius: BorderRadius.only(
                   topLeft: borderRadius, bottomLeft: borderRadius),
             ),
-            child: const Center(child: Text('支出')),
+            child: Center(
+                child: Text(
+              FlutterI18n.translate(
+                context,
+                "expense",
+              ),
+            )),
           ),
         ),
         InkWell(
@@ -62,7 +69,14 @@ class ManualAmountTypeSwitchButton extends StatelessWidget {
               borderRadius: BorderRadius.only(
                   topRight: borderRadius, bottomRight: borderRadius),
             ),
-            child: const Center(child: Text('收入')),
+            child: Center(
+              child: Text(
+                FlutterI18n.translate(
+                  context,
+                  "income",
+                ),
+              ),
+            ),
           ),
         ),
       ],

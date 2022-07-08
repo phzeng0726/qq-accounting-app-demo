@@ -6,6 +6,7 @@ import 'package:qq_accounting_app/application/accounts/account_watcher/account_w
 
 import '../../../application/accounts/account_form/account_form_cubit.dart';
 import '../../../application/charts/statistic_chart/statistic_chart_cubit.dart';
+import '../../../application/core/navigation/navigation_cubit.dart';
 import '../../../application/notes/note_watcher/note_watcher_cubit.dart';
 import '../../../constants.dart';
 import '../../../domain/accounts/account.dart';
@@ -23,33 +24,41 @@ class AccountOverviewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AccountWatcherCubit, AccountWatcherState>(
-          builder: (context, state) {
-            return ListView.builder(
-              itemCount: accountList.length,
-              itemBuilder: (context, index) {
-                final account = accountList[index];
-                final accountBalance =
-                    netAmountList[index] + account.initialAmount;
+      builder: (context, state) {
+        return ListView.builder(
+          itemCount: accountList.length,
+          itemBuilder: (context, index) {
+            final account = accountList[index];
+            final accountBalance = netAmountList[index] + account.initialAmount;
 
-                return ListTile(
-                  title: Text(account.title),
-                  subtitle: Text(account.currencyType),
-                  trailing: Text('$dollarSign $accountBalance'),
-                  onTap: () => context
-                      .read<AccountWatcherCubit>()
-                      .selectedAccount(account),
-                  onLongPress: () {
-                    // 編輯
-                    context.read<AccountFormCubit>().initAccount(
-                          initialAccount: account,
-                          isEditing: true,
-                        );
-                    context.pushRoute(const AccountFormRoute());
-                  },
+            return ListTile(
+              title: Text(account.title),
+              subtitle: Text(account.currencyType),
+              trailing: Text('$dollarSign $accountBalance'),
+              onTap: () {
+                // 選擇 Account，並push頁面
+                context.read<AccountWatcherCubit>().selectedAccount(account);
+                context.pushRoute(
+                  NoteOverviewRoute(
+                    accountId: account.id,
+                    accountName: account.title,
+                  ),
                 );
+                context.read<NavigationCubit>().pushOrPopPage();
+              },
+              onLongPress: () {
+                // 編輯，並push頁面
+                context.read<AccountFormCubit>().initAccount(
+                      initialAccount: account,
+                      isEditing: true,
+                    );
+                context.pushRoute(const AccountFormRoute());
+                context.read<NavigationCubit>().pushOrPopPage();
               },
             );
           },
         );
+      },
+    );
   }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:qq_accounting_app/application/accounts/account_form/account_form_cubit.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
+
+import '../../../../../application/accounts/account_form/account_form_cubit.dart';
 
 class TitleBox extends StatelessWidget {
   const TitleBox({
@@ -29,9 +31,12 @@ class TitleBox extends StatelessWidget {
               validator: (_) =>
                   context.read<AccountFormCubit>().state.account.title,
               style: Theme.of(context).textTheme.subtitle1,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: "未輸入",
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(),
+                hintText: FlutterI18n.translate(
+                  context,
+                  "accountForm.titleBoxHint",
+                ),
               ),
             ),
           ),

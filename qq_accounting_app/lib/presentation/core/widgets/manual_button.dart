@@ -20,13 +20,16 @@ class ManualButton extends StatelessWidget {
     return InkWell(
       onTap: onPressed,
       child: Container(
-          height: buttonHeight,
-          width: buttonWidth,
-          decoration: BoxDecoration(
-            color: buttonColor,
-            borderRadius: BorderRadius.all(borderRadius),
-          ),
-          child: Center(child: child)),
+        height: buttonHeight,
+        width: buttonWidth,
+        decoration: BoxDecoration(
+          color: buttonColor,
+          borderRadius: BorderRadius.all(borderRadius),
+        ),
+        child: Center(
+          child: child,
+        ),
+      ),
     );
   }
 }

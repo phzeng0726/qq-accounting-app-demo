@@ -11,7 +11,6 @@ class InitialAmountEnterButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AccountFormCubit, AccountFormState>(
-      // buildWhen: (p, c) => p.signInState != c.signInState,
       builder: (context, state) {
         return ManualButton(
           child: Text(state.account.initialAmount.toString()),

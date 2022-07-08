@@ -19,10 +19,10 @@ class _$NavigationStateTearOff {
   const _$NavigationStateTearOff();
 
   _NavigationState call(
-      {required LoadStatus loadStatus, required Type routeType}) {
+      {required LoadStatus loadStatus, required String routeName}) {
     return _NavigationState(
       loadStatus: loadStatus,
-      routeType: routeType,
+      routeName: routeName,
     );
   }
 }
@@ -33,7 +33,7 @@ const $NavigationState = _$NavigationStateTearOff();
 /// @nodoc
 mixin _$NavigationState {
   LoadStatus get loadStatus => throw _privateConstructorUsedError;
-  Type get routeType => throw _privateConstructorUsedError;
+  String get routeName => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $NavigationStateCopyWith<NavigationState> get copyWith =>
@@ -45,7 +45,7 @@ abstract class $NavigationStateCopyWith<$Res> {
   factory $NavigationStateCopyWith(
           NavigationState value, $Res Function(NavigationState) then) =
       _$NavigationStateCopyWithImpl<$Res>;
-  $Res call({LoadStatus loadStatus, Type routeType});
+  $Res call({LoadStatus loadStatus, String routeName});
 
   $LoadStatusCopyWith<$Res> get loadStatus;
 }
@@ -62,17 +62,17 @@ class _$NavigationStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? loadStatus = freezed,
-    Object? routeType = freezed,
+    Object? routeName = freezed,
   }) {
     return _then(_value.copyWith(
       loadStatus: loadStatus == freezed
           ? _value.loadStatus
           : loadStatus // ignore: cast_nullable_to_non_nullable
               as LoadStatus,
-      routeType: routeType == freezed
-          ? _value.routeType
-          : routeType // ignore: cast_nullable_to_non_nullable
-              as Type,
+      routeName: routeName == freezed
+          ? _value.routeName
+          : routeName // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 
@@ -91,7 +91,7 @@ abstract class _$NavigationStateCopyWith<$Res>
           _NavigationState value, $Res Function(_NavigationState) then) =
       __$NavigationStateCopyWithImpl<$Res>;
   @override
-  $Res call({LoadStatus loadStatus, Type routeType});
+  $Res call({LoadStatus loadStatus, String routeName});
 
   @override
   $LoadStatusCopyWith<$Res> get loadStatus;
@@ -111,17 +111,17 @@ class __$NavigationStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? loadStatus = freezed,
-    Object? routeType = freezed,
+    Object? routeName = freezed,
   }) {
     return _then(_NavigationState(
       loadStatus: loadStatus == freezed
           ? _value.loadStatus
           : loadStatus // ignore: cast_nullable_to_non_nullable
               as LoadStatus,
-      routeType: routeType == freezed
-          ? _value.routeType
-          : routeType // ignore: cast_nullable_to_non_nullable
-              as Type,
+      routeName: routeName == freezed
+          ? _value.routeName
+          : routeName // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -129,16 +129,16 @@ class __$NavigationStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_NavigationState implements _NavigationState {
-  const _$_NavigationState({required this.loadStatus, required this.routeType});
+  const _$_NavigationState({required this.loadStatus, required this.routeName});
 
   @override
   final LoadStatus loadStatus;
   @override
-  final Type routeType;
+  final String routeName;
 
   @override
   String toString() {
-    return 'NavigationState(loadStatus: $loadStatus, routeType: $routeType)';
+    return 'NavigationState(loadStatus: $loadStatus, routeName: $routeName)';
   }
 
   @override
@@ -148,14 +148,14 @@ class _$_NavigationState implements _NavigationState {
             other is _NavigationState &&
             const DeepCollectionEquality()
                 .equals(other.loadStatus, loadStatus) &&
-            const DeepCollectionEquality().equals(other.routeType, routeType));
+            const DeepCollectionEquality().equals(other.routeName, routeName));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(loadStatus),
-      const DeepCollectionEquality().hash(routeType));
+      const DeepCollectionEquality().hash(routeName));
 
   @JsonKey(ignore: true)
   @override
@@ -166,12 +166,12 @@ class _$_NavigationState implements _NavigationState {
 abstract class _NavigationState implements NavigationState {
   const factory _NavigationState(
       {required LoadStatus loadStatus,
-      required Type routeType}) = _$_NavigationState;
+      required String routeName}) = _$_NavigationState;
 
   @override
   LoadStatus get loadStatus;
   @override
-  Type get routeType;
+  String get routeName;
   @override
   @JsonKey(ignore: true)
   _$NavigationStateCopyWith<_NavigationState> get copyWith =>

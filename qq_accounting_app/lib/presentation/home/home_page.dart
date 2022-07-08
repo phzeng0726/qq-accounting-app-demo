@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:qq_accounting_app/application/core/navigation/navigation_cubit.dart';
+import 'package:qq_accounting_app/presentation/home/widgets/home_drawer.dart';
 
 import '../../application/accounts/account_form/account_form_cubit.dart';
 import '../../application/accounts/account_watcher/account_watcher_cubit.dart';
@@ -30,39 +31,11 @@ class HomePage extends StatelessWidget {
             context.read<AccountWatcherCubit>().fetchAccounts();
           },
         ),
-        BlocListener<AccountWatcherCubit, AccountWatcherState>(
-          listenWhen: (p, c) =>
-              p.selectedAccountOption != c.selectedAccountOption,
-          listener: (context, state) {
-            final DateTime now = DateTime.now();
-            state.selectedAccountOption.fold(
-              () => null,
-              (account) {
-                context.read<NoteWatcherCubit>().selectedAccount(account);
-                context.read<StatisticChartCubit>().selectedAccount(account);
-                context
-                    .read<NoteWatcherCubit>()
-                    .getSingleDayStarted(dateTime: now);
-                context
-                    .read<NoteWatcherCubit>()
-                    .getDailyAmountStarted(dateTime: now);
-
-                context.read<StatisticChartCubit>().getSingleDayStarted(
-                    amountType:
-                        context.read<StatisticChartCubit>().state.amountType,
-                    dateTime: now);
-                context.pushRoute(NoteOverviewRoute(
-                  accountId: account.id,
-                  accountName: account.title,
-                ));
-              },
-            );
-          },
-        ),
       ],
       child: BlocBuilder<AccountWatcherCubit, AccountWatcherState>(
         builder: (context, state) {
           return Scaffold(
+            drawer: const HomeDrawer(),
             appBar: AppBar(
               automaticallyImplyLeading: false,
               title: Text(FlutterI18n.translate(context, "home.title")),
@@ -75,9 +48,8 @@ class HomePage extends StatelessWidget {
                           initialAccount: Account.empty(),
                           isEditing: false,
                         );
-                    context
-                        .read<NavigationCubit>()
-                        .pushChanged(AccountFormRoute);
+                    context.pushRoute(const AccountFormRoute());
+                    context.read<NavigationCubit>().pushOrPopPage();
                   },
                   icon: const Icon(Icons.add),
                 ),

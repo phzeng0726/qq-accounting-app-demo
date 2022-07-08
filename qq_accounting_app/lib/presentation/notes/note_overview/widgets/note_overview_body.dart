@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 import '../../../../application/notes/note_watcher/note_watcher_cubit.dart';
 import '../../../core/widgets/load_status_screen.dart';
@@ -27,12 +28,18 @@ class NoteOverviewBody extends StatelessWidget {
                               .read<NoteWatcherCubit>()
                               .onDaySelected(DateTime.now(), DateTime.now());
                         },
-                        child: const Text('返回當日'))
+                        child: Text(
+                          FlutterI18n.translate(context,
+                              "note.overview.returnToday"),
+                        ))
                   ],
                   const ManualCalendar(),
                   ExpansionTile(
                     initiallyExpanded: true,
-                    title: const Text('日明細'),
+                    title: Text(
+                      FlutterI18n.translate(
+                          context, "note.overview.dailyDetailExpansionTitle"),
+                    ),
                     subtitle: const DailyTotalRow(),
                     leading: const Icon(Icons.receipt_long_outlined),
                     children: List.generate(
@@ -42,16 +49,20 @@ class NoteOverviewBody extends StatelessWidget {
                             )),
                   ),
                   ExpansionTile(
-                      initiallyExpanded: true,
-                      title: const Text('日統計'),
-                      leading: const Icon(Icons.data_usage_outlined),
-                      // trailing: ,
-                      children: [
-                        const AmountTypeSwitchButton(),
-                        AmountCircularChart(
-                          notes: state.notes,
-                        )
-                      ]),
+                    initiallyExpanded: true,
+                    title: Text(
+                      FlutterI18n.translate(context,
+                          "note.overview.dailyStatisticsExpansionTitle"),
+                    ),
+                    leading: const Icon(Icons.data_usage_outlined),
+                    // trailing: ,
+                    children: [
+                      const AmountTypeSwitchButton(),
+                      AmountCircularChart(
+                        notes: state.notes,
+                      )
+                    ],
+                  ),
                 ],
               ),
             ),

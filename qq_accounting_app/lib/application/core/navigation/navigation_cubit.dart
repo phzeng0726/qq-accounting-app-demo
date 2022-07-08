@@ -8,14 +8,17 @@ part 'navigation_state.dart';
 class NavigationCubit extends Cubit<NavigationState> {
   NavigationCubit() : super(NavigationState.initial());
 
-  void pushPage() async {
+  void pageInitialized() async {
+    await Future.delayed(const Duration(seconds: 2));
+
     emit(
       state.copyWith(
-        loadStatus: const LoadStatus.inProgress(),
+        loadStatus: const LoadStatus.initial(),
       ),
     );
-    await Future.delayed(const Duration(seconds: 1));
+  }
 
+  void pushOrPopPage() async {
     emit(
       state.copyWith(
         loadStatus: const LoadStatus.succeed(),
@@ -23,14 +26,15 @@ class NavigationCubit extends Cubit<NavigationState> {
     );
   }
 
-  void pushChanged(Type routeType) async {
+  void pageChanged(String routeName) async {
     emit(
       state.copyWith(
-        routeType: routeType,
+        loadStatus: const LoadStatus.inProgress(),
+        routeName: routeName,
       ),
     );
-    
-    pushPage();
+
+    pushOrPopPage();
   }
 
   @override

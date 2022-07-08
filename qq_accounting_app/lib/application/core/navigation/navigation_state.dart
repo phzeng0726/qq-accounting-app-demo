@@ -4,12 +4,12 @@ part of 'navigation_cubit.dart';
 abstract class NavigationState with _$NavigationState {
   const factory NavigationState({
     required LoadStatus loadStatus,
-    required Type routeType,
+    required String routeName,
   }) = _NavigationState;
 
   factory NavigationState.initial() => const NavigationState(
-        loadStatus: LoadStatus.initial(),
-        routeType: Type,
+        loadStatus: LoadStatus.failed(),
+        routeName: '',
       );
 }
 

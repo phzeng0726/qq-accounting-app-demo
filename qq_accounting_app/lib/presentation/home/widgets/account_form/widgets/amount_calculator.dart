@@ -1,9 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:math_expressions/math_expressions.dart';
-import 'package:qq_accounting_app/application/accounts/account_form/account_form_cubit.dart';
 
+import '../../../../../application/accounts/account_form/account_form_cubit.dart';
+import '../../../../../application/core/navigation/navigation_cubit.dart';
 
 class AmountCalculator extends StatelessWidget {
   const AmountCalculator({Key? key}) : super(key: key);
@@ -164,8 +166,10 @@ class AmountCalculator extends StatelessWidget {
                                 .read<AccountFormCubit>()
                                 .initialAmountSaved(state.tempAmount);
                             context.router.pop();
+                            context.read<NavigationCubit>().pushOrPopPage();
                           },
-                          child: const Text('完成'), // TODO 只有送出的時候才要改popup外的那個金額
+                          child: Text(FlutterI18n.translate(context,
+                              "accountForm.amountCalculatorSavedButtonText")), // TODO 只有送出的時候才要改popup外的那個金額
                         ),
                       ],
                     ),

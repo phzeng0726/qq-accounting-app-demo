@@ -1,5 +1,7 @@
 {
     "appTitle": "記帳本Demo",
+    "income": "收入",
+    "expense": "支出",
     "home": {
         "title": "帳戶首頁",
         "emptyAccountListNotice": "帳戶列表為空！快來新增你的第一個帳戶吧！",
@@ -11,6 +13,14 @@
             "initialAmount": "初始金額"
         }
     },
+    "accountForm": {
+        "titleBoxHint": "未輸入",
+        "amountCalculatorSavedButtonText": "完成",
+        "accountNameTitle": "帳戶名稱",
+        "currencyTypeTitle": "幣別",
+        "initialAmountTitle": "初始金額",
+        "accountFormSavedButtonText": "確定"
+    },
     "note": {
         "title": "記帳首頁",
         "form": {
@@ -21,6 +31,11 @@
                 "insufficientBalance ": "帳戶餘額不足",
                 "unexpected": "未知的錯誤"
             }
+        },
+        "overview": {
+            "returnToday": "返回當日",
+            "dailyDetailExpansionTitle": "日明細",
+            "dailyStatisticsExpansionTitle": "日統計"
         }
     }
 }

@@ -27,7 +27,7 @@ class AppWidget extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (_) => NavigationCubit()..pushPage(),
+            create: (_) => NavigationCubit()..pageInitialized(),
           ),
           BlocProvider(
             create: (_) => ThemeCubit(),
