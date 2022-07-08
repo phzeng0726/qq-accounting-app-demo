@@ -4,7 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
 import '../../../../application/accounts/account_form/account_form_cubit.dart';
+import '../../../../application/core/navigation/navigation_cubit.dart';
 import '../../../../domain/accounts/account.dart';
+import '../../../routes/router.gr.dart';
 import 'widgets/account_form_table.dart';
 
 class AccountFormPage extends StatelessWidget {
@@ -17,6 +19,13 @@ class AccountFormPage extends StatelessWidget {
       Account account = context.read<AccountFormCubit>().state.account;
       return Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+            onPressed: () =>
+                context.read<NavigationCubit>().pushChanged(HomeRoute),
+            icon: const Icon(
+              Icons.arrow_back_ios,
+            ),
+          ),
           title: Text(state.isEditing
               ? FlutterI18n.translate(context, "home.accountForm.editTitle")
               : FlutterI18n.translate(context, "home.accountForm.createTitle")),

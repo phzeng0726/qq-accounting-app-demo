@@ -18,8 +18,10 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$NavigationStateTearOff {
   const _$NavigationStateTearOff();
 
-  _NavigationState call({required String routeType}) {
+  _NavigationState call(
+      {required LoadStatus loadStatus, required Type routeType}) {
     return _NavigationState(
+      loadStatus: loadStatus,
       routeType: routeType,
     );
   }
@@ -30,7 +32,8 @@ const $NavigationState = _$NavigationStateTearOff();
 
 /// @nodoc
 mixin _$NavigationState {
-  String get routeType => throw _privateConstructorUsedError;
+  LoadStatus get loadStatus => throw _privateConstructorUsedError;
+  Type get routeType => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $NavigationStateCopyWith<NavigationState> get copyWith =>
@@ -42,7 +45,9 @@ abstract class $NavigationStateCopyWith<$Res> {
   factory $NavigationStateCopyWith(
           NavigationState value, $Res Function(NavigationState) then) =
       _$NavigationStateCopyWithImpl<$Res>;
-  $Res call({String routeType});
+  $Res call({LoadStatus loadStatus, Type routeType});
+
+  $LoadStatusCopyWith<$Res> get loadStatus;
 }
 
 /// @nodoc
@@ -56,14 +61,26 @@ class _$NavigationStateCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? loadStatus = freezed,
     Object? routeType = freezed,
   }) {
     return _then(_value.copyWith(
+      loadStatus: loadStatus == freezed
+          ? _value.loadStatus
+          : loadStatus // ignore: cast_nullable_to_non_nullable
+              as LoadStatus,
       routeType: routeType == freezed
           ? _value.routeType
           : routeType // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Type,
     ));
+  }
+
+  @override
+  $LoadStatusCopyWith<$Res> get loadStatus {
+    return $LoadStatusCopyWith<$Res>(_value.loadStatus, (value) {
+      return _then(_value.copyWith(loadStatus: value));
+    });
   }
 }
 
@@ -74,7 +91,10 @@ abstract class _$NavigationStateCopyWith<$Res>
           _NavigationState value, $Res Function(_NavigationState) then) =
       __$NavigationStateCopyWithImpl<$Res>;
   @override
-  $Res call({String routeType});
+  $Res call({LoadStatus loadStatus, Type routeType});
+
+  @override
+  $LoadStatusCopyWith<$Res> get loadStatus;
 }
 
 /// @nodoc
@@ -90,13 +110,18 @@ class __$NavigationStateCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? loadStatus = freezed,
     Object? routeType = freezed,
   }) {
     return _then(_NavigationState(
+      loadStatus: loadStatus == freezed
+          ? _value.loadStatus
+          : loadStatus // ignore: cast_nullable_to_non_nullable
+              as LoadStatus,
       routeType: routeType == freezed
           ? _value.routeType
           : routeType // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Type,
     ));
   }
 }
@@ -104,14 +129,16 @@ class __$NavigationStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_NavigationState implements _NavigationState {
-  const _$_NavigationState({required this.routeType});
+  const _$_NavigationState({required this.loadStatus, required this.routeType});
 
   @override
-  final String routeType;
+  final LoadStatus loadStatus;
+  @override
+  final Type routeType;
 
   @override
   String toString() {
-    return 'NavigationState(routeType: $routeType)';
+    return 'NavigationState(loadStatus: $loadStatus, routeType: $routeType)';
   }
 
   @override
@@ -119,12 +146,16 @@ class _$_NavigationState implements _NavigationState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _NavigationState &&
+            const DeepCollectionEquality()
+                .equals(other.loadStatus, loadStatus) &&
             const DeepCollectionEquality().equals(other.routeType, routeType));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(routeType));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(loadStatus),
+      const DeepCollectionEquality().hash(routeType));
 
   @JsonKey(ignore: true)
   @override
@@ -133,11 +164,14 @@ class _$_NavigationState implements _NavigationState {
 }
 
 abstract class _NavigationState implements NavigationState {
-  const factory _NavigationState({required String routeType}) =
-      _$_NavigationState;
+  const factory _NavigationState(
+      {required LoadStatus loadStatus,
+      required Type routeType}) = _$_NavigationState;
 
   @override
-  String get routeType;
+  LoadStatus get loadStatus;
+  @override
+  Type get routeType;
   @override
   @JsonKey(ignore: true)
   _$NavigationStateCopyWith<_NavigationState> get copyWith =>

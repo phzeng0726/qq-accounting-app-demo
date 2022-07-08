@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:qq_accounting_app/application/core/navigation/navigation_cubit.dart';
 
 import '../../application/accounts/account_form/account_form_cubit.dart';
 import '../../application/accounts/account_watcher/account_watcher_cubit.dart';
@@ -74,7 +75,9 @@ class HomePage extends StatelessWidget {
                           initialAccount: Account.empty(),
                           isEditing: false,
                         );
-                    context.pushRoute(const AccountFormRoute());
+                    context
+                        .read<NavigationCubit>()
+                        .pushChanged(AccountFormRoute);
                   },
                   icon: const Icon(Icons.add),
                 ),

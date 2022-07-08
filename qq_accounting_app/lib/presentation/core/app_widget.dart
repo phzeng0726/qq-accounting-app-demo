@@ -27,7 +27,7 @@ class AppWidget extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (_) => NavigationCubit(),
+            create: (_) => NavigationCubit()..pushPage(),
           ),
           BlocProvider(
             create: (_) => ThemeCubit(),
@@ -75,7 +75,9 @@ class AppWidget extends StatelessWidget {
                 // GlobalMaterialLocalizations.delegate,
               ],
               supportedLocales: localeMapList.map((map) => map['locale']),
-              routerDelegate: rootRouter.delegate(),
+              routerDelegate: rootRouter.delegate(
+                navigatorObservers: () => [AutoRouteObserver()],  
+              ),
               routeInformationParser: rootRouter.defaultRouteParser(),
             );
           },
