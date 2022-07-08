@@ -1,6 +1,5 @@
 part of 'statistic_chart_cubit.dart';
 
-// TODO: 到時候需要添加Option 確認是否有error
 @freezed
 abstract class StatisticChartState with _$StatisticChartState {
   const factory StatisticChartState({

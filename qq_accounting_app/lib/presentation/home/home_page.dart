@@ -9,7 +9,7 @@ import '../../domain/accounts/account.dart';
 import '../core/widgets/load_status_screen.dart';
 import '../routes/router.gr.dart';
 import 'widgets/account_overview_body.dart';
-import 'widgets/empty_widget.dart';
+import '../core/widgets/empty_widget.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -31,43 +31,44 @@ class HomePage extends StatelessWidget {
       child: BlocBuilder<AccountWatcherCubit, AccountWatcherState>(
         builder: (context, state) {
           return Scaffold(
-            appBar: AppBar(
-              title: Text(FlutterI18n.translate(context, "home.title")),
-              centerTitle: true,
-              actions: [
-                IconButton(
-                  onPressed: () {
-                    // 創新的
-                    context.read<AccountFormCubit>().initAccount(
-                          initialAccount: Account.empty(),
-                          isEditing: false,
-                        );
-                    context.pushRoute(const AccountFormRoute());
-                  },
-                  icon: const Icon(Icons.add),
-                ),
-              ],
-            ),
-            body: Column(
-              children: [
-                Expanded(
-                  child: LoadStatusScreen(
-                    loadStatus: state.status,
-                    succeedScreen: state.accounts.isEmpty
-                        ? EmptyWidget(
-                            key: const Key('__empty__'),
-                            text: FlutterI18n.translate(
-                                context, "home.emptyAccountListNotice"),
-                          )
-                        : AccountOverviewBody(
-                            accountList: state.accounts,
-                            netAmountList: state.netAmountList,
-                          ),
+              appBar: AppBar(
+                automaticallyImplyLeading: false,
+                title: Text(FlutterI18n.translate(context, "home.title")),
+                centerTitle: true,
+                actions: [
+                  IconButton(
+                    onPressed: () {
+                      // 創新的
+                      context.read<AccountFormCubit>().initAccount(
+                            initialAccount: Account.empty(),
+                            isEditing: false,
+                          );
+                      context.pushRoute(const AccountFormRoute());
+                    },
+                    icon: const Icon(Icons.add),
                   ),
-                ),
-              ],
-            ),
-          );
+                ],
+              ),
+              body: Column(
+                children: [
+                  Expanded(
+                    child: LoadStatusScreen(
+                      loadStatus: state.status,
+                      succeedScreen: state.accounts.isEmpty
+                          ? EmptyWidget(
+                              key: const Key('__empty__'),
+                              text: FlutterI18n.translate(
+                                  context, "home.emptyAccountListNotice"),
+                            )
+                          : AccountOverviewBody(
+                              accountList: state.accounts,
+                              netAmountList: state.netAmountList,
+                            ),
+                    ),
+                  ),
+                ],
+              ),
+            );
         },
       ),
     );

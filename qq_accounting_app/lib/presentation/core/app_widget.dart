@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:qq_accounting_app/application/core/navigation/navigation_cubit.dart';
 
 import '../../application/accounts/account_form/account_form_cubit.dart';
 import '../../application/accounts/account_watcher/account_watcher_cubit.dart';
@@ -24,6 +25,9 @@ class AppWidget extends StatelessWidget {
     final rootRouter = RootRouter();
     return MultiBlocProvider(
         providers: [
+          BlocProvider(
+            create: (_) => NavigationCubit(),
+          ),
           BlocProvider(
             create: (_) => ThemeCubit(),
           ),
