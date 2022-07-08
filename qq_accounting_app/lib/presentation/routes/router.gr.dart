@@ -13,8 +13,8 @@
 import 'package:auto_route/auto_route.dart' as _i6;
 import 'package:flutter/material.dart' as _i7;
 
+import '../home/account_form/account_form_page.dart' as _i3;
 import '../home/home_page.dart' as _i2;
-import '../home/widgets/account_form/account_form_page.dart' as _i3;
 import '../notes/note_form/note_form_page.dart' as _i5;
 import '../notes/note_overview/note_overview_page.dart' as _i4;
 import '../splash/splash_page.dart' as _i1;

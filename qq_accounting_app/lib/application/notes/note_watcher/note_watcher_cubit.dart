@@ -176,7 +176,6 @@ class NoteWatcherCubit extends Cubit<NoteWatcherState> {
 
   @override
   Future<void> close() async {
-    // await _noteStreamSubscription?.cancel();
     return super.close();
   }
 }

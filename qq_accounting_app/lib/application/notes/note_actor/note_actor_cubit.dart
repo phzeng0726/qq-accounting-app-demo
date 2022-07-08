@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -14,20 +15,23 @@ class NoteActorCubit extends Cubit<NoteActorState> {
     this._noteRepository,
   ) : super(const NoteActorState.initial());
 
-  // TODO either
   void deleted(int noteId) async {
+    Option<NoteFailure> failureOption;
     emit(const NoteActorState.actionInProgress());
-    await _noteRepository.delete(noteId);
-    emit(const NoteActorState.deleteSuccess());
-    // yield possibleFailure.fold(
-    //   (f) => NoteActorState.deleteFailure(f),
-    //   (_) => const NoteActorState.deleteSuccess(),
-    // );
+    failureOption = await _noteRepository.delete(noteId);
+
+    failureOption.fold(
+      () => emit(
+        const NoteActorState.deleteSuccess(),
+      ),
+      (f) => emit(
+        NoteActorState.deleteFailure(f),
+      ),
+    );
   }
 
   @override
   Future<void> close() async {
     return super.close();
   }
-
 }

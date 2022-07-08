@@ -25,8 +25,6 @@ List<BlocListener> listeners = [
               context.router.current.name,
             );
         return;
-      } else {
-        print(context.router.current.name);
       }
     },
   ),
@@ -59,6 +57,7 @@ List<BlocListener> listeners = [
       );
     },
   ),
+  // NoteOverview
   // 刪除資料後重整頁面
   BlocListener<NoteActorCubit, NoteActorState>(
     listenWhen: (p, c) => p != c && c == const NoteActorState.deleteSuccess(),

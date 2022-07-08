@@ -4,6 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../../constants.dart';
 import '../../../domain/notes/i_note_repository.dart';
 import '../../../domain/notes/note.dart';
 import '../../../domain/notes/note_failure.dart';
@@ -33,12 +34,14 @@ class NoteFormCubit extends Cubit<NoteFormState> {
   }
 
   void amountTypeChanged(String amountType) async {
-    emit(state.copyWith(
-      note: state.note.copyWith(
-        amountType: amountType,
-        category: "尚未選擇", // 初始化類別
+    emit(
+      state.copyWith(
+        note: state.note.copyWith(
+          amountType: amountType,
+          category: Note.empty().category, // 初始化類別
+        ),
       ),
-    ));
+    );
   }
 
   void dateTimeChanged(DateTime dateTime) async {
@@ -104,7 +107,8 @@ class NoteFormCubit extends Cubit<NoteFormState> {
     );
 
     failureAmountValidatorOption.fold(
-      () async { // validating無誤，進入saving階段
+      () async {
+        // validating無誤，進入saving階段
         emit(
           state.copyWith(
             isValidating: false,
@@ -116,12 +120,14 @@ class NoteFormCubit extends Cubit<NoteFormState> {
             : await _noteRepository.create(state.note);
 
         failureSavingOption.fold(
-          () => emit( // 完全無誤
+          () => emit(
+            // 完全無誤
             state.copyWith(
               isSaving: false,
             ),
           ),
-          (f) => emit( // Saving出錯
+          (f) => emit(
+            // Saving出錯
             state.copyWith(
               isSaving: false,
               failureOption: some(f),
@@ -129,7 +135,8 @@ class NoteFormCubit extends Cubit<NoteFormState> {
           ),
         );
       },
-      (f) => emit( // validating出錯
+      (f) => emit(
+        // validating出錯
         state.copyWith(
           isSaving: false,
           isValidating: false,
