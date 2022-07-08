@@ -47,14 +47,6 @@ class NoteFormAppBar extends StatelessWidget with PreferredSizeWidget {
                         "note.form.error.unexpected"),
                   ),
                 ).show(context);
-                //     ValidatorDialog(
-                //   titleStr:
-                //       FlutterI18n.translate(context, "note.form.dialog.title"),
-                //   contentStr: FlutterI18n.translate(context,
-                //       "note.form.dialog.content.amountMustGreaterThan0"),
-                //   buttonStr: FlutterI18n.translate(
-                //       context, "note.form.dialog.buttonText"),
-                // );
               },
             );
           },
