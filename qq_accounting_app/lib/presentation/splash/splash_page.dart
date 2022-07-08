@@ -11,27 +11,21 @@ class SplashPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.pushRoute(const HomeRoute());
-    // print(SplashRoute == NavigationState.initial().routeType);
-
-    return MultiBlocListener(
-      listeners: [
-        BlocListener<NavigationCubit, NavigationState>(
-          listenWhen: (p, c) => c.routeType == SplashRoute,
-          listener: (context, state) {
-            LoggerService.simple.i('NavigationCubit page listening!!');
-            context.read<NavigationCubit>().nav(HomeRoute);
-            // print(context.router.current.name);
-            // if (context.router.current.route == )
-            context.pushRoute(const HomeRoute());
-          },
-        ),
-      ],
-      child: const Scaffold(
-        body: Center(
-          child: CircularProgressIndicator(),
-        ),
-      ),
+    // context.pushRoute(const HomeRoute());
+    // print(SplashRoute.name == context.read<NavigationCubit>().state.routeType);
+    // const String routeName = SplashRoute.name;
+    return BlocConsumer<NavigationCubit, NavigationState>(
+      listenWhen: (p, c) => c.routeType == '',
+      builder: (context, state) {
+        return const Scaffold(
+          body: Center(child: CircularProgressIndicator()),
+        );
+      },
+      listener: (_, state) {
+        LoggerService.simple.i('NavigationCubit page listening!!');
+        context.read<NavigationCubit>().nav(HomeRoute.name);
+        context.pushRoute(const HomeRoute());
+      },
     );
   }
 }

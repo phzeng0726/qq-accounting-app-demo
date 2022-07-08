@@ -27,7 +27,7 @@ class AppWidget extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (_) => NavigationCubit()..nav(SplashRoute),
+            create: (_) => NavigationCubit(),
           ),
           BlocProvider(
             create: (_) => ThemeCubit(),

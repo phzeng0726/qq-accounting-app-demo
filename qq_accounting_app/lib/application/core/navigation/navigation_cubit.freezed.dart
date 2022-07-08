@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$NavigationStateTearOff {
   const _$NavigationStateTearOff();
 
-  _NavigationState call({required Type routeType}) {
+  _NavigationState call({required String routeType}) {
     return _NavigationState(
       routeType: routeType,
     );
@@ -30,7 +30,7 @@ const $NavigationState = _$NavigationStateTearOff();
 
 /// @nodoc
 mixin _$NavigationState {
-  Type get routeType => throw _privateConstructorUsedError;
+  String get routeType => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $NavigationStateCopyWith<NavigationState> get copyWith =>
@@ -42,7 +42,7 @@ abstract class $NavigationStateCopyWith<$Res> {
   factory $NavigationStateCopyWith(
           NavigationState value, $Res Function(NavigationState) then) =
       _$NavigationStateCopyWithImpl<$Res>;
-  $Res call({Type routeType});
+  $Res call({String routeType});
 }
 
 /// @nodoc
@@ -62,7 +62,7 @@ class _$NavigationStateCopyWithImpl<$Res>
       routeType: routeType == freezed
           ? _value.routeType
           : routeType // ignore: cast_nullable_to_non_nullable
-              as Type,
+              as String,
     ));
   }
 }
@@ -74,7 +74,7 @@ abstract class _$NavigationStateCopyWith<$Res>
           _NavigationState value, $Res Function(_NavigationState) then) =
       __$NavigationStateCopyWithImpl<$Res>;
   @override
-  $Res call({Type routeType});
+  $Res call({String routeType});
 }
 
 /// @nodoc
@@ -96,7 +96,7 @@ class __$NavigationStateCopyWithImpl<$Res>
       routeType: routeType == freezed
           ? _value.routeType
           : routeType // ignore: cast_nullable_to_non_nullable
-              as Type,
+              as String,
     ));
   }
 }
@@ -107,7 +107,7 @@ class _$_NavigationState implements _NavigationState {
   const _$_NavigationState({required this.routeType});
 
   @override
-  final Type routeType;
+  final String routeType;
 
   @override
   String toString() {
@@ -133,11 +133,11 @@ class _$_NavigationState implements _NavigationState {
 }
 
 abstract class _NavigationState implements NavigationState {
-  const factory _NavigationState({required Type routeType}) =
+  const factory _NavigationState({required String routeType}) =
       _$_NavigationState;
 
   @override
-  Type get routeType;
+  String get routeType;
   @override
   @JsonKey(ignore: true)
   _$NavigationStateCopyWith<_NavigationState> get copyWith =>
