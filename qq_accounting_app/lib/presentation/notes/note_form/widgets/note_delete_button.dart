@@ -27,7 +27,7 @@ class NoteDeleteButton extends StatelessWidget {
                   onPressed: () {
                     context.read<NoteActorCubit>().deleted(note.id!);
 
-                    context.router.popUntil((route) => route.isFirst);
+                    context.router.navigateBack();
                   },
                   child: const Text('是'),
                 ),

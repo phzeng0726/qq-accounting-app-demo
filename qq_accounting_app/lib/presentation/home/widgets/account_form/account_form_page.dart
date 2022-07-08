@@ -17,21 +17,27 @@ class AccountFormPage extends StatelessWidget {
       Account account = context.read<AccountFormCubit>().state.account;
       return Scaffold(
         appBar: AppBar(
-          title: Text(FlutterI18n.translate(context, "home.accountForm.title")),
+          title: Text(state.isEditing
+              ? FlutterI18n.translate(context, "home.accountForm.editTitle")
+              : FlutterI18n.translate(context, "home.accountForm.createTitle")),
           actions: [
             Align(
               alignment: Alignment.centerRight,
               child: ButtonBar(
                 children: [
-                  IconButton(
-                      onPressed: () {
-                        context.read<AccountFormCubit>().deleteAccount(account);
-                        context.router.pop();
-                      },
-                      icon: const Icon(
-                        Icons.delete,
-                        color: Colors.red,
-                      )),
+                  if (state.isEditing) ...[
+                    IconButton(
+                        onPressed: () {
+                          context
+                              .read<AccountFormCubit>()
+                              .deleteAccount(account);
+                          context.router.pop();
+                        },
+                        icon: const Icon(
+                          Icons.delete,
+                          color: Colors.red,
+                        ))
+                  ],
                   IconButton(
                       onPressed: () {
                         context.read<AccountFormCubit>().saved();
