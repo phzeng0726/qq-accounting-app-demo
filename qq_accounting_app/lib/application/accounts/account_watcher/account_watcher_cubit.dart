@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -53,6 +54,14 @@ class AccountWatcherCubit extends Cubit<AccountWatcherState> {
       ),
       (accountList) => fetchAccountsNetAmount(
         accountList,
+      ),
+    );
+  }
+
+  Future<void> selectedAccount(Account account) async {
+    emit(
+      state.copyWith(
+        selectedAccountOption: some(account)
       ),
     );
   }

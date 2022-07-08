@@ -32,12 +32,20 @@ class NoteFormAppBar extends StatelessWidget with PreferredSizeWidget {
           listenWhen: (p, c) =>
               p.isValidating != c.isValidating &&
               p.failureOption != c.failureOption,
-          listener: (context, state) {
+          listener: (_, state) {
             state.failureOption.fold(
               () => null,
               (failure) {
                 FlushbarHelper.createError(
-                  message: failure.toString(),
+                  message: failure.map(
+                    amountMustGreaterThan0: (_) => FlutterI18n.translate(
+                        context,
+                        "note.form.error.amountMustGreaterThan0"),
+                    insufficientBalance: (_) => FlutterI18n.translate(context,
+                        "note.form.error.insufficientBalance"),
+                    unexpected: (_) => FlutterI18n.translate(context,
+                        "note.form.error.unexpected"),
+                  ),
                 ).show(context);
                 //     ValidatorDialog(
                 //   titleStr:

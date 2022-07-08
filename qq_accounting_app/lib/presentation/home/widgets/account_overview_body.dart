@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qq_accounting_app/application/accounts/account_watcher/account_watcher_cubit.dart';
@@ -22,47 +23,33 @@ class AccountOverviewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AccountWatcherCubit, AccountWatcherState>(
-      builder: (context, state) {
-        return ListView.builder(
-          itemCount: accountList.length,
-          itemBuilder: (context, index) {
-            final account = accountList[index];
-            final accountBalance = netAmountList[index] + account.initialAmount;
+          builder: (context, state) {
+            return ListView.builder(
+              itemCount: accountList.length,
+              itemBuilder: (context, index) {
+                final account = accountList[index];
+                final accountBalance =
+                    netAmountList[index] + account.initialAmount;
 
-            return ListTile(
-              title: Text(account.title),
-              subtitle: Text(account.currencyType),
-              trailing: Text('$dollarSign $accountBalance'),
-              onTap: () {
-                final DateTime now = DateTime.now();
-
-                context.read<NoteWatcherCubit>().selectedAccount(account);
-                context.read<StatisticChartCubit>().selectedAccount(account);
-
-                context
-                    .read<NoteWatcherCubit>()
-                    .getSingleDayStarted(dateTime: now);
-                context
-                    .read<NoteWatcherCubit>()
-                    .getDailyAmountStarted(dateTime: now);
-                context.read<StatisticChartCubit>().getSingleDayStarted(
-                    amountType:
-                        context.read<StatisticChartCubit>().state.amountType,
-                    dateTime: now);
-                context.pushRoute(NoteOverviewRoute(accountId: account.id));
-              },
-              onLongPress: () {
-                // 編輯
-                context.read<AccountFormCubit>().initAccount(
-                      initialAccount: account,
-                      isEditing: true,
-                    );
-                context.pushRoute(const AccountFormRoute());
+                return ListTile(
+                  title: Text(account.title),
+                  subtitle: Text(account.currencyType),
+                  trailing: Text('$dollarSign $accountBalance'),
+                  onTap: () => context
+                      .read<AccountWatcherCubit>()
+                      .selectedAccount(account),
+                  onLongPress: () {
+                    // 編輯
+                    context.read<AccountFormCubit>().initAccount(
+                          initialAccount: account,
+                          isEditing: true,
+                        );
+                    context.pushRoute(const AccountFormRoute());
+                  },
+                );
               },
             );
           },
         );
-      },
-    );
   }
 }

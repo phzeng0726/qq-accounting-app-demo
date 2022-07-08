@@ -41,8 +41,10 @@ class RootRouter extends _i6.RootStackRouter {
       final args = routeData.argsAs<NoteOverviewRouteArgs>();
       return _i6.MaterialPageX<dynamic>(
           routeData: routeData,
-          child:
-              _i4.NoteOverviewPage(key: args.key, accountId: args.accountId));
+          child: _i4.NoteOverviewPage(
+              key: args.key,
+              accountId: args.accountId,
+              accountName: args.accountName));
     },
     NoteFormRoute.name: (routeData) {
       return _i6.MaterialPageX<dynamic>(
@@ -88,24 +90,29 @@ class AccountFormRoute extends _i6.PageRouteInfo<void> {
 /// generated route for
 /// [_i4.NoteOverviewPage]
 class NoteOverviewRoute extends _i6.PageRouteInfo<NoteOverviewRouteArgs> {
-  NoteOverviewRoute({_i7.Key? key, required int? accountId})
+  NoteOverviewRoute(
+      {_i7.Key? key, required int? accountId, required String accountName})
       : super(NoteOverviewRoute.name,
             path: ':accountId',
-            args: NoteOverviewRouteArgs(key: key, accountId: accountId));
+            args: NoteOverviewRouteArgs(
+                key: key, accountId: accountId, accountName: accountName));
 
   static const String name = 'NoteOverviewRoute';
 }
 
 class NoteOverviewRouteArgs {
-  const NoteOverviewRouteArgs({this.key, required this.accountId});
+  const NoteOverviewRouteArgs(
+      {this.key, required this.accountId, required this.accountName});
 
   final _i7.Key? key;
 
   final int? accountId;
 
+  final String accountName;
+
   @override
   String toString() {
-    return 'NoteOverviewRouteArgs{key: $key, accountId: $accountId}';
+    return 'NoteOverviewRouteArgs{key: $key, accountId: $accountId, accountName: $accountName}';
   }
 }
 

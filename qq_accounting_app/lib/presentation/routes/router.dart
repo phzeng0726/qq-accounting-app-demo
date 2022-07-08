@@ -11,7 +11,7 @@ import '../notes/note_form/note_form_page.dart';
   replaceInRouteName: 'Page,Route', // NOTE: 將前者取代為後者，ex: HomePage => HomeRoute
   routes: <AutoRoute>[
     AutoRoute(page: SplashPage, path: '/', initial: true),
-    AutoRoute(page: HomePage, path: '/home', initial: true),
+    AutoRoute(page: HomePage, path: '/home'),
     AutoRoute(page: AccountFormPage),
     AutoRoute(page: NoteOverviewPage, path: ':accountId'),
     AutoRoute(page: NoteFormPage, path: ':accountId/form')

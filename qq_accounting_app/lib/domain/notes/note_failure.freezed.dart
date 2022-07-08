@@ -18,10 +18,16 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$NoteFailureTearOff {
   const _$NoteFailureTearOff();
 
-  _Api api(String? errorMessage) {
-    return _Api(
-      errorMessage,
-    );
+  _AmountMustGreaterThan0 amountMustGreaterThan0() {
+    return const _AmountMustGreaterThan0();
+  }
+
+  _InsufficientBalance insufficientBalance() {
+    return const _InsufficientBalance();
+  }
+
+  _Unexpected unexpected() {
+    return const _Unexpected();
   }
 }
 
@@ -30,43 +36,50 @@ const $NoteFailure = _$NoteFailureTearOff();
 
 /// @nodoc
 mixin _$NoteFailure {
-  String? get errorMessage => throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String? errorMessage) api,
+    required TResult Function() amountMustGreaterThan0,
+    required TResult Function() insufficientBalance,
+    required TResult Function() unexpected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String? errorMessage)? api,
+    TResult Function()? amountMustGreaterThan0,
+    TResult Function()? insufficientBalance,
+    TResult Function()? unexpected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? errorMessage)? api,
+    TResult Function()? amountMustGreaterThan0,
+    TResult Function()? insufficientBalance,
+    TResult Function()? unexpected,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Api value) api,
+    required TResult Function(_AmountMustGreaterThan0 value)
+        amountMustGreaterThan0,
+    required TResult Function(_InsufficientBalance value) insufficientBalance,
+    required TResult Function(_Unexpected value) unexpected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Api value)? api,
+    TResult Function(_AmountMustGreaterThan0 value)? amountMustGreaterThan0,
+    TResult Function(_InsufficientBalance value)? insufficientBalance,
+    TResult Function(_Unexpected value)? unexpected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Api value)? api,
+    TResult Function(_AmountMustGreaterThan0 value)? amountMustGreaterThan0,
+    TResult Function(_InsufficientBalance value)? insufficientBalance,
+    TResult Function(_Unexpected value)? unexpected,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $NoteFailureCopyWith<NoteFailure> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -75,7 +88,6 @@ abstract class $NoteFailureCopyWith<$Res> {
   factory $NoteFailureCopyWith(
           NoteFailure value, $Res Function(NoteFailure) then) =
       _$NoteFailureCopyWithImpl<$Res>;
-  $Res call({String? errorMessage});
 }
 
 /// @nodoc
@@ -85,105 +97,76 @@ class _$NoteFailureCopyWithImpl<$Res> implements $NoteFailureCopyWith<$Res> {
   final NoteFailure _value;
   // ignore: unused_field
   final $Res Function(NoteFailure) _then;
-
-  @override
-  $Res call({
-    Object? errorMessage = freezed,
-  }) {
-    return _then(_value.copyWith(
-      errorMessage: errorMessage == freezed
-          ? _value.errorMessage
-          : errorMessage // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
-  }
 }
 
 /// @nodoc
-abstract class _$ApiCopyWith<$Res> implements $NoteFailureCopyWith<$Res> {
-  factory _$ApiCopyWith(_Api value, $Res Function(_Api) then) =
-      __$ApiCopyWithImpl<$Res>;
-  @override
-  $Res call({String? errorMessage});
+abstract class _$AmountMustGreaterThan0CopyWith<$Res> {
+  factory _$AmountMustGreaterThan0CopyWith(_AmountMustGreaterThan0 value,
+          $Res Function(_AmountMustGreaterThan0) then) =
+      __$AmountMustGreaterThan0CopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$ApiCopyWithImpl<$Res> extends _$NoteFailureCopyWithImpl<$Res>
-    implements _$ApiCopyWith<$Res> {
-  __$ApiCopyWithImpl(_Api _value, $Res Function(_Api) _then)
-      : super(_value, (v) => _then(v as _Api));
+class __$AmountMustGreaterThan0CopyWithImpl<$Res>
+    extends _$NoteFailureCopyWithImpl<$Res>
+    implements _$AmountMustGreaterThan0CopyWith<$Res> {
+  __$AmountMustGreaterThan0CopyWithImpl(_AmountMustGreaterThan0 _value,
+      $Res Function(_AmountMustGreaterThan0) _then)
+      : super(_value, (v) => _then(v as _AmountMustGreaterThan0));
 
   @override
-  _Api get _value => super._value as _Api;
-
-  @override
-  $Res call({
-    Object? errorMessage = freezed,
-  }) {
-    return _then(_Api(
-      errorMessage == freezed
-          ? _value.errorMessage
-          : errorMessage // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
-  }
+  _AmountMustGreaterThan0 get _value => super._value as _AmountMustGreaterThan0;
 }
 
 /// @nodoc
 
-class _$_Api extends _Api {
-  const _$_Api(this.errorMessage) : super._();
-
-  @override
-  final String? errorMessage;
+class _$_AmountMustGreaterThan0 extends _AmountMustGreaterThan0 {
+  const _$_AmountMustGreaterThan0() : super._();
 
   @override
   String toString() {
-    return 'NoteFailure.api(errorMessage: $errorMessage)';
+    return 'NoteFailure.amountMustGreaterThan0()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _Api &&
-            const DeepCollectionEquality()
-                .equals(other.errorMessage, errorMessage));
+        (other.runtimeType == runtimeType && other is _AmountMustGreaterThan0);
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(errorMessage));
-
-  @JsonKey(ignore: true)
-  @override
-  _$ApiCopyWith<_Api> get copyWith =>
-      __$ApiCopyWithImpl<_Api>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String? errorMessage) api,
+    required TResult Function() amountMustGreaterThan0,
+    required TResult Function() insufficientBalance,
+    required TResult Function() unexpected,
   }) {
-    return api(errorMessage);
+    return amountMustGreaterThan0();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String? errorMessage)? api,
+    TResult Function()? amountMustGreaterThan0,
+    TResult Function()? insufficientBalance,
+    TResult Function()? unexpected,
   }) {
-    return api?.call(errorMessage);
+    return amountMustGreaterThan0?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? errorMessage)? api,
+    TResult Function()? amountMustGreaterThan0,
+    TResult Function()? insufficientBalance,
+    TResult Function()? unexpected,
     required TResult orElse(),
   }) {
-    if (api != null) {
-      return api(errorMessage);
+    if (amountMustGreaterThan0 != null) {
+      return amountMustGreaterThan0();
     }
     return orElse();
   }
@@ -191,39 +174,265 @@ class _$_Api extends _Api {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Api value) api,
+    required TResult Function(_AmountMustGreaterThan0 value)
+        amountMustGreaterThan0,
+    required TResult Function(_InsufficientBalance value) insufficientBalance,
+    required TResult Function(_Unexpected value) unexpected,
   }) {
-    return api(this);
+    return amountMustGreaterThan0(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Api value)? api,
+    TResult Function(_AmountMustGreaterThan0 value)? amountMustGreaterThan0,
+    TResult Function(_InsufficientBalance value)? insufficientBalance,
+    TResult Function(_Unexpected value)? unexpected,
   }) {
-    return api?.call(this);
+    return amountMustGreaterThan0?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Api value)? api,
+    TResult Function(_AmountMustGreaterThan0 value)? amountMustGreaterThan0,
+    TResult Function(_InsufficientBalance value)? insufficientBalance,
+    TResult Function(_Unexpected value)? unexpected,
     required TResult orElse(),
   }) {
-    if (api != null) {
-      return api(this);
+    if (amountMustGreaterThan0 != null) {
+      return amountMustGreaterThan0(this);
     }
     return orElse();
   }
 }
 
-abstract class _Api extends NoteFailure {
-  const factory _Api(String? errorMessage) = _$_Api;
-  const _Api._() : super._();
+abstract class _AmountMustGreaterThan0 extends NoteFailure {
+  const factory _AmountMustGreaterThan0() = _$_AmountMustGreaterThan0;
+  const _AmountMustGreaterThan0._() : super._();
+}
+
+/// @nodoc
+abstract class _$InsufficientBalanceCopyWith<$Res> {
+  factory _$InsufficientBalanceCopyWith(_InsufficientBalance value,
+          $Res Function(_InsufficientBalance) then) =
+      __$InsufficientBalanceCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$InsufficientBalanceCopyWithImpl<$Res>
+    extends _$NoteFailureCopyWithImpl<$Res>
+    implements _$InsufficientBalanceCopyWith<$Res> {
+  __$InsufficientBalanceCopyWithImpl(
+      _InsufficientBalance _value, $Res Function(_InsufficientBalance) _then)
+      : super(_value, (v) => _then(v as _InsufficientBalance));
 
   @override
-  String? get errorMessage;
+  _InsufficientBalance get _value => super._value as _InsufficientBalance;
+}
+
+/// @nodoc
+
+class _$_InsufficientBalance extends _InsufficientBalance {
+  const _$_InsufficientBalance() : super._();
+
   @override
-  @JsonKey(ignore: true)
-  _$ApiCopyWith<_Api> get copyWith => throw _privateConstructorUsedError;
+  String toString() {
+    return 'NoteFailure.insufficientBalance()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _InsufficientBalance);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() amountMustGreaterThan0,
+    required TResult Function() insufficientBalance,
+    required TResult Function() unexpected,
+  }) {
+    return insufficientBalance();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? amountMustGreaterThan0,
+    TResult Function()? insufficientBalance,
+    TResult Function()? unexpected,
+  }) {
+    return insufficientBalance?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? amountMustGreaterThan0,
+    TResult Function()? insufficientBalance,
+    TResult Function()? unexpected,
+    required TResult orElse(),
+  }) {
+    if (insufficientBalance != null) {
+      return insufficientBalance();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_AmountMustGreaterThan0 value)
+        amountMustGreaterThan0,
+    required TResult Function(_InsufficientBalance value) insufficientBalance,
+    required TResult Function(_Unexpected value) unexpected,
+  }) {
+    return insufficientBalance(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_AmountMustGreaterThan0 value)? amountMustGreaterThan0,
+    TResult Function(_InsufficientBalance value)? insufficientBalance,
+    TResult Function(_Unexpected value)? unexpected,
+  }) {
+    return insufficientBalance?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_AmountMustGreaterThan0 value)? amountMustGreaterThan0,
+    TResult Function(_InsufficientBalance value)? insufficientBalance,
+    TResult Function(_Unexpected value)? unexpected,
+    required TResult orElse(),
+  }) {
+    if (insufficientBalance != null) {
+      return insufficientBalance(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _InsufficientBalance extends NoteFailure {
+  const factory _InsufficientBalance() = _$_InsufficientBalance;
+  const _InsufficientBalance._() : super._();
+}
+
+/// @nodoc
+abstract class _$UnexpectedCopyWith<$Res> {
+  factory _$UnexpectedCopyWith(
+          _Unexpected value, $Res Function(_Unexpected) then) =
+      __$UnexpectedCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$UnexpectedCopyWithImpl<$Res> extends _$NoteFailureCopyWithImpl<$Res>
+    implements _$UnexpectedCopyWith<$Res> {
+  __$UnexpectedCopyWithImpl(
+      _Unexpected _value, $Res Function(_Unexpected) _then)
+      : super(_value, (v) => _then(v as _Unexpected));
+
+  @override
+  _Unexpected get _value => super._value as _Unexpected;
+}
+
+/// @nodoc
+
+class _$_Unexpected extends _Unexpected {
+  const _$_Unexpected() : super._();
+
+  @override
+  String toString() {
+    return 'NoteFailure.unexpected()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _Unexpected);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() amountMustGreaterThan0,
+    required TResult Function() insufficientBalance,
+    required TResult Function() unexpected,
+  }) {
+    return unexpected();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? amountMustGreaterThan0,
+    TResult Function()? insufficientBalance,
+    TResult Function()? unexpected,
+  }) {
+    return unexpected?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? amountMustGreaterThan0,
+    TResult Function()? insufficientBalance,
+    TResult Function()? unexpected,
+    required TResult orElse(),
+  }) {
+    if (unexpected != null) {
+      return unexpected();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_AmountMustGreaterThan0 value)
+        amountMustGreaterThan0,
+    required TResult Function(_InsufficientBalance value) insufficientBalance,
+    required TResult Function(_Unexpected value) unexpected,
+  }) {
+    return unexpected(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_AmountMustGreaterThan0 value)? amountMustGreaterThan0,
+    TResult Function(_InsufficientBalance value)? insufficientBalance,
+    TResult Function(_Unexpected value)? unexpected,
+  }) {
+    return unexpected?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_AmountMustGreaterThan0 value)? amountMustGreaterThan0,
+    TResult Function(_InsufficientBalance value)? insufficientBalance,
+    TResult Function(_Unexpected value)? unexpected,
+    required TResult orElse(),
+  }) {
+    if (unexpected != null) {
+      return unexpected(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Unexpected extends NoteFailure {
+  const factory _Unexpected() = _$_Unexpected;
+  const _Unexpected._() : super._();
 }

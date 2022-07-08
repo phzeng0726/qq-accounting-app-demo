@@ -16,9 +16,11 @@ import '../../routes/router.gr.dart';
 // TODO 明細金額無法顯示
 class NoteOverviewPage extends StatelessWidget {
   final int? accountId;
+  final String accountName;
   const NoteOverviewPage({
     Key? key,
     required this.accountId,
+    required this.accountName,
   }) : super(key: key);
 
   @override

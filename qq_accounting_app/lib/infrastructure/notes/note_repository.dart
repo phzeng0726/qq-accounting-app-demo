@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
+import 'package:qq_accounting_app/domain/core/logger.dart';
 
 import '../../domain/notes/i_note_repository.dart';
 import '../../domain/notes/note.dart';
@@ -31,7 +32,8 @@ class NoteRepository implements INoteRepository {
           result.map((note) => NoteDto.fromJson(note).toDomain()).toList();
       return right(notes);
     } catch (e) {
-      return left(NoteFailure.api(e.toString()));
+      LoggerService.simple.i(e);
+      return left(const NoteFailure.unexpected());
     }
   }
 
@@ -65,14 +67,15 @@ class NoteRepository implements INoteRepository {
       int accountBalance = initialAmount + netAmount;
 
       if (note.amount <= 0) {
-        return some(const NoteFailure.api('amountMustGreaterThan0'));
+        return some(const NoteFailure.amountMustGreaterThan0());
       } else if (note.amountType == 'expense' && note.amount > accountBalance) {
-        return some(const NoteFailure.api('insufficientBalance'));
+        return some(const NoteFailure.insufficientBalance());
       } else {
         return none();
       }
     } catch (e) {
-      return some(NoteFailure.api(e.toString()));
+      LoggerService.simple.i(e);
+      return some(const NoteFailure.unexpected());
     }
   }
 
@@ -100,7 +103,8 @@ class NoteRepository implements INoteRepository {
 
       return right(totalAmount);
     } catch (e) {
-      return left(NoteFailure.api(e.toString()));
+      LoggerService.simple.i(e);
+      return left(const NoteFailure.unexpected());
     }
   }
 
@@ -123,13 +127,13 @@ class NoteRepository implements INoteRepository {
           result.map((note) => NoteDto.fromJson(note).toDomain()).toList();
       return right(notes);
     } catch (e) {
-      return left(NoteFailure.api(e.toString()));
+      LoggerService.simple.i(e);
+      return left(const NoteFailure.unexpected());
     }
   }
 
   @override
-  Future<Either<NoteFailure, int>>
-      getTotalAmountByAmountTypeDuringPeriod(
+  Future<Either<NoteFailure, int>> getTotalAmountByAmountTypeDuringPeriod(
     int accountId,
     String amountType,
     String startTime,
@@ -154,7 +158,8 @@ class NoteRepository implements INoteRepository {
 
       return right(totalAmount);
     } catch (e) {
-      return left(NoteFailure.api(e.toString()));
+      LoggerService.simple.i(e);
+      return left(const NoteFailure.unexpected());
     }
   }
 
@@ -168,7 +173,8 @@ class NoteRepository implements INoteRepository {
       await db.insert("notes", noteDto.toJson());
       return none();
     } catch (e) {
-      return some(NoteFailure.api(e.toString()));
+      LoggerService.simple.i(e);
+      return some(const NoteFailure.unexpected());
     }
   }
 
@@ -182,7 +188,8 @@ class NoteRepository implements INoteRepository {
           where: "id = ?", whereArgs: [note.id]);
       return none();
     } catch (e) {
-      return some(NoteFailure.api(e.toString()));
+      LoggerService.simple.i(e);
+      return some(const NoteFailure.unexpected());
     }
   }
 
@@ -194,7 +201,8 @@ class NoteRepository implements INoteRepository {
       await db.delete("notes", where: "id = ?", whereArgs: [noteId]);
       return none();
     } catch (e) {
-      return some(NoteFailure.api(e.toString()));
+      LoggerService.simple.i(e);
+      return some(const NoteFailure.unexpected());
     }
   }
 }
