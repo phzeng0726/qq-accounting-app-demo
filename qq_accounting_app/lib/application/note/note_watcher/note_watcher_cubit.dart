@@ -71,7 +71,7 @@ class NoteWatcherCubit extends Cubit<NoteWatcherState> {
     required DateTime dateTime,
   }) async {
     // NOTE: sqflite疑似只能用yyyy-mm-dd篩選
-    String day =DeviceTimeStamp(dateTime).toDayString();
+    String day = DeviceTimeStamp(dateTime).toDayString();
     Either<NoteFailure, List<Note>> failureOrNoteList;
 
     failureOrNoteList = await _noteRepository.getNotesDuringPeriod(

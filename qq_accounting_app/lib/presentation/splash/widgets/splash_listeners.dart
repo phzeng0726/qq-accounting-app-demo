@@ -1,4 +1,6 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:dartz/dartz.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../application/account/account_watcher/account_watcher_cubit.dart';
@@ -10,6 +12,26 @@ import '../../../application/note/note_watcher/note_watcher_cubit.dart';
 import '../../../domain/core/load_status.dart';
 import '../../../domain/core/logger.dart';
 import '../../routes/router.gr.dart';
+
+void refreshNoteAndChart({
+  required BuildContext context,
+  required DateTime dateTime,
+  required String amountType,
+}) {
+  // 重抓 noteList 與 dailyAmount
+  context.read<NoteWatcherCubit>().getSingleDayStarted(
+        dateTime: dateTime,
+      );
+  context.read<NoteWatcherCubit>().getDailyAmountStarted(
+        dateTime: dateTime,
+      );
+
+  // 重抓當日圖表
+  context.read<StatisticChartCubit>().getSingleDayStarted(
+        amountType: amountType,
+        dateTime: dateTime,
+      );
+}
 
 List<BlocListener> listeners = [
   // NOTE: 在APP重啟的時候幫忙回復狀態
@@ -57,46 +79,39 @@ List<BlocListener> listeners = [
       );
     },
   ),
-  // NoteOverview
+  // NOTE: NoteOverview
   // 刪除資料後重整頁面
   BlocListener<NoteActorCubit, NoteActorState>(
     listenWhen: (p, c) => p != c && c == const NoteActorState.deleteSuccess(),
     listener: (context, state) {
       DateTime noteFormDateTime =
           context.read<NoteFormCubit>().state.note.dateTime;
-      // 重整notes
+      // 重抓 noteList 與 dailyAmount
       context.read<NoteWatcherCubit>().getSingleDayStarted(
             dateTime: noteFormDateTime,
           );
       context.read<NoteWatcherCubit>().getDailyAmountStarted(
             dateTime: noteFormDateTime,
           );
-      // 重整圖表
+
+      // 重抓當日圖表
       context.read<StatisticChartCubit>().getSingleDayStarted(
             amountType: context.read<StatisticChartCubit>().state.amountType,
             dateTime: noteFormDateTime,
           );
-      // 重整accountBalance
-      context.read<AccountWatcherCubit>().fetchAccounts();
+
+      // // 重整accountBalance
+      // context.read<AccountWatcherCubit>().fetchAccounts();
     },
   ),
   // 寫完表格，重整至最新新增的那個表單的日期位置
   BlocListener<NoteFormCubit, NoteFormState>(
-    listenWhen: (p, c) => p.isSaving != c.isSaving && c.isSaving == false,
+    listenWhen: (p, c) =>
+        p.isSaving != c.isSaving &&
+        c.isSaving == false &&
+        c.failureOption == none(),
     listener: (context, state) {
-      // 重整note
-      context.read<NoteWatcherCubit>().getSingleDayStarted(
-            dateTime: state.note.dateTime,
-          );
-      context.read<NoteWatcherCubit>().getDailyAmountStarted(
-            dateTime: state.note.dateTime,
-          );
-      // 重整chart
-      context.read<StatisticChartCubit>().getSingleDayStarted(
-            amountType: context.read<StatisticChartCubit>().state.amountType,
-            dateTime: state.note.dateTime,
-          );
-      // 重整兩者日期
+      // 更新兩者日期
       context.read<NoteWatcherCubit>().onDaySelected(
             state.note.dateTime,
             state.note.dateTime,
@@ -104,8 +119,25 @@ List<BlocListener> listeners = [
       context.read<StatisticChartCubit>().dateTimeChanged(
             state.note.dateTime,
           );
-      // 重整accountBalance
-      context.read<AccountWatcherCubit>().fetchAccounts();
+
+      // 重抓 noteList 與 dailyAmount
+      context.read<NoteWatcherCubit>().getSingleDayStarted(
+            dateTime: state.note.dateTime,
+          );
+      context.read<NoteWatcherCubit>().getDailyAmountStarted(
+            dateTime: state.note.dateTime,
+          );
+      // 重抓當日圖表
+      context.read<StatisticChartCubit>().getSingleDayStarted(
+            amountType: context.read<StatisticChartCubit>().state.amountType,
+            dateTime: state.note.dateTime,
+          );
+
+      // // 重整accountBalance
+      // context.read<AccountWatcherCubit>().fetchAccounts();
+
+      // NoteFormPage -> NoteOverviewPage
+      context.router.pop();
     },
   ),
   // 從note_home選取日期，重整頁面，下次填寫表單時也要從選取後的日期新增

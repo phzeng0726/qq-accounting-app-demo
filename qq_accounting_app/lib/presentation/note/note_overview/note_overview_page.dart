@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
@@ -7,7 +8,10 @@ import 'package:qq_accounting_app/presentation/note/note_overview/widgets/note_f
 
 import '../../../../application/note/note_form/note_form_cubit.dart';
 import '../../../../application/note/note_watcher/note_watcher_cubit.dart';
+import '../../../application/account/account_watcher/account_watcher_cubit.dart';
+import '../../../application/chart/statistic_chart/statistic_chart_cubit.dart';
 import '../../../application/core/navigation/navigation_cubit.dart';
+import '../../../application/note/note_actor/note_actor_cubit.dart';
 import '../../../domain/note/note.dart';
 import '../../routes/router.gr.dart';
 import 'widgets/note_overview_body.dart';
@@ -41,15 +45,16 @@ class NoteOverviewPage extends StatelessWidget {
             // const DateTimePickerIconButton(),
             IconButton(
               onPressed: () {
-                final noteOverviewState =
-                    context.read<NoteWatcherCubit>().state;
-
+                print(context.read<NoteWatcherCubit>().state.focusedDay);
                 // NOTE:　新增note時，將 noteOverviewState目前的accountId跟focusedDay傳入NoteForm
                 Note initNote = NoteFormState.initial().note.copyWith(
-                      accountId: noteOverviewState.account.id!,
-                      dateTime: noteOverviewState.focusedDay,
+                      accountId:
+                          context.read<NoteWatcherCubit>().state.account.id!,
+                      dateTime:
+                          context.read<NoteWatcherCubit>().state.focusedDay,
                     );
                 context.read<NoteFormCubit>().initialized(initNote, false);
+                print(initNote);
 
                 context.pushRoute(const NoteFormRoute());
                 context.read<NavigationCubit>().pushOrPopPage();

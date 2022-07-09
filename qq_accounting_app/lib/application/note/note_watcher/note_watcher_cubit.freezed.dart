@@ -55,8 +55,7 @@ const $NoteWatcherState = _$NoteWatcherStateTearOff();
 
 /// @nodoc
 mixin _$NoteWatcherState {
-  LoadStatus get loadStatus =>
-      throw _privateConstructorUsedError; // required DateTime dateTime,
+  LoadStatus get loadStatus => throw _privateConstructorUsedError;
   Account get account => throw _privateConstructorUsedError;
   List<Note> get notes => throw _privateConstructorUsedError;
   int get dailyIncomeAmount => throw _privateConstructorUsedError;
@@ -66,8 +65,7 @@ mixin _$NoteWatcherState {
   RangeSelectionMode get rangeSelectionMode =>
       throw _privateConstructorUsedError;
   DateTime get focusedDay => throw _privateConstructorUsedError;
-  DateTime? get selectedDay =>
-      throw _privateConstructorUsedError; // required List<Note> notes,
+  DateTime? get selectedDay => throw _privateConstructorUsedError;
   DateTime? get rangeStart => throw _privateConstructorUsedError;
   DateTime? get rangeEnd => throw _privateConstructorUsedError;
   Option<NoteFailure> get failureOption => throw _privateConstructorUsedError;
@@ -329,7 +327,7 @@ class _$_NoteWatcherState implements _NoteWatcherState {
 
   @override
   final LoadStatus loadStatus;
-  @override // required DateTime dateTime,
+  @override
   final Account account;
   @override
   final List<Note> notes;
@@ -347,7 +345,7 @@ class _$_NoteWatcherState implements _NoteWatcherState {
   final DateTime focusedDay;
   @override
   final DateTime? selectedDay;
-  @override // required List<Note> notes,
+  @override
   final DateTime? rangeStart;
   @override
   final DateTime? rangeEnd;
@@ -430,7 +428,7 @@ abstract class _NoteWatcherState implements NoteWatcherState {
 
   @override
   LoadStatus get loadStatus;
-  @override // required DateTime dateTime,
+  @override
   Account get account;
   @override
   List<Note> get notes;
@@ -448,7 +446,7 @@ abstract class _NoteWatcherState implements NoteWatcherState {
   DateTime get focusedDay;
   @override
   DateTime? get selectedDay;
-  @override // required List<Note> notes,
+  @override
   DateTime? get rangeStart;
   @override
   DateTime? get rangeEnd;

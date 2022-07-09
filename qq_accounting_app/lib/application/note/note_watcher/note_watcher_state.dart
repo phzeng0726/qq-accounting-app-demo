@@ -5,7 +5,6 @@ part of 'note_watcher_cubit.dart';
 abstract class NoteWatcherState with _$NoteWatcherState {
   const factory NoteWatcherState({
     required LoadStatus loadStatus,
-    // required DateTime dateTime,
     required Account account,
     required List<Note> notes,
     required int dailyIncomeAmount,
@@ -17,7 +16,6 @@ abstract class NoteWatcherState with _$NoteWatcherState {
     required RangeSelectionMode rangeSelectionMode,
     required DateTime focusedDay,
     required DateTime? selectedDay,
-    // required List<Note> notes,
     required DateTime? rangeStart,
     required DateTime? rangeEnd,
     required Option<NoteFailure> failureOption,
@@ -25,7 +23,6 @@ abstract class NoteWatcherState with _$NoteWatcherState {
 
   factory NoteWatcherState.initial() => NoteWatcherState(
         loadStatus: const LoadStatus.initial(),
-        // dateTime: DateTime.now(),
         account: Account.empty(),
         notes: <Note>[],
         dailyIncomeAmount: 0,
@@ -38,7 +35,6 @@ abstract class NoteWatcherState with _$NoteWatcherState {
             .toggledOff, // Can be toggled on/off by longpressing a date
         focusedDay: DateTime.now(),
         selectedDay: DateTime.now(),
-        // notes: <Note>[],
         rangeStart: DateTime.now(),
         rangeEnd: DateTime.now(),
         failureOption: none(),
