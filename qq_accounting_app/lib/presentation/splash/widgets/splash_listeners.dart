@@ -13,7 +13,8 @@ import '../../../domain/core/load_status.dart';
 import '../../../domain/core/logger.dart';
 import '../../routes/router.gr.dart';
 
-void refreshNoteAndChart({
+// CUD都需要重整，所以額外獨立出來
+void refreshNoteAndChartDisplay({
   required BuildContext context,
   required DateTime dateTime,
   required String amountType,
@@ -55,62 +56,56 @@ List<BlocListener> listeners = [
     listenWhen: (p, c) => c.selectedAccountOption.isSome(),
     listener: (context, state) {
       LoggerService.simple.i('AccountWatcherCubit listening!!');
+      final DateTime focusedDay =
+          context.read<NoteFormCubit>().state.note.dateTime;
 
-      final DateTime now = DateTime.now();
       state.selectedAccountOption.fold(
         () => null,
         (account) {
-          // NoteWatcherCubit
+          refreshNoteAndChartDisplay(
+            context: context,
+            dateTime: focusedDay,
+            amountType: context.read<StatisticChartCubit>().state.amountType,
+          );
+          // selectedAccount
           context.read<NoteWatcherCubit>().selectedAccount(account);
-          context.read<NoteWatcherCubit>().getSingleDayStarted(
-                dateTime: now,
-              );
-          context.read<NoteWatcherCubit>().getDailyAmountStarted(
-                dateTime: now,
-              );
-          // StatisticChartCubit
           context.read<StatisticChartCubit>().selectedAccount(account);
-          context.read<StatisticChartCubit>().getSingleDayStarted(
-                amountType:
-                    context.read<StatisticChartCubit>().state.amountType,
-                dateTime: now,
-              );
         },
       );
     },
   ),
-  // NOTE: NoteOverview
-  // 刪除資料後重整頁面
+  // ↓ NoteOverview
+  // NOTE: 刪除資料後重整頁面
   BlocListener<NoteActorCubit, NoteActorState>(
     listenWhen: (p, c) => p != c && c == const NoteActorState.deleteSuccess(),
     listener: (context, state) {
-      DateTime noteFormDateTime =
+      final DateTime focusedDay =
           context.read<NoteFormCubit>().state.note.dateTime;
-      // 重抓 noteList 與 dailyAmount
-      context.read<NoteWatcherCubit>().getSingleDayStarted(
-            dateTime: noteFormDateTime,
-          );
-      context.read<NoteWatcherCubit>().getDailyAmountStarted(
-            dateTime: noteFormDateTime,
-          );
 
-      // 重抓當日圖表
-      context.read<StatisticChartCubit>().getSingleDayStarted(
-            amountType: context.read<StatisticChartCubit>().state.amountType,
-            dateTime: noteFormDateTime,
-          );
+      refreshNoteAndChartDisplay(
+        context: context,
+        dateTime: focusedDay,
+        amountType: context.read<StatisticChartCubit>().state.amountType,
+      );
 
-      // // 重整accountBalance
-      // context.read<AccountWatcherCubit>().fetchAccounts();
+      // 重整accountBalance
+      context.read<AccountWatcherCubit>().fetchAccounts();
     },
   ),
-  // 寫完表格，重整至最新新增的那個表單的日期位置
+  // NOTE: 寫完表格，重整至最新新增的那個表單的日期位置
   BlocListener<NoteFormCubit, NoteFormState>(
     listenWhen: (p, c) =>
         p.isSaving != c.isSaving &&
         c.isSaving == false &&
         c.failureOption == none(),
     listener: (context, state) {
+      final DateTime focusedDay = state.note.dateTime;
+
+      refreshNoteAndChartDisplay(
+        context: context,
+        dateTime: focusedDay,
+        amountType: context.read<StatisticChartCubit>().state.amountType,
+      );
       // 更新兩者日期
       context.read<NoteWatcherCubit>().onDaySelected(
             state.note.dateTime,
@@ -120,49 +115,29 @@ List<BlocListener> listeners = [
             state.note.dateTime,
           );
 
-      // 重抓 noteList 與 dailyAmount
-      context.read<NoteWatcherCubit>().getSingleDayStarted(
-            dateTime: state.note.dateTime,
-          );
-      context.read<NoteWatcherCubit>().getDailyAmountStarted(
-            dateTime: state.note.dateTime,
-          );
-      // 重抓當日圖表
-      context.read<StatisticChartCubit>().getSingleDayStarted(
-            amountType: context.read<StatisticChartCubit>().state.amountType,
-            dateTime: state.note.dateTime,
-          );
-
-      // // 重整accountBalance
-      // context.read<AccountWatcherCubit>().fetchAccounts();
-
-      // NoteFormPage -> NoteOverviewPage
-      context.router.pop();
+      // 重整accountBalance
+      context.read<AccountWatcherCubit>().fetchAccounts();
     },
   ),
-  // 從note_home選取日期，重整頁面，下次填寫表單時也要從選取後的日期新增
+  // NOTE: 從note_home選取日期，重整頁面，下次填寫表單時也要從選取後的日期新增
   BlocListener<NoteWatcherCubit, NoteWatcherState>(
     listenWhen: (p, c) => p.focusedDay != c.focusedDay,
     listener: (context, state) {
+      final DateTime focusedDay = state.focusedDay;
+
+      refreshNoteAndChartDisplay(
+        context: context,
+        dateTime: focusedDay,
+        amountType: context.read<StatisticChartCubit>().state.amountType,
+      );
+
       // 更改表單下次的日期
       context.read<NoteFormCubit>().dateTimeChanged(state.focusedDay);
       // 更改chart日期
       context.read<StatisticChartCubit>().dateTimeChanged(state.focusedDay);
-      // 重整note
-      context.read<NoteWatcherCubit>().getSingleDayStarted(
-            dateTime: state.focusedDay,
-          );
-      context.read<NoteWatcherCubit>().getDailyAmountStarted(
-            dateTime: state.focusedDay,
-          );
-      // 重整圖表
-      context.read<StatisticChartCubit>().getSingleDayStarted(
-            amountType: context.read<StatisticChartCubit>().state.amountType,
-            dateTime: state.focusedDay,
-          );
     },
   ),
-  // 圖表的amountType被更改，重整統計圖
+  // NOTE: 圖表的amountType被更改，重整統計圖
   BlocListener<StatisticChartCubit, StatisticChartState>(
     listenWhen: (p, c) => p.amountType != c.amountType,
     listener: (context, state) {

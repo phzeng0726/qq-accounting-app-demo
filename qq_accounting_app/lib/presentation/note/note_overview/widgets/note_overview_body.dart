@@ -25,12 +25,11 @@ class NoteOverviewBody extends StatelessWidget {
                   if (DeviceTimeStamp(state.focusedDay).toDayString() !=
                       DeviceTimeStamp(now).toDayString()) ...[
                     ElevatedButton(
-                      onPressed: () {
-                        context.read<NoteWatcherCubit>().onDaySelected(
-                              now,
-                              now,
-                            );
-                      },
+                      onPressed: () =>
+                          context.read<NoteWatcherCubit>().onDaySelected(
+                                now,
+                                now,
+                              ),
                       child: Text(
                         FlutterI18n.translate(
                             context, "note.overview.returnToday"),
