@@ -6,8 +6,8 @@ import '../../../../application/notes/note_watcher/note_watcher_cubit.dart';
 import '../../../core/widgets/load_status_screen.dart';
 import 'note_overview_widgets_export.dart';
 
-class NoteOverviewBody extends StatelessWidget {
-  const NoteOverviewBody({Key? key}) : super(key: key);
+class NoteFilterBody extends StatelessWidget {
+  const NoteFilterBody({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +47,21 @@ class NoteOverviewBody extends StatelessWidget {
                         (index) => DetailListTile(
                               editedNote: state.notes[index],
                             )),
+                  ),
+                  ExpansionTile(
+                    initiallyExpanded: true,
+                    title: Text(
+                      FlutterI18n.translate(
+                          context, "note.overview.dailyCountExpansionTitle"),
+                    ),
+                    leading: const Icon(Icons.data_usage_outlined),
+                    // trailing: ,
+                    children: [
+                      const AmountTypeSwitchButton(),
+                      AmountCircularChart(
+                        notes: state.notes,
+                      )
+                    ],
                   ),
                 ],
               ),

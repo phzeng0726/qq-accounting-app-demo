@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:qq_accounting_app/application/theme/theme_cubit.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../../../application/notes/note_watcher/note_watcher_cubit.dart';
@@ -14,7 +15,7 @@ class ManualCalendar extends StatelessWidget {
     return BlocBuilder<NoteWatcherCubit, NoteWatcherState>(
         builder: (context, state) {
       return TableCalendar<Note>(
-        locale: 'zh_CN',
+        locale: context.watch<ThemeCubit>().state.currentLang.languageCode,
         firstDay: DateTime(2020, 1, 1),
         lastDay: DateTime(2030, 1, 1),
         focusedDay: state.focusedDay,

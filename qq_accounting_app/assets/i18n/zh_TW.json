@@ -23,6 +23,7 @@
     },
     "note": {
         "title": "記帳首頁",
+        "emptyData": "無資料",
         "form": {
             "editTitle": "編輯",
             "createTitle": "輸入",
@@ -35,7 +36,7 @@
         "overview": {
             "returnToday": "返回當日",
             "dailyDetailExpansionTitle": "日明細",
-            "dailyStatisticsExpansionTitle": "日統計"
+            "dailyCountExpansionTitle": "日統計"
         }
     }
 }

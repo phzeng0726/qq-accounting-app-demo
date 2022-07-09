@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:qq_accounting_app/presentation/core/widgets/empty_widget.dart';
 
 import '../../application/accounts/account_form/account_form_cubit.dart';
 import '../../application/accounts/account_watcher/account_watcher_cubit.dart';
@@ -60,11 +61,10 @@ class HomePage extends StatelessWidget {
                   child: LoadStatusScreen(
                     loadStatus: state.status,
                     succeedScreen: state.accounts.isEmpty
-                        ? Center(
-                            child: Text(
-                            FlutterI18n.translate(
+                        ? EmptyWidget(
+                            text: FlutterI18n.translate(
                                 context, "home.emptyAccountListNotice"),
-                          ))
+                          )
                         : AccountOverviewBody(
                             accountList: state.accounts,
                             netAmountList: state.netAmountList,

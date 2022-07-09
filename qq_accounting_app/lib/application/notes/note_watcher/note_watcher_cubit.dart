@@ -147,8 +147,8 @@ class NoteWatcherCubit extends Cubit<NoteWatcherState> {
   }
 
   void onRangeSelected(
-    DateTime startTime,
-    DateTime endTime,
+    DateTime? startTime,
+    DateTime? endTime,
     DateTime focusedDay,
   ) {
     emit(
@@ -157,7 +157,7 @@ class NoteWatcherCubit extends Cubit<NoteWatcherState> {
         focusedDay: focusedDay,
         rangeStart: startTime, // Important to clean those
         rangeEnd: endTime,
-        rangeSelectionMode: RangeSelectionMode.toggledOff,
+        rangeSelectionMode: RangeSelectionMode.toggledOn,
       ),
     );
   }
