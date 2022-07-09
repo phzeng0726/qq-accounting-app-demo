@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../../../application/core/theme/theme_cubit.dart';
@@ -24,9 +25,9 @@ class ManualCalendar extends StatelessWidget {
         // rangeEndDay: state.rangeEnd,
         calendarFormat: state.calendarFormat,
         // rangeSelectionMode: state.rangeSelectionMode,
-        availableCalendarFormats: const {
-          CalendarFormat.month: '顯示為月',
-          CalendarFormat.week: '顯示為週',
+        availableCalendarFormats:  {
+          CalendarFormat.month: FlutterI18n.translate(context, "note.overview.calendarMonth"),
+          CalendarFormat.week: FlutterI18n.translate(context, "note.overview.calendarWeek"),
         },
         // eventLoader: _getEventsForDay,
         calendarStyle: const CalendarStyle(

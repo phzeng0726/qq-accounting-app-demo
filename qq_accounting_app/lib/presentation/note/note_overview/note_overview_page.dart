@@ -8,8 +8,6 @@ import '../../../../application/note/note_watcher/note_watcher_cubit.dart';
 import '../../../application/core/navigation/navigation_cubit.dart';
 import '../../../domain/note/note.dart';
 import '../../routes/router.gr.dart';
-import 'widgets/note_count_body.dart';
-import 'widgets/note_filter_body.dart';
 import 'widgets/note_overview_body.dart';
 
 class NoteOverviewPage extends StatelessWidget {
@@ -23,49 +21,29 @@ class NoteOverviewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3,
-      initialIndex: 1,
-      child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text(FlutterI18n.translate(context, "note.title")),
-          bottom: const TabBar(
-            tabs: [
-              Tab(icon: Icon(Icons.data_usage_outlined), text: '統計'),
-              Tab(icon: Icon(Icons.home), text: '首頁'),
-              Tab(icon: Icon(Icons.filter_alt_outlined), text: '篩選'),
-            ],
-          ),
-          actions: [
-            // const DateTimePickerIconButton(),
-            IconButton(
-              onPressed: () {
-                print(context.read<NoteWatcherCubit>().state.focusedDay);
-                // NOTE:　新增note時，將 noteOverviewState目前的accountId跟focusedDay傳入NoteForm
-                Note initNote = NoteFormState.initial().note.copyWith(
-                      accountId:
-                          context.read<NoteWatcherCubit>().state.account.id!,
-                      dateTime:
-                          context.read<NoteWatcherCubit>().state.focusedDay,
-                    );
-                context.read<NoteFormCubit>().initialized(initNote, false);
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(FlutterI18n.translate(context, "note.title")),
+        actions: [
+          IconButton(
+            onPressed: () {
+              // NOTE:　新增note時，將 noteOverviewState目前的accountId跟focusedDay傳入NoteForm
+              Note initNote = NoteFormState.initial().note.copyWith(
+                    accountId:
+                        context.read<NoteWatcherCubit>().state.account.id!,
+                    dateTime: context.read<NoteWatcherCubit>().state.focusedDay,
+                  );
+              context.read<NoteFormCubit>().initialized(initNote, false);
 
-                context.pushRoute(const NoteFormRoute());
-                context.read<NavigationCubit>().pushOrPopPage();
-              },
-              icon: const Icon(Icons.add),
-            ),
-          ],
-        ),
-        body: const TabBarView(
-          children: [
-            NoteCountBody(),
-            NoteOverviewBody(),
-            NoteFilterBody(),
-          ],
-        ),
+              context.pushRoute(const NoteFormRoute());
+              context.read<NavigationCubit>().pushOrPopPage();
+            },
+            icon: const Icon(Icons.add),
+          ),
+        ],
       ),
+      body: const NoteOverviewBody(),
     );
   }
 }

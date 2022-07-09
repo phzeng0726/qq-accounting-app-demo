@@ -8,6 +8,7 @@ abstract class StatisticChartState with _$StatisticChartState {
     required List<ChartItem> chartItems,
     required DateTime dateTime,
     required Account account,
+    required bool isChartExpanded,
     required Option<NoteFailure> noteFailureOption,
     required Option<ChartFailure> chartFailureOption,
   }) = _StatisticChartState;
@@ -18,6 +19,7 @@ abstract class StatisticChartState with _$StatisticChartState {
         chartItems: <ChartItem>[],
         dateTime: DateTime.now(),
         account: Account.empty(),
+        isChartExpanded: false,
         noteFailureOption: none(),
         chartFailureOption: none(),
       );

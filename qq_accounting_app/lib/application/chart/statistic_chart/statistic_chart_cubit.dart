@@ -34,6 +34,14 @@ class StatisticChartCubit extends Cubit<StatisticChartState> {
     );
   }
 
+  void chartExpandedChanged(bool chartExpandedValue) {
+    emit(
+      state.copyWith(
+        isChartExpanded: chartExpandedValue,
+      ),
+    );
+  }
+
   void dateTimeChanged(DateTime dateTime) {
     emit(
       state.copyWith(

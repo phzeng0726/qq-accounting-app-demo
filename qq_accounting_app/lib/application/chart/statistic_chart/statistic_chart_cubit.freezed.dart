@@ -24,6 +24,7 @@ class _$StatisticChartStateTearOff {
       required List<ChartItem> chartItems,
       required DateTime dateTime,
       required Account account,
+      required bool isChartExpanded,
       required Option<NoteFailure> noteFailureOption,
       required Option<ChartFailure> chartFailureOption}) {
     return _StatisticChartState(
@@ -32,6 +33,7 @@ class _$StatisticChartStateTearOff {
       chartItems: chartItems,
       dateTime: dateTime,
       account: account,
+      isChartExpanded: isChartExpanded,
       noteFailureOption: noteFailureOption,
       chartFailureOption: chartFailureOption,
     );
@@ -48,6 +50,7 @@ mixin _$StatisticChartState {
   List<ChartItem> get chartItems => throw _privateConstructorUsedError;
   DateTime get dateTime => throw _privateConstructorUsedError;
   Account get account => throw _privateConstructorUsedError;
+  bool get isChartExpanded => throw _privateConstructorUsedError;
   Option<NoteFailure> get noteFailureOption =>
       throw _privateConstructorUsedError;
   Option<ChartFailure> get chartFailureOption =>
@@ -69,6 +72,7 @@ abstract class $StatisticChartStateCopyWith<$Res> {
       List<ChartItem> chartItems,
       DateTime dateTime,
       Account account,
+      bool isChartExpanded,
       Option<NoteFailure> noteFailureOption,
       Option<ChartFailure> chartFailureOption});
 
@@ -92,6 +96,7 @@ class _$StatisticChartStateCopyWithImpl<$Res>
     Object? chartItems = freezed,
     Object? dateTime = freezed,
     Object? account = freezed,
+    Object? isChartExpanded = freezed,
     Object? noteFailureOption = freezed,
     Object? chartFailureOption = freezed,
   }) {
@@ -116,6 +121,10 @@ class _$StatisticChartStateCopyWithImpl<$Res>
           ? _value.account
           : account // ignore: cast_nullable_to_non_nullable
               as Account,
+      isChartExpanded: isChartExpanded == freezed
+          ? _value.isChartExpanded
+          : isChartExpanded // ignore: cast_nullable_to_non_nullable
+              as bool,
       noteFailureOption: noteFailureOption == freezed
           ? _value.noteFailureOption
           : noteFailureOption // ignore: cast_nullable_to_non_nullable
@@ -155,6 +164,7 @@ abstract class _$StatisticChartStateCopyWith<$Res>
       List<ChartItem> chartItems,
       DateTime dateTime,
       Account account,
+      bool isChartExpanded,
       Option<NoteFailure> noteFailureOption,
       Option<ChartFailure> chartFailureOption});
 
@@ -182,6 +192,7 @@ class __$StatisticChartStateCopyWithImpl<$Res>
     Object? chartItems = freezed,
     Object? dateTime = freezed,
     Object? account = freezed,
+    Object? isChartExpanded = freezed,
     Object? noteFailureOption = freezed,
     Object? chartFailureOption = freezed,
   }) {
@@ -206,6 +217,10 @@ class __$StatisticChartStateCopyWithImpl<$Res>
           ? _value.account
           : account // ignore: cast_nullable_to_non_nullable
               as Account,
+      isChartExpanded: isChartExpanded == freezed
+          ? _value.isChartExpanded
+          : isChartExpanded // ignore: cast_nullable_to_non_nullable
+              as bool,
       noteFailureOption: noteFailureOption == freezed
           ? _value.noteFailureOption
           : noteFailureOption // ignore: cast_nullable_to_non_nullable
@@ -227,6 +242,7 @@ class _$_StatisticChartState implements _StatisticChartState {
       required this.chartItems,
       required this.dateTime,
       required this.account,
+      required this.isChartExpanded,
       required this.noteFailureOption,
       required this.chartFailureOption});
 
@@ -241,13 +257,15 @@ class _$_StatisticChartState implements _StatisticChartState {
   @override
   final Account account;
   @override
+  final bool isChartExpanded;
+  @override
   final Option<NoteFailure> noteFailureOption;
   @override
   final Option<ChartFailure> chartFailureOption;
 
   @override
   String toString() {
-    return 'StatisticChartState(loadStatus: $loadStatus, amountType: $amountType, chartItems: $chartItems, dateTime: $dateTime, account: $account, noteFailureOption: $noteFailureOption, chartFailureOption: $chartFailureOption)';
+    return 'StatisticChartState(loadStatus: $loadStatus, amountType: $amountType, chartItems: $chartItems, dateTime: $dateTime, account: $account, isChartExpanded: $isChartExpanded, noteFailureOption: $noteFailureOption, chartFailureOption: $chartFailureOption)';
   }
 
   @override
@@ -264,6 +282,8 @@ class _$_StatisticChartState implements _StatisticChartState {
             const DeepCollectionEquality().equals(other.dateTime, dateTime) &&
             const DeepCollectionEquality().equals(other.account, account) &&
             const DeepCollectionEquality()
+                .equals(other.isChartExpanded, isChartExpanded) &&
+            const DeepCollectionEquality()
                 .equals(other.noteFailureOption, noteFailureOption) &&
             const DeepCollectionEquality()
                 .equals(other.chartFailureOption, chartFailureOption));
@@ -277,6 +297,7 @@ class _$_StatisticChartState implements _StatisticChartState {
       const DeepCollectionEquality().hash(chartItems),
       const DeepCollectionEquality().hash(dateTime),
       const DeepCollectionEquality().hash(account),
+      const DeepCollectionEquality().hash(isChartExpanded),
       const DeepCollectionEquality().hash(noteFailureOption),
       const DeepCollectionEquality().hash(chartFailureOption));
 
@@ -294,6 +315,7 @@ abstract class _StatisticChartState implements StatisticChartState {
           required List<ChartItem> chartItems,
           required DateTime dateTime,
           required Account account,
+          required bool isChartExpanded,
           required Option<NoteFailure> noteFailureOption,
           required Option<ChartFailure> chartFailureOption}) =
       _$_StatisticChartState;
@@ -308,6 +330,8 @@ abstract class _StatisticChartState implements StatisticChartState {
   DateTime get dateTime;
   @override
   Account get account;
+  @override
+  bool get isChartExpanded;
   @override
   Option<NoteFailure> get noteFailureOption;
   @override

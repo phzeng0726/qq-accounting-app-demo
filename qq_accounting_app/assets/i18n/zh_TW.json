@@ -39,7 +39,7 @@
             "memo": "備註",
             "category": {
                 "title": "類別",
-                "created":"類別新增",
+                "created": "類別新增",
                 "dialogBackButtonText": "返回",
                 "dialogButtonText": "儲存"
             }
@@ -47,7 +47,11 @@
         "overview": {
             "returnToday": "返回當日",
             "dailyDetailExpansionTitle": "日明細",
-            "dailyCountExpansionTitle": "日統計"
+            "dailyCountExpansionTitle": "日統計",
+            "letChartExpanded": "點擊 展開圖表",
+            "letChartCollapsed": "點擊 折疊圖表",
+            "calendarMonth": "顯示為月",
+            "calendarWeek": "顯示為周"
         }
     }
 }
