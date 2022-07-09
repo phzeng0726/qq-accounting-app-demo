@@ -32,7 +32,7 @@ class CurrencyTypeSheet extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(FlutterI18n.translate(context, "note.form.category")),
+            Text(FlutterI18n.translate(context, "note.form.category.title")),
             Expanded(
               child: GridView.count(
                 // crossAxisCount is the number of columns

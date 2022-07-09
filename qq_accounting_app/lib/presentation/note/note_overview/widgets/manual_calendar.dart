@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:qq_accounting_app/application/theme/theme_cubit.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+import '../../../../application/core/theme/theme_cubit.dart';
 import '../../../../application/note/note_watcher/note_watcher_cubit.dart';
 import '../../../../domain/note/note.dart';
 // https://pub.dev/packages/table_calendar

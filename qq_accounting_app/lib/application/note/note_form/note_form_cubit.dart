@@ -3,6 +3,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:qq_accounting_app/domain/note/category.dart';
 
 import '../../../constants.dart';
 import '../../../domain/note/i_note_repository.dart';
@@ -77,6 +78,42 @@ class NoteFormCubit extends Cubit<NoteFormState> {
       state.copyWith(
         note: state.note.copyWith(
           category: category,
+        ),
+      ),
+    );
+  }
+
+// 可思考放哪最好
+  void categoryBoxChanged(String category) async {
+    emit(
+      state.copyWith(
+        categoryBoxText: category,
+      ),
+    );
+  }
+
+  // 可思考放哪最好
+  void categoryCreated(Category category) async {
+    Option<NoteFailure> failureOption;
+    emit(
+      state.copyWith(
+        isAddingCategory: true,
+      ),
+    );
+    failureOption = await _noteRepository.createCategory(category);
+
+    failureOption.fold(
+      () => emit(
+        state.copyWith(
+          failureOption: none(),
+          isAddingCategory: false,
+          categoryBoxText: '',
+        ),
+      ),
+      (f) => emit(
+        state.copyWith(
+          failureOption: some(f),
+          isAddingCategory: false,
         ),
       ),
     );

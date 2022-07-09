@@ -92,6 +92,15 @@ class DatabaseProvider {
         "FOREIGN KEY (accountId) REFERENCES accounts(id)"
         ")");
 
+        // create notes table
+    await db.execute("CREATE TABLE IF NOT EXISTS categorys ("
+        "id INTEGER PRIMARY KEY AUTOINCREMENT, " // id會自動產生 AUTOINCREMENT
+        "accountId INT, "
+        "amountType TEXT, " // TODO 命名
+        "title TEXT, "
+        "FOREIGN KEY (accountId) REFERENCES accounts(id)"
+        ")");
+
     // enable forigen keys
     await db.execute('PRAGMA foreign_keys = ON');
   }

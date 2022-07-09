@@ -35,10 +35,14 @@
             },
             "date": "日期",
             "amount": "金額",
-            "category": "類別",
             "itemName": "項目名稱",
             "memo": "備註",
-            "categoryCreated": "類別新增"
+            "category": {
+                "title": "類別",
+                "created":"類別新增",
+                "dialogBackButtonText": "返回",
+                "dialogButtonText": "儲存"
+            }
         },
         "overview": {
             "returnToday": "返回當日",

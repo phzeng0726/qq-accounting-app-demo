@@ -35,7 +35,7 @@ class DailyTotalRow extends StatelessWidget {
                 text:
                     '${FlutterI18n.translate(context, "netAmount")} $dollarSign ${state.dailyNetAmount} ',
                 style: TextStyle(
-                  color: state.dailyNetAmount > 0
+                  color: state.dailyNetAmount >= 0
                       ? NoteColors.incomeTextColor
                       : NoteColors.expenseTextColor,
                 ),

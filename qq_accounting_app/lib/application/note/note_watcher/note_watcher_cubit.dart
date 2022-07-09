@@ -8,6 +8,7 @@ import 'package:table_calendar/table_calendar.dart';
 import '../../../domain/account/account.dart';
 import '../../../domain/core/device_time_stamp.dart';
 import '../../../domain/core/load_status.dart';
+import '../../../domain/note/category.dart';
 import '../../../domain/note/i_note_repository.dart';
 import '../../../domain/note/note.dart';
 import '../../../domain/note/note_failure.dart';
@@ -26,6 +27,44 @@ class NoteWatcherCubit extends Cubit<NoteWatcherState> {
     emit(
       state.copyWith(
         account: account,
+      ),
+    );
+
+    fetchCategoryList();
+  }
+
+  Future<void> fetchCategoryList() async {
+    Either<NoteFailure, List<Category>> eitherExpenseCategoryList;
+    Either<NoteFailure, List<Category>> eitherIncomeCategoryList;
+
+    eitherExpenseCategoryList =
+        await _noteRepository.getCategoryList(state.account.id!, 'expense');
+    eitherIncomeCategoryList =
+        await _noteRepository.getCategoryList(state.account.id!, 'income');
+
+    eitherExpenseCategoryList.fold(
+      (f) => emit(
+        state.copyWith(
+          failureOption: some(f),
+        ),
+      ),
+      (expenseCategoryList) => emit(
+        state.copyWith(
+          expenseCategoryList: expenseCategoryList,
+        ),
+      ),
+    );
+
+    eitherIncomeCategoryList.fold(
+      (f) => emit(
+        state.copyWith(
+          failureOption: some(f),
+        ),
+      ),
+      (incomeCategoryList) => emit(
+        state.copyWith(
+          incomeCategoryList: incomeCategoryList,
+        ),
       ),
     );
   }

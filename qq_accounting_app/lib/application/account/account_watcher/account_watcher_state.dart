@@ -6,8 +6,8 @@ class AccountWatcherState with _$AccountWatcherState {
   const factory AccountWatcherState({
     required Option<Account> selectedAccountOption,
     required LoadStatus status,
-    @Default([]) List<Account> accounts,
-    @Default([]) List<int> netAmountList,
+    required List<Account> accounts,
+    required List<int> netAmountList,
   }) = _AccountWatcherState;
 
   factory AccountWatcherState.initial() => AccountWatcherState(

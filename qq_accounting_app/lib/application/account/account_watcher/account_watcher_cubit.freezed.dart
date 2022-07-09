@@ -21,8 +21,8 @@ class _$AccountWatcherStateTearOff {
   _AccountWatcherState call(
       {required Option<Account> selectedAccountOption,
       required LoadStatus status,
-      List<Account> accounts = const [],
-      List<int> netAmountList = const []}) {
+      required List<Account> accounts,
+      required List<int> netAmountList}) {
     return _AccountWatcherState(
       selectedAccountOption: selectedAccountOption,
       status: status,
@@ -168,18 +168,16 @@ class _$_AccountWatcherState extends _AccountWatcherState {
   const _$_AccountWatcherState(
       {required this.selectedAccountOption,
       required this.status,
-      this.accounts = const [],
-      this.netAmountList = const []})
+      required this.accounts,
+      required this.netAmountList})
       : super._();
 
   @override
   final Option<Account> selectedAccountOption;
   @override
   final LoadStatus status;
-  @JsonKey()
   @override
   final List<Account> accounts;
-  @JsonKey()
   @override
   final List<int> netAmountList;
 
@@ -220,8 +218,8 @@ abstract class _AccountWatcherState extends AccountWatcherState {
   const factory _AccountWatcherState(
       {required Option<Account> selectedAccountOption,
       required LoadStatus status,
-      List<Account> accounts,
-      List<int> netAmountList}) = _$_AccountWatcherState;
+      required List<Account> accounts,
+      required List<int> netAmountList}) = _$_AccountWatcherState;
   const _AccountWatcherState._() : super._();
 
   @override

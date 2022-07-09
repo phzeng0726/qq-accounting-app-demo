@@ -1,6 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:qq_accounting_app/domain/core/logger.dart';
+import 'package:qq_accounting_app/domain/note/category.dart';
+import 'package:qq_accounting_app/infrastructure/note/category_dtos.dart';
 
 import '../../domain/note/i_note_repository.dart';
 import '../../domain/note/note.dart';
@@ -14,6 +16,31 @@ class NoteRepository implements INoteRepository {
 
   NoteRepository();
   // NOTE: R
+  // 根據 accountId 和 amountType 獲取List<Category>
+  @override
+  Future<Either<NoteFailure, List<Category>>> getCategoryList(
+    int accountId,
+    String amountType,
+  ) async {
+    try {
+      final db = await _databaseProvider.database;
+
+      List<Map<String, dynamic>> result;
+      result = await db.rawQuery(
+          "SELECT DISTINCT categorys.* FROM categorys WHERE accountId = ? AND amountType = ?",
+          [accountId, amountType]);
+
+      List<Category> categorys = result
+          .map((category) => CategoryDto.fromJson(category).toDomain())
+          .toList();
+
+      return right(categorys);
+    } catch (e) {
+      LoggerService.simple.i(e);
+      return left(const NoteFailure.unexpected());
+    }
+  }
+
   @override
   Future<Either<NoteFailure, List<Note>>> getNotesDuringPeriod(
     int accountId,
@@ -164,6 +191,20 @@ class NoteRepository implements INoteRepository {
   }
 
   // NOTE: CUD
+  @override
+  Future<Option<NoteFailure>> createCategory(Category category) async {
+    try {
+      final db = await _databaseProvider.database;
+      final categoryDto = CategoryDto.fromDomain(category);
+
+      await db.insert("categorys", categoryDto.toJson());
+      return none();
+    } catch (e) {
+      LoggerService.simple.i(e);
+      return some(const NoteFailure.unexpected());
+    }
+  }
+
   @override
   Future<Option<NoteFailure>> create(Note note) async {
     try {

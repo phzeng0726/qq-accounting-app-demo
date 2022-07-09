@@ -20,19 +20,23 @@ class _$NoteFormStateTearOff {
 
   _NoteFormState call(
       {required Note note,
+      required String categoryBoxText,
       required String tempAmount,
       required bool showErrorMessages,
       required bool isEditing,
       required bool isSaving,
       required bool isValidating,
+      required bool isAddingCategory,
       required Option<NoteFailure> failureOption}) {
     return _NoteFormState(
       note: note,
+      categoryBoxText: categoryBoxText,
       tempAmount: tempAmount,
       showErrorMessages: showErrorMessages,
       isEditing: isEditing,
       isSaving: isSaving,
       isValidating: isValidating,
+      isAddingCategory: isAddingCategory,
       failureOption: failureOption,
     );
   }
@@ -44,12 +48,14 @@ const $NoteFormState = _$NoteFormStateTearOff();
 /// @nodoc
 mixin _$NoteFormState {
   Note get note => throw _privateConstructorUsedError;
+  String get categoryBoxText => throw _privateConstructorUsedError;
   String get tempAmount =>
       throw _privateConstructorUsedError; // 計算機暫存的金額字串，用Int比較麻煩所以用String
   bool get showErrorMessages => throw _privateConstructorUsedError;
   bool get isEditing => throw _privateConstructorUsedError;
   bool get isSaving => throw _privateConstructorUsedError;
   bool get isValidating => throw _privateConstructorUsedError;
+  bool get isAddingCategory => throw _privateConstructorUsedError;
   Option<NoteFailure> get failureOption => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -64,11 +70,13 @@ abstract class $NoteFormStateCopyWith<$Res> {
       _$NoteFormStateCopyWithImpl<$Res>;
   $Res call(
       {Note note,
+      String categoryBoxText,
       String tempAmount,
       bool showErrorMessages,
       bool isEditing,
       bool isSaving,
       bool isValidating,
+      bool isAddingCategory,
       Option<NoteFailure> failureOption});
 
   $NoteCopyWith<$Res> get note;
@@ -86,11 +94,13 @@ class _$NoteFormStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? note = freezed,
+    Object? categoryBoxText = freezed,
     Object? tempAmount = freezed,
     Object? showErrorMessages = freezed,
     Object? isEditing = freezed,
     Object? isSaving = freezed,
     Object? isValidating = freezed,
+    Object? isAddingCategory = freezed,
     Object? failureOption = freezed,
   }) {
     return _then(_value.copyWith(
@@ -98,6 +108,10 @@ class _$NoteFormStateCopyWithImpl<$Res>
           ? _value.note
           : note // ignore: cast_nullable_to_non_nullable
               as Note,
+      categoryBoxText: categoryBoxText == freezed
+          ? _value.categoryBoxText
+          : categoryBoxText // ignore: cast_nullable_to_non_nullable
+              as String,
       tempAmount: tempAmount == freezed
           ? _value.tempAmount
           : tempAmount // ignore: cast_nullable_to_non_nullable
@@ -117,6 +131,10 @@ class _$NoteFormStateCopyWithImpl<$Res>
       isValidating: isValidating == freezed
           ? _value.isValidating
           : isValidating // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isAddingCategory: isAddingCategory == freezed
+          ? _value.isAddingCategory
+          : isAddingCategory // ignore: cast_nullable_to_non_nullable
               as bool,
       failureOption: failureOption == freezed
           ? _value.failureOption
@@ -142,11 +160,13 @@ abstract class _$NoteFormStateCopyWith<$Res>
   @override
   $Res call(
       {Note note,
+      String categoryBoxText,
       String tempAmount,
       bool showErrorMessages,
       bool isEditing,
       bool isSaving,
       bool isValidating,
+      bool isAddingCategory,
       Option<NoteFailure> failureOption});
 
   @override
@@ -167,11 +187,13 @@ class __$NoteFormStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? note = freezed,
+    Object? categoryBoxText = freezed,
     Object? tempAmount = freezed,
     Object? showErrorMessages = freezed,
     Object? isEditing = freezed,
     Object? isSaving = freezed,
     Object? isValidating = freezed,
+    Object? isAddingCategory = freezed,
     Object? failureOption = freezed,
   }) {
     return _then(_NoteFormState(
@@ -179,6 +201,10 @@ class __$NoteFormStateCopyWithImpl<$Res>
           ? _value.note
           : note // ignore: cast_nullable_to_non_nullable
               as Note,
+      categoryBoxText: categoryBoxText == freezed
+          ? _value.categoryBoxText
+          : categoryBoxText // ignore: cast_nullable_to_non_nullable
+              as String,
       tempAmount: tempAmount == freezed
           ? _value.tempAmount
           : tempAmount // ignore: cast_nullable_to_non_nullable
@@ -199,6 +225,10 @@ class __$NoteFormStateCopyWithImpl<$Res>
           ? _value.isValidating
           : isValidating // ignore: cast_nullable_to_non_nullable
               as bool,
+      isAddingCategory: isAddingCategory == freezed
+          ? _value.isAddingCategory
+          : isAddingCategory // ignore: cast_nullable_to_non_nullable
+              as bool,
       failureOption: failureOption == freezed
           ? _value.failureOption
           : failureOption // ignore: cast_nullable_to_non_nullable
@@ -212,15 +242,19 @@ class __$NoteFormStateCopyWithImpl<$Res>
 class _$_NoteFormState implements _NoteFormState {
   const _$_NoteFormState(
       {required this.note,
+      required this.categoryBoxText,
       required this.tempAmount,
       required this.showErrorMessages,
       required this.isEditing,
       required this.isSaving,
       required this.isValidating,
+      required this.isAddingCategory,
       required this.failureOption});
 
   @override
   final Note note;
+  @override
+  final String categoryBoxText;
   @override
   final String tempAmount;
   @override // 計算機暫存的金額字串，用Int比較麻煩所以用String
@@ -232,11 +266,13 @@ class _$_NoteFormState implements _NoteFormState {
   @override
   final bool isValidating;
   @override
+  final bool isAddingCategory;
+  @override
   final Option<NoteFailure> failureOption;
 
   @override
   String toString() {
-    return 'NoteFormState(note: $note, tempAmount: $tempAmount, showErrorMessages: $showErrorMessages, isEditing: $isEditing, isSaving: $isSaving, isValidating: $isValidating, failureOption: $failureOption)';
+    return 'NoteFormState(note: $note, categoryBoxText: $categoryBoxText, tempAmount: $tempAmount, showErrorMessages: $showErrorMessages, isEditing: $isEditing, isSaving: $isSaving, isValidating: $isValidating, isAddingCategory: $isAddingCategory, failureOption: $failureOption)';
   }
 
   @override
@@ -246,6 +282,8 @@ class _$_NoteFormState implements _NoteFormState {
             other is _NoteFormState &&
             const DeepCollectionEquality().equals(other.note, note) &&
             const DeepCollectionEquality()
+                .equals(other.categoryBoxText, categoryBoxText) &&
+            const DeepCollectionEquality()
                 .equals(other.tempAmount, tempAmount) &&
             const DeepCollectionEquality()
                 .equals(other.showErrorMessages, showErrorMessages) &&
@@ -254,6 +292,8 @@ class _$_NoteFormState implements _NoteFormState {
             const DeepCollectionEquality()
                 .equals(other.isValidating, isValidating) &&
             const DeepCollectionEquality()
+                .equals(other.isAddingCategory, isAddingCategory) &&
+            const DeepCollectionEquality()
                 .equals(other.failureOption, failureOption));
   }
 
@@ -261,11 +301,13 @@ class _$_NoteFormState implements _NoteFormState {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(note),
+      const DeepCollectionEquality().hash(categoryBoxText),
       const DeepCollectionEquality().hash(tempAmount),
       const DeepCollectionEquality().hash(showErrorMessages),
       const DeepCollectionEquality().hash(isEditing),
       const DeepCollectionEquality().hash(isSaving),
       const DeepCollectionEquality().hash(isValidating),
+      const DeepCollectionEquality().hash(isAddingCategory),
       const DeepCollectionEquality().hash(failureOption));
 
   @JsonKey(ignore: true)
@@ -277,15 +319,19 @@ class _$_NoteFormState implements _NoteFormState {
 abstract class _NoteFormState implements NoteFormState {
   const factory _NoteFormState(
       {required Note note,
+      required String categoryBoxText,
       required String tempAmount,
       required bool showErrorMessages,
       required bool isEditing,
       required bool isSaving,
       required bool isValidating,
+      required bool isAddingCategory,
       required Option<NoteFailure> failureOption}) = _$_NoteFormState;
 
   @override
   Note get note;
+  @override
+  String get categoryBoxText;
   @override
   String get tempAmount;
   @override // 計算機暫存的金額字串，用Int比較麻煩所以用String
@@ -296,6 +342,8 @@ abstract class _NoteFormState implements NoteFormState {
   bool get isSaving;
   @override
   bool get isValidating;
+  @override
+  bool get isAddingCategory;
   @override
   Option<NoteFailure> get failureOption;
   @override

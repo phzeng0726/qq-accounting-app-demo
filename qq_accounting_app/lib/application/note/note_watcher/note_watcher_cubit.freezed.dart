@@ -21,6 +21,8 @@ class _$NoteWatcherStateTearOff {
   _NoteWatcherState call(
       {required LoadStatus loadStatus,
       required Account account,
+      required List<Category> expenseCategoryList,
+      required List<Category> incomeCategoryList,
       required List<Note> notes,
       required int dailyIncomeAmount,
       required int dailyExpenseAmount,
@@ -35,6 +37,8 @@ class _$NoteWatcherStateTearOff {
     return _NoteWatcherState(
       loadStatus: loadStatus,
       account: account,
+      expenseCategoryList: expenseCategoryList,
+      incomeCategoryList: incomeCategoryList,
       notes: notes,
       dailyIncomeAmount: dailyIncomeAmount,
       dailyExpenseAmount: dailyExpenseAmount,
@@ -57,6 +61,8 @@ const $NoteWatcherState = _$NoteWatcherStateTearOff();
 mixin _$NoteWatcherState {
   LoadStatus get loadStatus => throw _privateConstructorUsedError;
   Account get account => throw _privateConstructorUsedError;
+  List<Category> get expenseCategoryList => throw _privateConstructorUsedError;
+  List<Category> get incomeCategoryList => throw _privateConstructorUsedError;
   List<Note> get notes => throw _privateConstructorUsedError;
   int get dailyIncomeAmount => throw _privateConstructorUsedError;
   int get dailyExpenseAmount => throw _privateConstructorUsedError;
@@ -83,6 +89,8 @@ abstract class $NoteWatcherStateCopyWith<$Res> {
   $Res call(
       {LoadStatus loadStatus,
       Account account,
+      List<Category> expenseCategoryList,
+      List<Category> incomeCategoryList,
       List<Note> notes,
       int dailyIncomeAmount,
       int dailyExpenseAmount,
@@ -112,6 +120,8 @@ class _$NoteWatcherStateCopyWithImpl<$Res>
   $Res call({
     Object? loadStatus = freezed,
     Object? account = freezed,
+    Object? expenseCategoryList = freezed,
+    Object? incomeCategoryList = freezed,
     Object? notes = freezed,
     Object? dailyIncomeAmount = freezed,
     Object? dailyExpenseAmount = freezed,
@@ -133,6 +143,14 @@ class _$NoteWatcherStateCopyWithImpl<$Res>
           ? _value.account
           : account // ignore: cast_nullable_to_non_nullable
               as Account,
+      expenseCategoryList: expenseCategoryList == freezed
+          ? _value.expenseCategoryList
+          : expenseCategoryList // ignore: cast_nullable_to_non_nullable
+              as List<Category>,
+      incomeCategoryList: incomeCategoryList == freezed
+          ? _value.incomeCategoryList
+          : incomeCategoryList // ignore: cast_nullable_to_non_nullable
+              as List<Category>,
       notes: notes == freezed
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
@@ -205,6 +223,8 @@ abstract class _$NoteWatcherStateCopyWith<$Res>
   $Res call(
       {LoadStatus loadStatus,
       Account account,
+      List<Category> expenseCategoryList,
+      List<Category> incomeCategoryList,
       List<Note> notes,
       int dailyIncomeAmount,
       int dailyExpenseAmount,
@@ -238,6 +258,8 @@ class __$NoteWatcherStateCopyWithImpl<$Res>
   $Res call({
     Object? loadStatus = freezed,
     Object? account = freezed,
+    Object? expenseCategoryList = freezed,
+    Object? incomeCategoryList = freezed,
     Object? notes = freezed,
     Object? dailyIncomeAmount = freezed,
     Object? dailyExpenseAmount = freezed,
@@ -259,6 +281,14 @@ class __$NoteWatcherStateCopyWithImpl<$Res>
           ? _value.account
           : account // ignore: cast_nullable_to_non_nullable
               as Account,
+      expenseCategoryList: expenseCategoryList == freezed
+          ? _value.expenseCategoryList
+          : expenseCategoryList // ignore: cast_nullable_to_non_nullable
+              as List<Category>,
+      incomeCategoryList: incomeCategoryList == freezed
+          ? _value.incomeCategoryList
+          : incomeCategoryList // ignore: cast_nullable_to_non_nullable
+              as List<Category>,
       notes: notes == freezed
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
@@ -313,6 +343,8 @@ class _$_NoteWatcherState implements _NoteWatcherState {
   const _$_NoteWatcherState(
       {required this.loadStatus,
       required this.account,
+      required this.expenseCategoryList,
+      required this.incomeCategoryList,
       required this.notes,
       required this.dailyIncomeAmount,
       required this.dailyExpenseAmount,
@@ -329,6 +361,10 @@ class _$_NoteWatcherState implements _NoteWatcherState {
   final LoadStatus loadStatus;
   @override
   final Account account;
+  @override
+  final List<Category> expenseCategoryList;
+  @override
+  final List<Category> incomeCategoryList;
   @override
   final List<Note> notes;
   @override
@@ -354,7 +390,7 @@ class _$_NoteWatcherState implements _NoteWatcherState {
 
   @override
   String toString() {
-    return 'NoteWatcherState(loadStatus: $loadStatus, account: $account, notes: $notes, dailyIncomeAmount: $dailyIncomeAmount, dailyExpenseAmount: $dailyExpenseAmount, dailyNetAmount: $dailyNetAmount, calendarFormat: $calendarFormat, rangeSelectionMode: $rangeSelectionMode, focusedDay: $focusedDay, selectedDay: $selectedDay, rangeStart: $rangeStart, rangeEnd: $rangeEnd, failureOption: $failureOption)';
+    return 'NoteWatcherState(loadStatus: $loadStatus, account: $account, expenseCategoryList: $expenseCategoryList, incomeCategoryList: $incomeCategoryList, notes: $notes, dailyIncomeAmount: $dailyIncomeAmount, dailyExpenseAmount: $dailyExpenseAmount, dailyNetAmount: $dailyNetAmount, calendarFormat: $calendarFormat, rangeSelectionMode: $rangeSelectionMode, focusedDay: $focusedDay, selectedDay: $selectedDay, rangeStart: $rangeStart, rangeEnd: $rangeEnd, failureOption: $failureOption)';
   }
 
   @override
@@ -365,6 +401,10 @@ class _$_NoteWatcherState implements _NoteWatcherState {
             const DeepCollectionEquality()
                 .equals(other.loadStatus, loadStatus) &&
             const DeepCollectionEquality().equals(other.account, account) &&
+            const DeepCollectionEquality()
+                .equals(other.expenseCategoryList, expenseCategoryList) &&
+            const DeepCollectionEquality()
+                .equals(other.incomeCategoryList, incomeCategoryList) &&
             const DeepCollectionEquality().equals(other.notes, notes) &&
             const DeepCollectionEquality()
                 .equals(other.dailyIncomeAmount, dailyIncomeAmount) &&
@@ -392,6 +432,8 @@ class _$_NoteWatcherState implements _NoteWatcherState {
       runtimeType,
       const DeepCollectionEquality().hash(loadStatus),
       const DeepCollectionEquality().hash(account),
+      const DeepCollectionEquality().hash(expenseCategoryList),
+      const DeepCollectionEquality().hash(incomeCategoryList),
       const DeepCollectionEquality().hash(notes),
       const DeepCollectionEquality().hash(dailyIncomeAmount),
       const DeepCollectionEquality().hash(dailyExpenseAmount),
@@ -414,6 +456,8 @@ abstract class _NoteWatcherState implements NoteWatcherState {
   const factory _NoteWatcherState(
       {required LoadStatus loadStatus,
       required Account account,
+      required List<Category> expenseCategoryList,
+      required List<Category> incomeCategoryList,
       required List<Note> notes,
       required int dailyIncomeAmount,
       required int dailyExpenseAmount,
@@ -430,6 +474,10 @@ abstract class _NoteWatcherState implements NoteWatcherState {
   LoadStatus get loadStatus;
   @override
   Account get account;
+  @override
+  List<Category> get expenseCategoryList;
+  @override
+  List<Category> get incomeCategoryList;
   @override
   List<Note> get notes;
   @override

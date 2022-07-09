@@ -1,11 +1,12 @@
 part of 'note_watcher_cubit.dart';
 
-// TODO: 到時候需要添加Option 確認是否有error
 @freezed
 abstract class NoteWatcherState with _$NoteWatcherState {
   const factory NoteWatcherState({
     required LoadStatus loadStatus,
     required Account account,
+    required List<Category> expenseCategoryList,
+    required List<Category> incomeCategoryList,
     required List<Note> notes,
     required int dailyIncomeAmount,
     required int dailyExpenseAmount,
@@ -24,6 +25,8 @@ abstract class NoteWatcherState with _$NoteWatcherState {
   factory NoteWatcherState.initial() => NoteWatcherState(
         loadStatus: const LoadStatus.initial(),
         account: Account.empty(),
+        expenseCategoryList: <Category>[],
+        incomeCategoryList: <Category>[],
         notes: <Note>[],
         dailyIncomeAmount: 0,
         dailyExpenseAmount: 0,

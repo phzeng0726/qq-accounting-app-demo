@@ -2,10 +2,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:qq_accounting_app/presentation/core/widgets/item_row_widget.dart';
 
 import '../../../../../application/account/account_form/account_form_cubit.dart';
 import '../../../../constants.dart';
+import '../../../core/widgets/item_row_widget.dart';
 import 'account_form_body_widgets_export.dart';
 
 class AccountFormBody extends StatelessWidget {

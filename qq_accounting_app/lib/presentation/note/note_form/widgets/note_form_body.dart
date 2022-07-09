@@ -33,7 +33,7 @@ class NoteFormBody extends StatelessWidget {
               widget: const AmountEnterButton(),
             ),
             ItemRowWidget(
-              title: FlutterI18n.translate(context, "note.form.category"),
+              title: FlutterI18n.translate(context, "note.form.category.title"),
               widget: const CategoryPickerButton(),
             ),
             ItemRowWidget(

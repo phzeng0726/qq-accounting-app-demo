@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../application/theme/theme_cubit.dart';
+import '../../../application/core/theme/theme_cubit.dart';
 
 class ThemeSwitchButton extends StatelessWidget {
   const ThemeSwitchButton({Key? key}) : super(key: key);

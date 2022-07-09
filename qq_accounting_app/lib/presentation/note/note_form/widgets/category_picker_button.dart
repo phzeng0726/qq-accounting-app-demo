@@ -11,17 +11,21 @@ class CategoryPickerButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<NoteFormCubit, NoteFormState>(
-        // buildWhen: (p, c) => p.signInState != c.signInState,
-        builder: (context, state) {
-      return ManualButton(
+      builder: (context, state) {
+        return ManualButton(
           child: Text(state.note.category),
           onPressed: () async {
             await showModalBottomSheet(
-                context: context,
-                builder: (builder) {
-                  return const CategorySheet();
-                });
-          });
-    });
+              context: context,
+              builder: (builder) {
+                return CategorySheet(
+                  amountType: state.note.amountType,
+                );
+              },
+            );
+          },
+        );
+      },
+    );
   }
 }

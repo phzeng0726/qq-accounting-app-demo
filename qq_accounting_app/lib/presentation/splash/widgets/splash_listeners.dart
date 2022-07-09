@@ -39,7 +39,7 @@ List<BlocListener> listeners = [
   BlocListener<NavigationCubit, NavigationState>(
     listenWhen: (p, c) => c.loadStatus == const LoadStatus.initial(),
     listener: (context, state) {
-      LoggerService.simple.i('NavigationCubit page listening!!');
+      LoggerService.simple.i('[SplashPage] NavigationCubit page listening!!');
 
       context.pushRoute(const HomeRoute());
 
@@ -55,21 +55,22 @@ List<BlocListener> listeners = [
   BlocListener<AccountWatcherCubit, AccountWatcherState>(
     listenWhen: (p, c) => c.selectedAccountOption.isSome(),
     listener: (context, state) {
-      LoggerService.simple.i('AccountWatcherCubit listening!!');
+      LoggerService.simple.i('[SplashPage] AccountWatcherCubit listening!!');
       final DateTime focusedDay =
           context.read<NoteFormCubit>().state.note.dateTime;
 
       state.selectedAccountOption.fold(
         () => null,
         (account) {
+          // selectedAccount
+          context.read<NoteWatcherCubit>().selectedAccount(account);
+          context.read<StatisticChartCubit>().selectedAccount(account);
+
           refreshNoteAndChartDisplay(
             context: context,
             dateTime: focusedDay,
             amountType: context.read<StatisticChartCubit>().state.amountType,
           );
-          // selectedAccount
-          context.read<NoteWatcherCubit>().selectedAccount(account);
-          context.read<StatisticChartCubit>().selectedAccount(account);
         },
       );
     },
@@ -79,6 +80,8 @@ List<BlocListener> listeners = [
   BlocListener<NoteActorCubit, NoteActorState>(
     listenWhen: (p, c) => p != c && c == const NoteActorState.deleteSuccess(),
     listener: (context, state) {
+      LoggerService.simple.i('[SplashPage] NoteActorCubit listening!!');
+
       final DateTime focusedDay =
           context.read<NoteFormCubit>().state.note.dateTime;
 
@@ -99,6 +102,8 @@ List<BlocListener> listeners = [
         c.isSaving == false &&
         c.failureOption == none(),
     listener: (context, state) {
+      LoggerService.simple.i('[SplashPage] NoteFormCubit listening for form saving!!');
+
       final DateTime focusedDay = state.note.dateTime;
 
       refreshNoteAndChartDisplay(
@@ -119,10 +124,22 @@ List<BlocListener> listeners = [
       context.read<AccountWatcherCubit>().fetchAccounts();
     },
   ),
+
+  BlocListener<NoteFormCubit, NoteFormState>(
+    listenWhen: (p, c) =>
+        p.isAddingCategory != c.isAddingCategory && c.isAddingCategory == false,
+    listener: (context, state) {
+      LoggerService.simple.i('[SplashPage] NoteFormCubit listening for category adding!!');
+
+      context.read<NoteWatcherCubit>().fetchCategoryList();
+    },
+  ),
   // NOTE: 從note_home選取日期，重整頁面，下次填寫表單時也要從選取後的日期新增
   BlocListener<NoteWatcherCubit, NoteWatcherState>(
     listenWhen: (p, c) => p.focusedDay != c.focusedDay,
     listener: (context, state) {
+      LoggerService.simple.i('[SplashPage] NoteWatcherCubit listening!!');
+
       final DateTime focusedDay = state.focusedDay;
 
       refreshNoteAndChartDisplay(
@@ -141,6 +158,8 @@ List<BlocListener> listeners = [
   BlocListener<StatisticChartCubit, StatisticChartState>(
     listenWhen: (p, c) => p.amountType != c.amountType,
     listener: (context, state) {
+      LoggerService.simple.i('[SplashPage] StatisticChartCubit listening!!');
+
       context.read<StatisticChartCubit>().getSingleDayStarted(
             amountType: state.amountType,
             dateTime: state.dateTime,
