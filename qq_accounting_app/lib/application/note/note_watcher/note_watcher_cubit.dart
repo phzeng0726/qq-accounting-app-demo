@@ -6,6 +6,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../../domain/account/account.dart';
+import '../../../domain/core/device_time_stamp.dart';
 import '../../../domain/core/load_status.dart';
 import '../../../domain/note/i_note_repository.dart';
 import '../../../domain/note/note.dart';
@@ -33,7 +34,7 @@ class NoteWatcherCubit extends Cubit<NoteWatcherState> {
     required DateTime dateTime,
   }) async {
     // NOTE: sqflite疑似只能用yyyy-mm-dd篩選
-    String day = dateTime.toString().substring(0, 10);
+    String day = DeviceTimeStamp(dateTime).toDayString();
 
     Either<NoteFailure, int> eitherExpense;
     Either<NoteFailure, int> eitherIncome;
@@ -70,7 +71,7 @@ class NoteWatcherCubit extends Cubit<NoteWatcherState> {
     required DateTime dateTime,
   }) async {
     // NOTE: sqflite疑似只能用yyyy-mm-dd篩選
-    String day = dateTime.toString().substring(0, 10);
+    String day =DeviceTimeStamp(dateTime).toDayString();
     Either<NoteFailure, List<Note>> failureOrNoteList;
 
     failureOrNoteList = await _noteRepository.getNotesDuringPeriod(
@@ -97,8 +98,8 @@ class NoteWatcherCubit extends Cubit<NoteWatcherState> {
     required DateTime endTime,
   }) async {
     // NOTE: sqflite疑似只能用yyyy-mm-dd篩選
-    String subStartTime = startTime.toString().substring(0, 10);
-    String subEndTime = endTime.toString().substring(0, 10);
+    String subStartTime = DeviceTimeStamp(startTime).toDayString();
+    String subEndTime = DeviceTimeStamp(endTime).toDayString();
 
     Either<NoteFailure, List<Note>> failureOrNoteList;
 

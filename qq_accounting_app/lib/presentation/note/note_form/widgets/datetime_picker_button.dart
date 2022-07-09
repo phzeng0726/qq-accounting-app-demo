@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:qq_accounting_app/domain/core/device_time_stamp.dart';
 
 import '../../../../application/note/note_form/note_form_cubit.dart';
 import '../../../core/widgets/manual_button.dart';
@@ -13,7 +14,7 @@ class DateTimePickerButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<NoteFormCubit, NoteFormState>(builder: (context, state) {
       return ManualButton(
-          child: Text(state.note.dateTime.toString().substring(0, 10)),
+          child: Text(DeviceTimeStamp(state.note.dateTime).toDayString()),
           onPressed: () async {
             var dateTime = await showDatePicker(
                 context: context,

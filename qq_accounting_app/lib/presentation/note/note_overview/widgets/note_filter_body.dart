@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
 import '../../../../application/note/note_watcher/note_watcher_cubit.dart';
+import '../../../../domain/core/device_time_stamp.dart';
 import '../../../core/widgets/load_status_screen.dart';
 import 'note_overview_widgets_export.dart';
 
@@ -13,6 +14,7 @@ class NoteFilterBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<NoteWatcherCubit, NoteWatcherState>(
       builder: (context, state) {
+        final DateTime now = DateTime.now();
         return LoadStatusScreen(
           loadStatus: state.loadStatus,
           succeedScreen: Center(
@@ -20,13 +22,13 @@ class NoteFilterBody extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: ListView(
                 children: [
-                  if (state.focusedDay.toString().substring(0, 10) !=
-                      DateTime.now().toString().substring(0, 10)) ...[
+                  if (DeviceTimeStamp(state.focusedDay).toDayString() !=
+                      DeviceTimeStamp(now).toDayString()) ...[
                     ElevatedButton(
                         onPressed: () {
                           context
                               .read<NoteWatcherCubit>()
-                              .onDaySelected(DateTime.now(), DateTime.now());
+                              .onDaySelected(now, now);
                         },
                         child: Text(
                           FlutterI18n.translate(

@@ -69,7 +69,7 @@ class CategorySheet extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  // // TODO 新增新類別的page和bloc
+                  // TODO: 新增新類別的page和bloc
                   // context
                   //     .read<AccountFormCubit>()
                   //     .categoryCreated(_amountType, '新類別測試');

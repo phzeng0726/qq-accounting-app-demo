@@ -9,6 +9,7 @@ import 'package:qq_accounting_app/domain/note/note_failure.dart';
 import '../../../domain/account/account.dart';
 import '../../../domain/chart/chart_item.dart';
 import '../../../domain/chart/i_chart_repository.dart';
+import '../../../domain/core/device_time_stamp.dart';
 import '../../../domain/core/load_status.dart';
 import '../../../domain/note/i_note_repository.dart';
 import '../../../domain/note/note.dart';
@@ -58,7 +59,7 @@ class StatisticChartCubit extends Cubit<StatisticChartState> {
     Either<ChartFailure, List<ChartItem>> failureOrChartItemList;
 
     // NOTE: sqflite疑似只能用yyyy-mm-dd篩選
-    String day = dateTime.toString().substring(0, 10);
+    String day = DeviceTimeStamp(dateTime).toDayString();
 
     failureOrNoteList = await _noteRepository.getNotesByAmountTypeDuringPeriod(
       state.account.id!,
@@ -105,8 +106,8 @@ class StatisticChartCubit extends Cubit<StatisticChartState> {
     Either<ChartFailure, List<ChartItem>> failureOrChartItemList;
 
     // NOTE: sqflite疑似只能用yyyy-mm-dd篩選
-    String subStartTime = startTime.toString().substring(0, 10);
-    String subEndTime = endTime.toString().substring(0, 10);
+    String subStartTime = DeviceTimeStamp(startTime).toDayString();
+    String subEndTime = DeviceTimeStamp(endTime).toDayString();
 
     failureOrNoteList = await _noteRepository.getNotesByAmountTypeDuringPeriod(
       state.account.id!,
