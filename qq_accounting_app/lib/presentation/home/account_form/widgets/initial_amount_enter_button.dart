@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../application/accounts/account_form/account_form_cubit.dart';
+import '../../../../application/account/account_form/account_form_cubit.dart';
 import '../../../core/widgets/manual_button.dart';
 import 'amount_calculator.dart';
 

@@ -1,12 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../application/accounts/account_watcher/account_watcher_cubit.dart';
-import '../../../application/charts/statistic_chart/statistic_chart_cubit.dart';
+import '../../../application/account/account_watcher/account_watcher_cubit.dart';
+import '../../../application/chart/statistic_chart/statistic_chart_cubit.dart';
 import '../../../application/core/navigation/navigation_cubit.dart';
-import '../../../application/notes/note_actor/note_actor_cubit.dart';
-import '../../../application/notes/note_form/note_form_cubit.dart';
-import '../../../application/notes/note_watcher/note_watcher_cubit.dart';
+import '../../../application/note/note_actor/note_actor_cubit.dart';
+import '../../../application/note/note_form/note_form_cubit.dart';
+import '../../../application/note/note_watcher/note_watcher_cubit.dart';
 import '../../../domain/core/load_status.dart';
 import '../../../domain/core/logger.dart';
 import '../../routes/router.gr.dart';

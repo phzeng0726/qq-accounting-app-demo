@@ -4,10 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:qq_accounting_app/presentation/core/widgets/empty_widget.dart';
 
-import '../../application/accounts/account_form/account_form_cubit.dart';
-import '../../application/accounts/account_watcher/account_watcher_cubit.dart';
+import '../../application/account/account_form/account_form_cubit.dart';
+import '../../application/account/account_watcher/account_watcher_cubit.dart';
 import '../../application/core/navigation/navigation_cubit.dart';
-import '../../domain/accounts/account.dart';
+import '../../domain/account/account.dart';
 import '../core/widgets/load_status_screen.dart';
 import '../routes/router.gr.dart';
 import 'widgets/account_overview_body.dart';
@@ -35,7 +35,6 @@ class HomePage extends StatelessWidget {
           return Scaffold(
             drawer: const HomeDrawer(),
             appBar: AppBar(
-              automaticallyImplyLeading: false,
               title: Text(
                 FlutterI18n.translate(context, "home.title"),
               ),

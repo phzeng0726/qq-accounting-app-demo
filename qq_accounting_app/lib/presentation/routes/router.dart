@@ -2,8 +2,8 @@ import 'package:auto_route/auto_route.dart';
 
 import '../home/account_form/account_form_page.dart';
 import '../home/home_page.dart';
-import '../notes/note_form/note_form_page.dart';
-import '../notes/note_overview/note_overview_page.dart';
+import '../note/note_form/note_form_page.dart';
+import '../note/note_overview/note_overview_page.dart';
 import '../splash/splash_page.dart';
 
 // https://www.youtube.com/watch?v=9oH42_Axr3Q

@@ -6,18 +6,19 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import '../../application/theme/theme_cubit.dart';
 import '../../constants.dart';
 import '../routes/router.gr.dart';
-import '../../../application/accounts/account_form/account_form_cubit.dart';
-import '../../../application/accounts/account_watcher/account_watcher_cubit.dart';
-import '../../../application/charts/statistic_chart/statistic_chart_cubit.dart';
+import '../../../application/account/account_form/account_form_cubit.dart';
+import '../../../application/account/account_watcher/account_watcher_cubit.dart';
+import '../../../application/chart/statistic_chart/statistic_chart_cubit.dart';
 import '../../../application/core/navigation/navigation_cubit.dart';
-import '../../../application/notes/note_actor/note_actor_cubit.dart';
-import '../../../application/notes/note_form/note_form_cubit.dart';
-import '../../../application/notes/note_watcher/note_watcher_cubit.dart';
+import '../../../application/note/note_actor/note_actor_cubit.dart';
+import '../../../application/note/note_form/note_form_cubit.dart';
+import '../../../application/note/note_watcher/note_watcher_cubit.dart';
 import '../../../application/theme/theme_cubit.dart';
-import '../../../domain/accounts/i_account_repository.dart';
-import '../../../domain/charts/i_chart_repository.dart';
-import '../../../domain/notes/i_note_repository.dart';
+import '../../../domain/account/i_account_repository.dart';
+import '../../../domain/chart/i_chart_repository.dart';
+import '../../../domain/note/i_note_repository.dart';
 import '../../../injection.dart';
+
 class AppWidget extends StatelessWidget {
   const AppWidget({Key? key}) : super(key: key);
 

@@ -1,9 +1,10 @@
 {
     "appTitle": "記帳本Demo",
     "income": "收入",
+    "netAmount": "淨額",
     "expense": "支出",
     "home": {
-        "title": "帳戶首頁",
+        "title": "帳戶列表",
         "emptyAccountListNotice": "帳戶列表為空！快來新增你的第一個帳戶吧！",
         "accountForm": {
             "editTitle": "編輯帳戶",
@@ -22,7 +23,7 @@
         "accountFormSavedButtonText": "確定"
     },
     "note": {
-        "title": "記帳首頁",
+        "title": "記帳本",
         "emptyData": "無資料",
         "form": {
             "editTitle": "編輯",
@@ -31,7 +32,13 @@
                 "amountMustGreaterThan0": "金額輸入值需大於0",
                 "insufficientBalance ": "帳戶餘額不足",
                 "unexpected": "未知的錯誤"
-            }
+            },
+            "date": "日期",
+            "amount": "金額",
+            "category": "類別",
+            "itemName": "項目名稱",
+            "memo": "備註",
+            "categoryCreated": "類別新增"
         },
         "overview": {
             "returnToday": "返回當日",

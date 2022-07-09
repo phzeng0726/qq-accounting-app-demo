@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
-import '../../../../application/accounts/account_form/account_form_cubit.dart';
+import '../../../../application/account/account_form/account_form_cubit.dart';
 import '../../../../application/core/navigation/navigation_cubit.dart';
-import '../../../../domain/accounts/account.dart';
+import '../../../../domain/account/account.dart';
 import '../../core/widgets/tap_out_dismiss_keyboard.dart';
 import 'widgets/account_form_table.dart';
 
@@ -22,7 +22,8 @@ class AccountFormPage extends StatelessWidget {
           appBar: AppBar(
             title: Text(state.isEditing
                 ? FlutterI18n.translate(context, "home.accountForm.editTitle")
-                : FlutterI18n.translate(context, "home.accountForm.createTitle")),
+                : FlutterI18n.translate(
+                    context, "home.accountForm.createTitle")),
             actions: [
               Align(
                 alignment: Alignment.centerRight,
@@ -45,7 +46,7 @@ class AccountFormPage extends StatelessWidget {
                     IconButton(
                         onPressed: () {
                           context.read<AccountFormCubit>().saved();
-      
+
                           context.router.pop();
                           context.read<NavigationCubit>().pushOrPopPage();
                         },

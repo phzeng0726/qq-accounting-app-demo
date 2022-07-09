@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 
-import '../../../../../application/account/account_form/account_form_cubit.dart';
+import '../../../../application/note/note_form/note_form_cubit.dart';
 
-class TitleBox extends StatelessWidget {
-  const TitleBox({
+class ItemNameBox extends StatelessWidget {
+  const ItemNameBox({
     Key? key,
   }) : super(key: key);
 
@@ -14,7 +13,7 @@ class TitleBox extends StatelessWidget {
     double buttonHeight = 50.0;
     double buttonWidth = 150.0;
 
-    return BlocBuilder<AccountFormCubit, AccountFormState>(
+    return BlocBuilder<NoteFormCubit, NoteFormState>(
       // buildWhen: (p, c) => p.signInState != c.signInState,
       builder: (context, state) {
         return Flexible(
@@ -25,18 +24,15 @@ class TitleBox extends StatelessWidget {
               maxLines: 1,
               textAlignVertical: TextAlignVertical.center,
               textAlign: TextAlign.center,
-              initialValue: state.account.title,
+              initialValue: state.note.itemName,
               onChanged: (value) =>
-                  context.read<AccountFormCubit>()..titleChanged(value),
+                  context.read<NoteFormCubit>().itemNameChanged(value),
               validator: (_) =>
-                  context.read<AccountFormCubit>().state.account.title,
+                  context.read<NoteFormCubit>().state.note.itemName,
               style: Theme.of(context).textTheme.subtitle1,
-              decoration: InputDecoration(
-                border: const OutlineInputBorder(),
-                hintText: FlutterI18n.translate(
-                  context,
-                  "accountForm.titleBoxHint",
-                ),
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: "未輸入",
               ),
             ),
           ),

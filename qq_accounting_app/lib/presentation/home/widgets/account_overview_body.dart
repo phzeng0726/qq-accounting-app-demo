@@ -2,14 +2,14 @@ import 'package:auto_route/auto_route.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:qq_accounting_app/application/accounts/account_watcher/account_watcher_cubit.dart';
+import 'package:qq_accounting_app/application/account/account_watcher/account_watcher_cubit.dart';
 
-import '../../../application/accounts/account_form/account_form_cubit.dart';
-import '../../../application/charts/statistic_chart/statistic_chart_cubit.dart';
+import '../../../application/account/account_form/account_form_cubit.dart';
+import '../../../application/chart/statistic_chart/statistic_chart_cubit.dart';
 import '../../../application/core/navigation/navigation_cubit.dart';
-import '../../../application/notes/note_watcher/note_watcher_cubit.dart';
+import '../../../application/note/note_watcher/note_watcher_cubit.dart';
 import '../../../constants.dart';
-import '../../../domain/accounts/account.dart';
+import '../../../domain/account/account.dart';
 import '../../routes/router.gr.dart';
 
 class AccountOverviewBody extends StatelessWidget {

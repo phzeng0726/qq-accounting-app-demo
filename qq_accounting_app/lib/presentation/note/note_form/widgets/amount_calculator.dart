@@ -1,11 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
+
 import 'package:math_expressions/math_expressions.dart';
 
-import '../../../../../application/account/account_form/account_form_cubit.dart';
-import '../../../../../application/core/navigation/navigation_cubit.dart';
+import '../../../../application/note/note_form/note_form_cubit.dart';
+import 'amount_type_switch_button.dart';
 
 class AmountCalculator extends StatelessWidget {
   const AmountCalculator({Key? key}) : super(key: key);
@@ -15,16 +15,16 @@ class AmountCalculator extends StatelessWidget {
     double mWidth = MediaQuery.of(context).size.width;
     double mHeight = MediaQuery.of(context).size.height;
 
-    return BlocBuilder<AccountFormCubit, AccountFormState>(
+    return BlocBuilder<NoteFormCubit, NoteFormState>(
 //         // buildWhen: (p, c) => p.signInState != c.signInState,
         builder: (context, state) {
       void numClick(String text) {
         String tempAmount = state.tempAmount;
-        context.read<AccountFormCubit>().tempAmountChanged(tempAmount += text);
+        context.read<NoteFormCubit>().tempAmountChanged(tempAmount += text);
       }
 
       void clear(String text) {
-        context.read<AccountFormCubit>().tempAmountChanged('');
+        context.read<NoteFormCubit>().tempAmountChanged('');
       }
 
       void evaluate(String text) {
@@ -32,7 +32,7 @@ class AmountCalculator extends StatelessWidget {
         Expression exp = p.parse(state.tempAmount);
         ContextModel cm = ContextModel();
 
-        context.read<AccountFormCubit>().tempAmountChanged(
+        context.read<NoteFormCubit>().tempAmountChanged(
             exp.evaluate(EvaluationType.REAL, cm).round().toString());
       }
 
@@ -45,12 +45,15 @@ class AmountCalculator extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Align(
-                alignment: Alignment.topRight,
-                child: ElevatedButton(
-                  onPressed: () => clear(''),
-                  child: const Text('C'),
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const AmountTypeSwitchButton(),
+                  ElevatedButton(
+                    onPressed: () => clear(''),
+                    child: const Text('C'),
+                  ),
+                ],
               ),
               Container(
                 width: mWidth,
@@ -163,13 +166,11 @@ class AmountCalculator extends StatelessWidget {
                         ElevatedButton(
                           onPressed: () {
                             context
-                                .read<AccountFormCubit>()
-                                .initialAmountSaved(state.tempAmount);
+                                .read<NoteFormCubit>()
+                                .amountSaved(state.tempAmount);
                             context.router.pop();
-                            context.read<NavigationCubit>().pushOrPopPage();
                           },
-                          child: Text(FlutterI18n.translate(context,
-                              "accountForm.amountCalculatorSavedButtonText")), // TODO 只有送出的時候才要改popup外的那個金額
+                          child: const Text('完成'), // TODO 只有送出的時候才要改popup外的那個金額
                         ),
                       ],
                     ),

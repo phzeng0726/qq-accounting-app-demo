@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 
-import 'domain/notes/note.dart';
+import 'domain/note/note.dart';
 
 // NOTE: 有可能會換幣值，所以用dollorSign，不然一般插入"$"可以直接寫"\$"
 String dollarSign = String.fromCharCodes(Runes('\u0024'));
 
-const double kDefaultPadding = 20.0;
+const double kDefaultPadding = 16.0;
 const double kDefaultHeightSize = 20.0;
 
 const List<Map<String, dynamic>> localeMapList = [
@@ -23,14 +23,14 @@ const List<Map<String, dynamic>> localeMapList = [
 
 // https://blog.csdn.net/yechaoa/article/details/89845701
 class NoteColors {
-  static Color expenseBackgroundColor = const Color(0xff4caf50).withOpacity(0.9);
-  static Color expenseButtonColor = const Color(0xff4caf50);
-  static Color expenseTextColor = const Color(0xff4caf50);
+  static Color incomeBackgroundColor = const Color(0xff4caf50).withOpacity(0.9);
+  static Color incomeButtonColor = const Color(0xff4caf50);
+  static Color incomeTextColor = const Color(0xff4caf50);
 
-  static Color incomeBackgroundColor =
+  static Color expenseBackgroundColor =
       const Color.fromARGB(255, 175, 76, 81).withOpacity(0.9);
-  static Color incomeButtonColor = const Color.fromARGB(255, 175, 76, 81);
-  static Color incomeTextColor = const Color.fromARGB(255, 175, 76, 81);
+  static Color expenseButtonColor = const Color.fromARGB(255, 175, 76, 81);
+  static Color expenseTextColor = const Color.fromARGB(255, 175, 76, 81);
 
   // static const Color colorLoadingDark = Color(0xff388E3C);
   // static const Color loadingText = Color(0xff212121);
@@ -43,7 +43,6 @@ class NoteColors {
 
   // static const Color dividerColor = Color(0xffBDBDBD);
 }
-
 
 // Each Widget is located at an index which is unique
 int randomNumber = 0;
