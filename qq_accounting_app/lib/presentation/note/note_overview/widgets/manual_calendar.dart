@@ -25,9 +25,11 @@ class ManualCalendar extends StatelessWidget {
         // rangeEndDay: state.rangeEnd,
         calendarFormat: state.calendarFormat,
         // rangeSelectionMode: state.rangeSelectionMode,
-        availableCalendarFormats:  {
-          CalendarFormat.month: FlutterI18n.translate(context, "note.overview.calendarMonth"),
-          CalendarFormat.week: FlutterI18n.translate(context, "note.overview.calendarWeek"),
+        availableCalendarFormats: {
+          CalendarFormat.month:
+              FlutterI18n.translate(context, "note.overview.calendarMonth"),
+          CalendarFormat.week:
+              FlutterI18n.translate(context, "note.overview.calendarWeek"),
         },
         // eventLoader: _getEventsForDay,
         calendarStyle: const CalendarStyle(

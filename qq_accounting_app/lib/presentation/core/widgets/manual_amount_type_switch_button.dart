@@ -20,7 +20,7 @@ class ManualAmountTypeSwitchButton extends StatelessWidget {
     Radius borderRadius = const Radius.circular(4.0);
     double buttonWidth = 100.0;
     double buttonHeight = 40.0;
-    Color unselectedColor = Colors.grey;
+    Color unselectedColor = NoteColors.unSelectedColor;
     bool isSelected = false;
     Color selectedColor;
 

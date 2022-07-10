@@ -39,6 +39,10 @@ class NoteOverviewBody extends StatelessWidget {
                   ],
                   const ManualCalendar(),
                   ExpansionTile(
+                    backgroundColor: Theme.of(context)
+                        .colorScheme
+                        .primaryContainer
+                        .withOpacity(0.1),
                     initiallyExpanded: context
                         .watch<StatisticChartCubit>()
                         .state
@@ -76,6 +80,10 @@ class NoteOverviewBody extends StatelessWidget {
                     ],
                   ),
                   ExpansionTile(
+                    backgroundColor: Theme.of(context)
+                        .colorScheme
+                        .primaryContainer
+                        .withOpacity(0.1),
                     initiallyExpanded: true,
                     title: Text(
                       FlutterI18n.translate(

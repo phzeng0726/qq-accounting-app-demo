@@ -12,7 +12,8 @@
             "accountTitle": "帳戶名稱",
             "currencyType": "幣別",
             "initialAmount": "初始金額"
-        }
+        },
+        "totalBalance" : "總資產"
     },
     "accountForm": {
         "titleBoxHint": "未輸入",

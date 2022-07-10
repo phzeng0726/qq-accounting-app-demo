@@ -1,13 +1,13 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
-import 'package:qq_accounting_app/domain/core/logger.dart';
-import 'package:qq_accounting_app/domain/note/category.dart';
-import 'package:qq_accounting_app/infrastructure/note/category_dtos.dart';
 
+import '../../domain/core/logger.dart';
+import '../../domain/note/category.dart';
 import '../../domain/note/i_note_repository.dart';
 import '../../domain/note/note.dart';
 import '../../domain/note/note_failure.dart';
 import '../core/database_provider.dart';
+import 'category_dtos.dart';
 import 'note_dtos.dart';
 
 @LazySingleton(as: INoteRepository)

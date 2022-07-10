@@ -29,14 +29,12 @@ environment:
 dependencies:
   another_flushbar: ^1.10.29
   auto_route: ^4.0.1
-  cloud_firestore: ^3.1.17
   cupertino_icons: ^1.0.2
   dartz: ^0.10.1
-  firebase_auth: ^3.3.19
-  firebase_core: ^1.17.1
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
+  flutter_i18n: ^0.32.4
   freezed_annotation: ^1.0.0
   http: ^0.13.4
   json_serializable: ^6.2.0
@@ -47,8 +45,6 @@ dependencies:
   sqflite: ^2.0.2+1
   syncfusion_flutter_charts: ^20.2.36
   table_calendar: ^3.0.6
-  uuid: ^3.0.6
-  flutter_i18n: ^0.32.4
 
 dev_dependencies:
   auto_route_generator: null

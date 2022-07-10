@@ -22,12 +22,14 @@ class _$AccountWatcherStateTearOff {
       {required Option<Account> selectedAccountOption,
       required LoadStatus status,
       required List<Account> accounts,
-      required List<int> netAmountList}) {
+      required List<int> netAmountList,
+      required int totalBalance}) {
     return _AccountWatcherState(
       selectedAccountOption: selectedAccountOption,
       status: status,
       accounts: accounts,
       netAmountList: netAmountList,
+      totalBalance: totalBalance,
     );
   }
 }
@@ -42,6 +44,7 @@ mixin _$AccountWatcherState {
   LoadStatus get status => throw _privateConstructorUsedError;
   List<Account> get accounts => throw _privateConstructorUsedError;
   List<int> get netAmountList => throw _privateConstructorUsedError;
+  int get totalBalance => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AccountWatcherStateCopyWith<AccountWatcherState> get copyWith =>
@@ -57,7 +60,8 @@ abstract class $AccountWatcherStateCopyWith<$Res> {
       {Option<Account> selectedAccountOption,
       LoadStatus status,
       List<Account> accounts,
-      List<int> netAmountList});
+      List<int> netAmountList,
+      int totalBalance});
 
   $LoadStatusCopyWith<$Res> get status;
 }
@@ -77,6 +81,7 @@ class _$AccountWatcherStateCopyWithImpl<$Res>
     Object? status = freezed,
     Object? accounts = freezed,
     Object? netAmountList = freezed,
+    Object? totalBalance = freezed,
   }) {
     return _then(_value.copyWith(
       selectedAccountOption: selectedAccountOption == freezed
@@ -95,6 +100,10 @@ class _$AccountWatcherStateCopyWithImpl<$Res>
           ? _value.netAmountList
           : netAmountList // ignore: cast_nullable_to_non_nullable
               as List<int>,
+      totalBalance: totalBalance == freezed
+          ? _value.totalBalance
+          : totalBalance // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 
@@ -117,7 +126,8 @@ abstract class _$AccountWatcherStateCopyWith<$Res>
       {Option<Account> selectedAccountOption,
       LoadStatus status,
       List<Account> accounts,
-      List<int> netAmountList});
+      List<int> netAmountList,
+      int totalBalance});
 
   @override
   $LoadStatusCopyWith<$Res> get status;
@@ -140,6 +150,7 @@ class __$AccountWatcherStateCopyWithImpl<$Res>
     Object? status = freezed,
     Object? accounts = freezed,
     Object? netAmountList = freezed,
+    Object? totalBalance = freezed,
   }) {
     return _then(_AccountWatcherState(
       selectedAccountOption: selectedAccountOption == freezed
@@ -158,6 +169,10 @@ class __$AccountWatcherStateCopyWithImpl<$Res>
           ? _value.netAmountList
           : netAmountList // ignore: cast_nullable_to_non_nullable
               as List<int>,
+      totalBalance: totalBalance == freezed
+          ? _value.totalBalance
+          : totalBalance // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -169,7 +184,8 @@ class _$_AccountWatcherState extends _AccountWatcherState {
       {required this.selectedAccountOption,
       required this.status,
       required this.accounts,
-      required this.netAmountList})
+      required this.netAmountList,
+      required this.totalBalance})
       : super._();
 
   @override
@@ -180,10 +196,12 @@ class _$_AccountWatcherState extends _AccountWatcherState {
   final List<Account> accounts;
   @override
   final List<int> netAmountList;
+  @override
+  final int totalBalance;
 
   @override
   String toString() {
-    return 'AccountWatcherState(selectedAccountOption: $selectedAccountOption, status: $status, accounts: $accounts, netAmountList: $netAmountList)';
+    return 'AccountWatcherState(selectedAccountOption: $selectedAccountOption, status: $status, accounts: $accounts, netAmountList: $netAmountList, totalBalance: $totalBalance)';
   }
 
   @override
@@ -196,7 +214,9 @@ class _$_AccountWatcherState extends _AccountWatcherState {
             const DeepCollectionEquality().equals(other.status, status) &&
             const DeepCollectionEquality().equals(other.accounts, accounts) &&
             const DeepCollectionEquality()
-                .equals(other.netAmountList, netAmountList));
+                .equals(other.netAmountList, netAmountList) &&
+            const DeepCollectionEquality()
+                .equals(other.totalBalance, totalBalance));
   }
 
   @override
@@ -205,7 +225,8 @@ class _$_AccountWatcherState extends _AccountWatcherState {
       const DeepCollectionEquality().hash(selectedAccountOption),
       const DeepCollectionEquality().hash(status),
       const DeepCollectionEquality().hash(accounts),
-      const DeepCollectionEquality().hash(netAmountList));
+      const DeepCollectionEquality().hash(netAmountList),
+      const DeepCollectionEquality().hash(totalBalance));
 
   @JsonKey(ignore: true)
   @override
@@ -219,7 +240,8 @@ abstract class _AccountWatcherState extends AccountWatcherState {
       {required Option<Account> selectedAccountOption,
       required LoadStatus status,
       required List<Account> accounts,
-      required List<int> netAmountList}) = _$_AccountWatcherState;
+      required List<int> netAmountList,
+      required int totalBalance}) = _$_AccountWatcherState;
   const _AccountWatcherState._() : super._();
 
   @override
@@ -230,6 +252,8 @@ abstract class _AccountWatcherState extends AccountWatcherState {
   List<Account> get accounts;
   @override
   List<int> get netAmountList;
+  @override
+  int get totalBalance;
   @override
   @JsonKey(ignore: true)
   _$AccountWatcherStateCopyWith<_AccountWatcherState> get copyWith =>

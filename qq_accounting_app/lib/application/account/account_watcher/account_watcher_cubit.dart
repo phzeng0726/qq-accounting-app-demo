@@ -21,22 +21,6 @@ class AccountWatcherCubit extends Cubit<AccountWatcherState> {
     this._noteRepository,
   ) : super(AccountWatcherState.initial());
 
-  Future<void> fetchAccountsNetAmount(List<Account> accountList) async {
-    List<int> netAmountList = <int>[];
-
-    for (var account in accountList) {
-      final int netAmount = await _noteRepository.computeNetAmount(account.id!);
-      netAmountList.add(netAmount);
-    }
-    emit(
-      state.copyWith(
-        status: const LoadStatus.succeed(),
-        accounts: accountList,
-        netAmountList: netAmountList,
-      ),
-    );
-  }
-
   Future<void> fetchAccounts() async {
     emit(
       state.copyWith(
@@ -54,6 +38,26 @@ class AccountWatcherCubit extends Cubit<AccountWatcherState> {
       ),
       (accountList) => fetchAccountsNetAmount(
         accountList,
+      ),
+    );
+  }
+
+  Future<void> fetchAccountsNetAmount(List<Account> accountList) async {
+    List<int> netAmountList = <int>[];
+    int totalBalance = 0;
+
+    for (var account in accountList) {
+      final int netAmount = await _noteRepository.computeNetAmount(account.id!);
+      totalBalance += netAmount + account.initialAmount;
+      netAmountList.add(netAmount);
+    }
+
+    emit(
+      state.copyWith(
+        status: const LoadStatus.succeed(),
+        accounts: accountList,
+        netAmountList: netAmountList,
+        totalBalance: totalBalance,
       ),
     );
   }

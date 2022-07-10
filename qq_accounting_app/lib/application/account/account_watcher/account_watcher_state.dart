@@ -8,6 +8,7 @@ class AccountWatcherState with _$AccountWatcherState {
     required LoadStatus status,
     required List<Account> accounts,
     required List<int> netAmountList,
+    required int totalBalance,
   }) = _AccountWatcherState;
 
   factory AccountWatcherState.initial() => AccountWatcherState(
@@ -15,5 +16,6 @@ class AccountWatcherState with _$AccountWatcherState {
         status: const LoadStatus.initial(),
         accounts: <Account>[],
         netAmountList: <int>[],
+        totalBalance: 0,
       );
 }
