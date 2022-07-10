@@ -36,6 +36,7 @@ class HomePage extends StatelessWidget {
               title: Text(
                 FlutterI18n.translate(context, "home.title"),
               ),
+              elevation: 0,
               centerTitle: true,
               automaticallyImplyLeading: false,
               actions: [

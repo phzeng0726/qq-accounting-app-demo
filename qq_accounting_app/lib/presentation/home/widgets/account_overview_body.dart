@@ -13,6 +13,9 @@ class AccountOverviewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double stackHeight = MediaQuery.of(context).size.height;
+    double stackWidth = MediaQuery.of(context).size.width;
+    double radiusSize = stackWidth / 4;
     return BlocBuilder<AccountWatcherCubit, AccountWatcherState>(
       builder: (context, state) {
         Widget _buildAccountListView() {
@@ -30,39 +33,45 @@ class AccountOverviewBody extends StatelessWidget {
           );
         }
 
-        return Column(
-          children: [
-            Expanded(
-              child: TotalBalanceWidget(
-                totalBalance: state.totalBalance,
-              ),
-            ),
-            Container(
-              height: MediaQuery.of(context).size.height * 3 / 5,
-              color: Colors.transparent,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Theme.of(context)
-                      .colorScheme
-                      .primaryContainer
-                      .withOpacity(0.1),
-                  borderRadius: const BorderRadius.only(
-                    topLeft: kDefaultBorderRadius,
-                    topRight: kDefaultBorderRadius,
+        return Container(
+          color: Theme.of(context).colorScheme.primaryContainer,
+          child: Stack(
+            children: [
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  height: stackHeight * 0.7,
+                  color: Colors.transparent,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.9),
+                      borderRadius: const BorderRadius.only(
+                        topLeft: kDefaultBorderRadius,
+                        topRight: kDefaultBorderRadius,
+                      ),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(
+                        kDefaultPadding,
+                        radiusSize + kDefaultPadding * 2,
+                        kDefaultPadding,
+                        kDefaultPadding,
+                      ),
+                      child: _buildAccountListView(),
+                    ),
                   ),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(
-                    kDefaultPadding,
-                    kDefaultPadding * 2,
-                    kDefaultPadding,
-                    kDefaultPadding,
-                  ),
-                  child: _buildAccountListView(),
+              ),
+              Positioned(
+                bottom: stackHeight * 0.7 - radiusSize,
+                left: (stackWidth - radiusSize * 2) / 2,
+                child: TotalBalanceWidget(
+                  totalBalance: state.totalBalance,
+                  radiusSize: radiusSize,
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         );
       },
     );

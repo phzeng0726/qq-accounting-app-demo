@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:math_expressions/math_expressions.dart';
 
 import '../../../../application/note/note_form/note_form_cubit.dart';
+import '../../../../domain/core/amount_format.dart';
 import 'amount_type_switch_button.dart';
 
 class AmountCalculator extends StatelessWidget {

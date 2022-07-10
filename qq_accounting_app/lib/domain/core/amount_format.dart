@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import "package:intl/intl.dart";
 
@@ -9,7 +11,8 @@ class AmountFormat with _$AmountFormat {
 
   const factory AmountFormat(int value) = _AmountFormat;
 
-  factory AmountFormat.fromInt(int value) => AmountFormat(value);
+  factory AmountFormat.fromString(String value) =>
+      AmountFormat(int.parse(value));
 
   String toFormatString() => value.toString().length <= 3
       ? value.toString()

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:math_expressions/math_expressions.dart';
+import 'package:qq_accounting_app/domain/core/amount_format.dart';
 
 import '../../../../../application/account/account_form/account_form_cubit.dart';
 import '../../../../../application/core/navigation/navigation_cubit.dart';
@@ -168,8 +169,10 @@ class AmountCalculator extends StatelessWidget {
                             context.router.pop();
                             context.read<NavigationCubit>().pushOrPopPage();
                           },
-                          child: Text(FlutterI18n.translate(context,
-                              "accountForm.amountCalculatorSavedButtonText")), // TODO 只有送出的時候才要改popup外的那個金額
+                          child: Text(
+                            FlutterI18n.translate(context,
+                                "accountForm.amountCalculatorSavedButtonText"),
+                          ),
                         ),
                       ],
                     ),
