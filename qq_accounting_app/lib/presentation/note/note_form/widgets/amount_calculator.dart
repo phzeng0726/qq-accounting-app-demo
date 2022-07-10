@@ -1,11 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:math_expressions/math_expressions.dart';
 
 import '../../../../application/note/note_form/note_form_cubit.dart';
-import '../../../../domain/core/amount_format.dart';
+import '../../../../constants.dart';
 import 'amount_type_switch_button.dart';
 
 class AmountCalculator extends StatelessWidget {
@@ -37,11 +36,14 @@ class AmountCalculator extends StatelessWidget {
             exp.evaluate(EvaluationType.REAL, cm).round().toString());
       }
 
-      return SizedBox(
+      return Container(
         width: mWidth,
         height: mHeight * 0.75,
+        color: state.note.amountType == 'expense'
+            ? NoteColors.expenseBackgroundColor
+            : NoteColors.incomeBackgroundColor,
         child: Padding(
-          padding: const EdgeInsets.all(12.0),
+          padding: const EdgeInsets.all(kDefaultPadding),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,

@@ -7,6 +7,7 @@ import 'package:qq_accounting_app/domain/core/amount_format.dart';
 
 import '../../../../../application/account/account_form/account_form_cubit.dart';
 import '../../../../../application/core/navigation/navigation_cubit.dart';
+import '../../../../constants.dart';
 
 class AmountCalculator extends StatelessWidget {
   const AmountCalculator({Key? key}) : super(key: key);
@@ -41,7 +42,7 @@ class AmountCalculator extends StatelessWidget {
         width: mWidth,
         height: mHeight * 0.75,
         child: Padding(
-          padding: const EdgeInsets.all(12.0),
+          padding: const EdgeInsets.all(kDefaultPadding),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
