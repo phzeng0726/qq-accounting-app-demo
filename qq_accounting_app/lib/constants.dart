@@ -44,24 +44,24 @@ class NoteColors {
   // static const Color dividerColor = Color(0xffBDBDBD);
 }
 
-// Each Widget is located at an index which is unique
-int randomNumber = 0;
-List<Note> testNotes = [
-  Note.testIncomeModel(),
-  Note.testIncomeModel().copyWith(
-    itemName: '獎學金',
-    category: '其他收入',
-    amount: 2000,
-  ),
-  Note.testExpenseModel(),
-  Note.testExpenseModel().copyWith(
-    itemName: '公車',
-    category: '交通費',
-    amount: 20,
-  ),
-  Note.testExpenseModel().copyWith(
-    itemName: '水管',
-    category: '水電費',
-  ),
-];
-Note get testNote => (testNotes..shuffle()).first;
+// // Each Widget is located at an index which is unique
+// int randomNumber = 0;
+// List<Note> testNotes = [
+//   Note.testIncomeModel(),
+//   Note.testIncomeModel().copyWith(
+//     itemName: '獎學金',
+//     category: '其他收入',
+//     amount: 2000,
+//   ),
+//   Note.testExpenseModel(),
+//   Note.testExpenseModel().copyWith(
+//     itemName: '公車',
+//     category: '交通費',
+//     amount: 20,
+//   ),
+//   Note.testExpenseModel().copyWith(
+//     itemName: '水管',
+//     category: '水電費',
+//   ),
+// ];
+// Note get testNote => (testNotes..shuffle()).first;

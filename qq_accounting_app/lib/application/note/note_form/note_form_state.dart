@@ -16,7 +16,7 @@ abstract class NoteFormState with _$NoteFormState {
   }) = _NoteFormState;
 
   factory NoteFormState.initial() => NoteFormState(
-        note: testNote,
+        note: Note.empty(),
         categoryBoxText: '',
         tempAmount: '',
         showErrorMessages: false,
