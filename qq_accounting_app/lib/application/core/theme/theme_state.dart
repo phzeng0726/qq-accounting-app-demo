@@ -28,6 +28,13 @@ ThemeData get darkTheme => ThemeData(
 ThemeData get lightTheme => ThemeData(
       indicatorColor: const ColorScheme.light().primary,
       colorScheme: const ColorScheme.light(),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all<Color>(
+            const ColorScheme.light().primary.withOpacity(0.6),
+          ),
+        ),
+      ),
       pageTransitionsTheme: const PageTransitionsTheme(
         builders: {
           TargetPlatform.android: OpenUpwardsPageTransitionsBuilder(),
@@ -35,4 +42,3 @@ ThemeData get lightTheme => ThemeData(
         },
       ),
     );
-

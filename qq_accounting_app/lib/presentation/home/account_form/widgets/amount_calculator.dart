@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:math_expressions/math_expressions.dart';
-import 'package:qq_accounting_app/domain/core/amount_format.dart';
 
 import '../../../../../application/account/account_form/account_form_cubit.dart';
 import '../../../../../application/core/navigation/navigation_cubit.dart';
@@ -38,7 +37,8 @@ class AmountCalculator extends StatelessWidget {
             exp.evaluate(EvaluationType.REAL, cm).round().toString());
       }
 
-      return SizedBox(
+      return Container(
+        color: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.1),
         width: mWidth,
         height: mHeight * 0.75,
         child: Padding(
@@ -172,7 +172,7 @@ class AmountCalculator extends StatelessWidget {
                           },
                           child: Text(
                             FlutterI18n.translate(context,
-                                "accountForm.amountCalculatorSavedButtonText"),
+                                "amountCalculatorSavedButtonText"),
                           ),
                         ),
                       ],

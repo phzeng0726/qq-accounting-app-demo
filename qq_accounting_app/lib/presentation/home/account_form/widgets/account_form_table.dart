@@ -12,44 +12,47 @@ class AccountFormTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: ListView(
-        children: ListTile.divideTiles(
-          context: context,
-          tiles: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  FlutterI18n.translate(
-                      context, "home.accountForm.accountTitle"),
-                ),
-                const TitleBox(),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  FlutterI18n.translate(
-                      context, "home.accountForm.currencyType"),
-                ),
-                const CurrencyTypePickerButton(),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  FlutterI18n.translate(
-                      context, "home.accountForm.initialAmount"),
-                ),
-                const InitialAmountEnterButton(),
-              ],
-            ),
-          ],
-        ).toList(),
+    return Container(
+      color: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.1),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListView(
+          children: ListTile.divideTiles(
+            context: context,
+            tiles: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    FlutterI18n.translate(
+                        context, "home.accountForm.accountTitle"),
+                  ),
+                  const TitleBox(),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    FlutterI18n.translate(
+                        context, "home.accountForm.currencyType"),
+                  ),
+                  const CurrencyTypePickerButton(),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    FlutterI18n.translate(
+                        context, "home.accountForm.initialAmount"),
+                  ),
+                  const InitialAmountEnterButton(),
+                ],
+              ),
+            ],
+          ).toList(),
+        ),
       ),
     );
   }

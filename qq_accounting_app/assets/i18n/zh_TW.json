@@ -3,6 +3,7 @@
     "income": "收入",
     "netAmount": "淨額",
     "expense": "支出",
+    "amountCalculatorSavedButtonText": "完成",
     "home": {
         "title": "帳戶列表",
         "emptyAccountListNotice": "帳戶列表為空！快來新增你的第一個帳戶吧！",
@@ -17,7 +18,6 @@
     },
     "accountForm": {
         "titleBoxHint": "未輸入",
-        "amountCalculatorSavedButtonText": "完成",
         "accountNameTitle": "帳戶名稱",
         "currencyTypeTitle": "幣別",
         "initialAmountTitle": "初始金額",
@@ -31,7 +31,7 @@
             "createTitle": "輸入",
             "error": {
                 "amountMustGreaterThan0": "金額輸入值需大於0",
-                "insufficientBalance ": "帳戶餘額不足",
+                "insufficientBalance": "帳戶餘額不足",
                 "unexpected": "未知的錯誤"
             },
             "date": "日期",

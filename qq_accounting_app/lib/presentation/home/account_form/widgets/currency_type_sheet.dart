@@ -26,7 +26,8 @@ class CurrencyTypeSheet extends StatelessWidget {
       //   _categoryList = state.incomeCategoryList;
       // }
 
-      return SizedBox(
+      return Container(
+        color: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.1),
         width: mWidth,
         height: mHeight * 0.75,
         child: Column(
