@@ -22,13 +22,16 @@ const List<Map<String, dynamic>> localeMapList = [
 
 // https://blog.csdn.net/yechaoa/article/details/89845701
 class NoteColors {
+  static Color incomeAppBarColor = const Color(0xFF7AC495).withOpacity(0.8);
   static Color incomeBackgroundColor = const Color(0xFF7AC495).withOpacity(0.9);
   static Color incomeButtonColor = const Color(0xFF5FA97B);
   static Color incomeTextColor = const Color(0xFF2A744A);
 
+  static Color expenseAppBarColor = const Color(0xFFF59AB1).withOpacity(0.8);
   static Color expenseBackgroundColor =
       const Color(0xFFF59AB1).withOpacity(0.9);
   static Color expenseButtonColor = const Color(0xFFBB657D);
   static Color expenseTextColor = const Color(0xFF9F4C64);
+
   static Color unSelectedColor = const Color(0xFFA9A9A9);
 }

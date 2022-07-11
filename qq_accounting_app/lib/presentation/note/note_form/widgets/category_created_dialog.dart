@@ -47,6 +47,13 @@ class CategoryCreatedDialog extends StatelessWidget {
               ButtonBar(
                 children: [
                   ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                        amountType == 'expense'
+                            ? NoteColors.expenseButtonColor
+                            : NoteColors.incomeButtonColor,
+                      ),
+                    ),
                     onPressed: () {
                       context.router.pop();
                       context.read<NavigationCubit>().pushOrPopPage();
@@ -55,6 +62,13 @@ class CategoryCreatedDialog extends StatelessWidget {
                         context, 'note.form.category.dialogBackButtonText')),
                   ),
                   ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                        amountType == 'expense'
+                            ? NoteColors.expenseButtonColor
+                            : NoteColors.incomeButtonColor,
+                      ),
+                    ),
                     onPressed: () {
                       context.read<NoteFormCubit>().categoryCreated(
                             Category.empty().copyWith(

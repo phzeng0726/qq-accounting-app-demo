@@ -1,3 +1,5 @@
+// ignore_for_file: unrelated_type_equality_checks
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,6 +39,23 @@ class AmountCalculator extends StatelessWidget {
             exp.evaluate(EvaluationType.REAL, cm).round().toString());
       }
 
+      Widget _buildButton({
+        required String numString,
+        required void Function()? onPressed,
+      }) {
+        return ElevatedButton(
+          onPressed: onPressed,
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(
+              state.note.amountType == 'expense'
+                  ? NoteColors.expenseButtonColor
+                  : NoteColors.incomeButtonColor,
+            ),
+          ),
+          child: Text(numString),
+        );
+      }
+
       return Container(
         width: mWidth,
         height: mHeight * 0.75,
@@ -53,9 +72,9 @@ class AmountCalculator extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const AmountTypeSwitchButton(),
-                  ElevatedButton(
+                  _buildButton(
+                    numString: 'C',
                     onPressed: () => clear(''),
-                    child: const Text('C'),
                   ),
                 ],
               ),
@@ -63,10 +82,13 @@ class AmountCalculator extends StatelessWidget {
                 width: mWidth,
                 height: 50,
                 color: Colors.white.withOpacity(0.2),
-                child: Text(
-                  state.tempAmount,
-                  style: const TextStyle(fontSize: 28.0),
-                  textAlign: TextAlign.right,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    state.tempAmount,
+                    style: const TextStyle(fontSize: 28.0),
+                    textAlign: TextAlign.right,
+                  ),
                 ),
               ),
               Row(
@@ -79,68 +101,68 @@ class AmountCalculator extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            ElevatedButton(
+                            _buildButton(
+                              numString: '7',
                               onPressed: () => numClick('7'),
-                              child: const Text('7'),
                             ),
-                            ElevatedButton(
+                            _buildButton(
+                              numString: '8',
                               onPressed: () => numClick('8'),
-                              child: const Text('8'),
                             ),
-                            ElevatedButton(
+                            _buildButton(
+                              numString: '9',
                               onPressed: () => numClick('9'),
-                              child: const Text('9'),
                             ),
                           ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            ElevatedButton(
+                            _buildButton(
+                              numString: '4',
                               onPressed: () => numClick('4'),
-                              child: const Text('4'),
                             ),
-                            ElevatedButton(
+                            _buildButton(
+                              numString: '5',
                               onPressed: () => numClick('5'),
-                              child: const Text('5'),
                             ),
-                            ElevatedButton(
+                            _buildButton(
+                              numString: '6',
                               onPressed: () => numClick('6'),
-                              child: const Text('6'),
                             ),
                           ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            ElevatedButton(
+                            _buildButton(
+                              numString: '1',
                               onPressed: () => numClick('1'),
-                              child: const Text('1'),
                             ),
-                            ElevatedButton(
+                            _buildButton(
+                              numString: '2',
                               onPressed: () => numClick('2'),
-                              child: const Text('2'),
                             ),
-                            ElevatedButton(
+                            _buildButton(
+                              numString: '3',
                               onPressed: () => numClick('3'),
-                              child: const Text('3'),
                             ),
                           ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            ElevatedButton(
+                            _buildButton(
+                              numString: '0',
                               onPressed: () => numClick('0'),
-                              child: const Text('0'),
                             ),
-                            ElevatedButton(
+                            _buildButton(
+                              numString: '.',
                               onPressed: () => numClick('.'),
-                              child: const Text('.'),
                             ),
-                            ElevatedButton(
+                            _buildButton(
+                              numString: '=',
                               onPressed: () => evaluate('='),
-                              child: const Text('='),
                             ),
                           ],
                         ),
@@ -151,33 +173,33 @@ class AmountCalculator extends StatelessWidget {
                     flex: 1,
                     child: Column(
                       children: [
-                        ElevatedButton(
+                        _buildButton(
+                          numString: '/',
                           onPressed: () => numClick('/'),
-                          child: const Text('/'),
                         ),
-                        ElevatedButton(
+                        _buildButton(
+                          numString: '*',
                           onPressed: () => numClick('*'),
-                          child: const Text('*'),
                         ),
-                        ElevatedButton(
+                        _buildButton(
+                          numString: '-',
                           onPressed: () => numClick('-'),
-                          child: const Text('-'),
                         ),
-                        ElevatedButton(
+                        _buildButton(
+                          numString: '+',
                           onPressed: () => numClick('+'),
-                          child: const Text('+'),
                         ),
-                        ElevatedButton(
+                        _buildButton(
+                          numString: FlutterI18n.translate(
+                            context,
+                            "amountCalculatorSavedButtonText",
+                          ),
                           onPressed: () {
                             context
                                 .read<NoteFormCubit>()
                                 .amountSaved(state.tempAmount);
                             context.router.pop();
                           },
-                          child: Text(
-                            FlutterI18n.translate(context,
-                                "amountCalculatorSavedButtonText"),
-                          ),
                         ),
                       ],
                     ),

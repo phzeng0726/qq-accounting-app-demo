@@ -28,7 +28,8 @@ class NoteFormCubit extends Cubit<NoteFormState> {
       state.copyWith(
         isValidating: false,
         note: initialNote,
-        tempAmount: initialNote.amount.toString(),
+        tempAmount:
+            initialNote.amount == 0 ? '' : initialNote.amount.toString(),
         isEditing: isEditing,
       ),
     );

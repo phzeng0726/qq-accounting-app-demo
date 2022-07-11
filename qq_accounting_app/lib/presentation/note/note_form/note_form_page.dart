@@ -4,8 +4,8 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:qq_accounting_app/application/core/navigation/navigation_cubit.dart';
 
+import '../../../application/core/navigation/navigation_cubit.dart';
 import '../../../application/note/note_form/note_form_cubit.dart';
 import '../../../application/note/note_watcher/note_watcher_cubit.dart';
 import '../../../constants.dart';
@@ -59,13 +59,10 @@ class NoteFormPage extends StatelessWidget {
           final bool isExpense = state.note.amountType == 'expense';
           return TapOutDismissKeyboard(
             child: Scaffold(
-              backgroundColor: isExpense
-                  ? NoteColors.expenseBackgroundColor
-                  : NoteColors.incomeBackgroundColor,
               appBar: AppBar(
                 backgroundColor: isExpense
-                    ? NoteColors.expenseBackgroundColor
-                    : NoteColors.incomeBackgroundColor,
+                    ? NoteColors.expenseAppBarColor
+                    : NoteColors.incomeAppBarColor,
                 centerTitle: true,
                 title: state.isEditing
                     ? Text(
@@ -78,7 +75,7 @@ class NoteFormPage extends StatelessWidget {
                     NoteDeleteButton(note: state.note),
                   ],
                   IconButton(
-                    icon: const Icon(Icons.pets),
+                    icon: const Icon(Icons.check),
                     onPressed: () async {
                       // 當天的淨收支
                       int initialAmount = context

@@ -40,6 +40,7 @@ class TotalBalanceWidget extends StatelessWidget {
               minFontSize: 16,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
             ),
           )
         ],
