@@ -42,7 +42,7 @@ class NoteRepository implements INoteRepository {
   }
 
   @override
-  Future<Either<NoteFailure, List<Note>>> getNotesDuringPeriod(
+  Future<Either<NoteFailure, List<Note>>> getNotesRange(
     int accountId,
     String startTime,
     String endTime,
@@ -136,7 +136,7 @@ class NoteRepository implements INoteRepository {
   }
 
   @override
-  Future<Either<NoteFailure, List<Note>>> getNotesByAmountTypeDuringPeriod(
+  Future<Either<NoteFailure, List<Note>>> getNotesByAmountTypeRange(
     int accountId,
     String amountType,
     String startTime,
@@ -160,7 +160,7 @@ class NoteRepository implements INoteRepository {
   }
 
   @override
-  Future<Either<NoteFailure, int>> getTotalAmountByAmountTypeDuringPeriod(
+  Future<Either<NoteFailure, int>> getTotalAmountByAmountTypeRange(
     int accountId,
     String amountType,
     String startTime,

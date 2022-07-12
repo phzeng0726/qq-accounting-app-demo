@@ -13,14 +13,14 @@ abstract class INoteRepository {
   );
 
   // 根據期間獲取List<NOTE>
-  Future<Either<NoteFailure, List<Note>>> getNotesDuringPeriod(
+  Future<Either<NoteFailure, List<Note>>> getNotesRange(
     int accountId,
     String startTime,
     String endTime,
   );
 
   // 根據期間與AmountType獲取List<NOTE>
-  Future<Either<NoteFailure, List<Note>>> getNotesByAmountTypeDuringPeriod(
+  Future<Either<NoteFailure, List<Note>>> getNotesByAmountTypeRange(
     int accountId,
     String amountType,
     String startTime,
@@ -34,7 +34,7 @@ abstract class INoteRepository {
   );
 
   // 根據期間與AmountType獲取總金額
-  Future<Either<NoteFailure, int>> getTotalAmountByAmountTypeDuringPeriod(
+  Future<Either<NoteFailure, int>> getTotalAmountByAmountTypeRange(
     int accountId,
     String amountType,
     String startTime,

@@ -16,21 +16,25 @@ import '../../routes/router.gr.dart';
 // CUD都需要重整，所以額外獨立出來
 void refreshNoteAndChartDisplay({
   required BuildContext context,
-  required DateTime dateTime,
+  required DateTime startTime,
+  required DateTime endTime,
   required String amountType,
 }) {
   // 重抓 noteList 與 dailyAmount
-  context.read<NoteWatcherCubit>().getSingleDayStarted(
-        dateTime: dateTime,
+  context.read<NoteWatcherCubit>().getAmountStarted(
+        startTime: startTime,
+        endTime: endTime,
       );
-  context.read<NoteWatcherCubit>().getDailyAmountStarted(
-        dateTime: dateTime,
+  context.read<NoteWatcherCubit>().getRangeStarted(
+        startTime: startTime,
+        endTime: endTime,
       );
 
   // 重抓當日圖表
-  context.read<StatisticChartCubit>().getSingleDayStarted(
+  context.read<StatisticChartCubit>().getRangeStarted(
         amountType: amountType,
-        dateTime: dateTime,
+        startTime: startTime,
+        endTime: endTime,
       );
 }
 
@@ -68,7 +72,8 @@ List<BlocListener> listeners = [
 
           refreshNoteAndChartDisplay(
             context: context,
-            dateTime: focusedDay,
+            startTime: focusedDay,
+            endTime: focusedDay,
             amountType: context.read<StatisticChartCubit>().state.amountType,
           );
         },
@@ -87,7 +92,8 @@ List<BlocListener> listeners = [
 
       refreshNoteAndChartDisplay(
         context: context,
-        dateTime: focusedDay,
+        startTime: focusedDay,
+        endTime: focusedDay,
         amountType: context.read<StatisticChartCubit>().state.amountType,
       );
 
@@ -102,13 +108,15 @@ List<BlocListener> listeners = [
         c.isSaving == false &&
         c.failureOption == none(),
     listener: (context, state) {
-      LoggerService.simple.i('[SplashPage] NoteFormCubit listening for form saving!!');
+      LoggerService.simple
+          .i('[SplashPage] NoteFormCubit listening for form saving!!');
 
       final DateTime focusedDay = state.note.dateTime;
 
       refreshNoteAndChartDisplay(
         context: context,
-        dateTime: focusedDay,
+        startTime: focusedDay,
+        endTime: focusedDay,
         amountType: context.read<StatisticChartCubit>().state.amountType,
       );
       // 更新兩者日期
@@ -129,7 +137,8 @@ List<BlocListener> listeners = [
     listenWhen: (p, c) =>
         p.isAddingCategory != c.isAddingCategory && c.isAddingCategory == false,
     listener: (context, state) {
-      LoggerService.simple.i('[SplashPage] NoteFormCubit listening for category adding!!');
+      LoggerService.simple
+          .i('[SplashPage] NoteFormCubit listening for category adding!!');
 
       context.read<NoteWatcherCubit>().fetchCategoryList();
     },
@@ -144,7 +153,8 @@ List<BlocListener> listeners = [
 
       refreshNoteAndChartDisplay(
         context: context,
-        dateTime: focusedDay,
+        startTime: focusedDay,
+        endTime: focusedDay,
         amountType: context.read<StatisticChartCubit>().state.amountType,
       );
 
@@ -159,10 +169,12 @@ List<BlocListener> listeners = [
     listenWhen: (p, c) => p.amountType != c.amountType,
     listener: (context, state) {
       LoggerService.simple.i('[SplashPage] StatisticChartCubit listening!!');
+      final DateTime focusedDay = state.dateTime;
 
-      context.read<StatisticChartCubit>().getSingleDayStarted(
+      context.read<StatisticChartCubit>().getRangeStarted(
             amountType: state.amountType,
-            dateTime: state.dateTime,
+            startTime: focusedDay,
+            endTime: focusedDay,
           );
     },
   ),

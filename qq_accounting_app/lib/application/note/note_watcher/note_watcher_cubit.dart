@@ -69,70 +69,68 @@ class NoteWatcherCubit extends Cubit<NoteWatcherState> {
     );
   }
 
-  Future<void> getDailyAmountStarted({
-    required DateTime dateTime,
-  }) async {
-    // NOTE: sqflite疑似只能用yyyy-mm-dd篩選
-    String day = DeviceTimeStamp(dateTime).toDayString();
+  // Future<void> getDailyAmountStarted({
+  //   required DateTime dateTime,
+  // }) async {
+  //   // NOTE: sqflite疑似只能用yyyy-mm-dd篩選
+  //   String day = DeviceTimeStamp(dateTime).toDayString();
 
-    Either<NoteFailure, int> eitherExpense;
-    Either<NoteFailure, int> eitherIncome;
+  //   Either<NoteFailure, int> eitherExpense;
+  //   Either<NoteFailure, int> eitherIncome;
 
-    eitherExpense =
-        await _noteRepository.getTotalAmountByAmountTypeDuringPeriod(
-      state.account.id!,
-      'expense',
-      day,
-      day,
-    );
+  //   eitherExpense = await _noteRepository.getTotalAmountByAmountTypeRange(
+  //     state.account.id!,
+  //     'expense',
+  //     day,
+  //     day,
+  //   );
 
-    eitherIncome = await _noteRepository.getTotalAmountByAmountTypeDuringPeriod(
-      state.account.id!,
-      'income',
-      day,
-      day,
-    );
-    final totalExpense =
-        eitherExpense.getOrElse(() => throw UnimplementedError());
-    final totalIncome =
-        eitherIncome.getOrElse(() => throw UnimplementedError());
+  //   eitherIncome = await _noteRepository.getTotalAmountByAmountTypeRange(
+  //     state.account.id!,
+  //     'income',
+  //     day,
+  //     day,
+  //   );
+  //   final totalExpense =
+  //       eitherExpense.getOrElse(() => throw UnimplementedError());
+  //   final totalIncome =
+  //       eitherIncome.getOrElse(() => throw UnimplementedError());
 
-    emit(
-      state.copyWith(
-        dailyIncomeAmount: totalIncome,
-        dailyExpenseAmount: totalExpense,
-        dailyNetAmount: totalIncome - totalExpense,
-      ),
-    );
-  }
+  //   emit(
+  //     state.copyWith(
+  //       dailyIncomeAmount: totalIncome,
+  //       dailyExpenseAmount: totalExpense,
+  //       dailyNetAmount: totalIncome - totalExpense,
+  //     ),
+  //   );
+  // }
 
-  Future<void> getSingleDayStarted({
-    required DateTime dateTime,
-  }) async {
-    // NOTE: sqflite疑似只能用yyyy-mm-dd篩選
-    String day = DeviceTimeStamp(dateTime).toDayString();
-    Either<NoteFailure, List<Note>> failureOrNoteList;
+  // Future<void> getDailyStarted({
+  //   required DateTime dateTime,
+  // }) async {
+  //   // NOTE: sqflite疑似只能用yyyy-mm-dd篩選
+  //   String day = DeviceTimeStamp(dateTime).toDayString();
+  //   Either<NoteFailure, List<Note>> failureOrNoteList;
 
-    failureOrNoteList = await _noteRepository.getNotesDuringPeriod(
-      state.account.id!,
-      day,
-      day,
-    );
+  //   failureOrNoteList = await _noteRepository.getNotesRange(
+  //     state.account.id!,
+  //     day,
+  //     day,
+  //   );
 
-    failureOrNoteList.fold(
-      (f) => emit(
-        state.copyWith(
-          failureOption: some(f),
-        ),
-      ),
-      (noteList) async {
-        notesReceived(noteList);
-      },
-    );
-  }
+  //   failureOrNoteList.fold(
+  //     (f) => emit(
+  //       state.copyWith(
+  //         failureOption: some(f),
+  //       ),
+  //     ),
+  //     (noteList) async {
+  //       notesReceived(noteList);
+  //     },
+  //   );
+  // }
 
-  Future<void> getDuringDayStarted({
-    required String amountType,
+  Future<void> getRangeStarted({
     required DateTime startTime,
     required DateTime endTime,
   }) async {
@@ -142,7 +140,7 @@ class NoteWatcherCubit extends Cubit<NoteWatcherState> {
 
     Either<NoteFailure, List<Note>> failureOrNoteList;
 
-    failureOrNoteList = await _noteRepository.getNotesDuringPeriod(
+    failureOrNoteList = await _noteRepository.getNotesRange(
       state.account.id!,
       subStartTime,
       subEndTime,
@@ -157,6 +155,44 @@ class NoteWatcherCubit extends Cubit<NoteWatcherState> {
       (noteList) async {
         notesReceived(noteList);
       },
+    );
+  }
+
+  Future<void> getAmountStarted({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) async {
+    // NOTE: sqflite疑似只能用yyyy-mm-dd篩選
+    String subStartTime = DeviceTimeStamp(startTime).toDayString();
+    String subEndTime = DeviceTimeStamp(endTime).toDayString();
+
+    Either<NoteFailure, int> eitherExpense;
+    Either<NoteFailure, int> eitherIncome;
+
+    eitherExpense = await _noteRepository.getTotalAmountByAmountTypeRange(
+      state.account.id!,
+      'expense',
+      subStartTime,
+      subEndTime,
+    );
+
+    eitherIncome = await _noteRepository.getTotalAmountByAmountTypeRange(
+      state.account.id!,
+      'income',
+      subStartTime,
+      subEndTime,
+    );
+    final totalExpense =
+        eitherExpense.getOrElse(() => throw UnimplementedError());
+    final totalIncome =
+        eitherIncome.getOrElse(() => throw UnimplementedError());
+
+    emit(
+      state.copyWith(
+        dailyIncomeAmount: totalIncome,
+        dailyExpenseAmount: totalExpense,
+        dailyNetAmount: totalIncome - totalExpense,
+      ),
     );
   }
 

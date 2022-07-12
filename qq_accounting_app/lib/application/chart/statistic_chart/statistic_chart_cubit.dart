@@ -59,53 +59,53 @@ class StatisticChartCubit extends Cubit<StatisticChartState> {
     );
   }
 
-  Future<void> getSingleDayStarted({
-    required String amountType,
-    required DateTime dateTime,
-  }) async {
-    Either<NoteFailure, List<Note>> failureOrNoteList;
-    Either<ChartFailure, List<ChartItem>> failureOrChartItemList;
+  // Future<void> getDailyStarted({
+  //   required String amountType,
+  //   required DateTime dateTime,
+  // }) async {
+  //   Either<NoteFailure, List<Note>> failureOrNoteList;
+  //   Either<ChartFailure, List<ChartItem>> failureOrChartItemList;
 
-    // NOTE: sqflite疑似只能用yyyy-mm-dd篩選
-    String day = DeviceTimeStamp(dateTime).toDayString();
+  //   // NOTE: sqflite疑似只能用yyyy-mm-dd篩選
+  //   String day = DeviceTimeStamp(dateTime).toDayString();
 
-    failureOrNoteList = await _noteRepository.getNotesByAmountTypeDuringPeriod(
-      state.account.id!,
-      amountType,
-      day,
-      day,
-    );
+  //   failureOrNoteList = await _noteRepository.getNotesByAmountTypeRange(
+  //     state.account.id!,
+  //     amountType,
+  //     day,
+  //     day,
+  //   );
 
-    failureOrNoteList.fold(
-      (f) => emit(
-        state.copyWith(
-          loadStatus: const LoadStatus.failed(),
-          noteFailureOption: some(f),
-        ),
-      ),
-      (noteList) async {
-        failureOrChartItemList =
-            await _chartRepository.combineCategoryForChart(noteList);
+  //   failureOrNoteList.fold(
+  //     (f) => emit(
+  //       state.copyWith(
+  //         loadStatus: const LoadStatus.failed(),
+  //         noteFailureOption: some(f),
+  //       ),
+  //     ),
+  //     (noteList) async {
+  //       failureOrChartItemList =
+  //           await _chartRepository.combineCategoryForChart(noteList);
 
-        failureOrChartItemList.fold(
-          (f) => emit(
-            state.copyWith(
-              loadStatus: const LoadStatus.failed(),
-              chartFailureOption: some(f),
-            ),
-          ),
-          (chartItems) => emit(
-            state.copyWith(
-              loadStatus: const LoadStatus.succeed(),
-              chartItems: chartItems,
-            ),
-          ),
-        );
-      },
-    );
-  }
+  //       failureOrChartItemList.fold(
+  //         (f) => emit(
+  //           state.copyWith(
+  //             loadStatus: const LoadStatus.failed(),
+  //             chartFailureOption: some(f),
+  //           ),
+  //         ),
+  //         (chartItems) => emit(
+  //           state.copyWith(
+  //             loadStatus: const LoadStatus.succeed(),
+  //             chartItems: chartItems,
+  //           ),
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
 
-  Future<void> getDuringDayStarted({
+  Future<void> getRangeStarted({
     required String amountType,
     required DateTime startTime,
     required DateTime endTime,
@@ -117,7 +117,7 @@ class StatisticChartCubit extends Cubit<StatisticChartState> {
     String subStartTime = DeviceTimeStamp(startTime).toDayString();
     String subEndTime = DeviceTimeStamp(endTime).toDayString();
 
-    failureOrNoteList = await _noteRepository.getNotesByAmountTypeDuringPeriod(
+    failureOrNoteList = await _noteRepository.getNotesByAmountTypeRange(
       state.account.id!,
       amountType,
       subStartTime,
